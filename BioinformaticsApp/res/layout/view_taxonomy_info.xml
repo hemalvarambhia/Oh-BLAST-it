@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/blastquerystats_screen_scroller"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/blastquerystats_scientificname_label" />
+
+    <TextView
+        android:id="@+id/blastquerystats_scientificName_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:text="@string/loading_string"
+        android:textSize="10dp" />
+
+    <Space
+        android:id="@+id/Space1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/blastquerystats_scientificName_textview"
+        android:layout_gravity="fill_vertical" />
+
+    <TextView
+        android:id="@+id/lineage_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/blastquerystats_scientificName_textview"
+        android:layout_marginTop="99dp"
+        android:text="@string/lineage_label_string" />
+
+    <TextView
+        android:id="@+id/blastquerystats_lineage_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lineage_label"
+        android:text="@string/loading_string"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/taxId_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/blastquerystats_scientificName_textview"
+        android:layout_marginTop="27dp"
+        android:text="@string/blastquerystats_taxId_label" />
+
+    <TextView
+        android:id="@+id/blastquerystats_taxId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/taxId_label"
+        android:text="@string/loading_string"
+        android:textSize="10dp" />
+
+</RelativeLayout>

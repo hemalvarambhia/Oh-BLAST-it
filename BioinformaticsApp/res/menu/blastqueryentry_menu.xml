@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/send_query" android:title="@string/blastqueryentry_send_menu_label" android:showAsAction="always" android:icon="@android:drawable/ic_menu_send"></item>
+    <item android:id="@+id/save_query" android:title="@string/save_string" android:showAsAction="always" android:icon="@android:drawable/ic_menu_save"></item>
+    <item android:id="@+id/settings" android:title="@string/settings_label" android:icon="@android:drawable/ic_menu_preferences"></item>
+    
+
+</menu>

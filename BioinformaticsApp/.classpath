@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/android-sdk-windows/android-compatibility/v4/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/BioJava/core-1.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/BioJava/blast-1.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/BioJava/sequencing-1.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/BioJava/bytecode-1.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/lib-1.4/lib/commons-cli-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/lib-1.4/lib/commons-discovery-0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/lib-1.4/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hemal N Varambhia/Documents/JavaLib/jsoup-1.6.3.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

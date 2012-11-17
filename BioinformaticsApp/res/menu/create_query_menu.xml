@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/create_a_query" android:showAsAction="always" android:menuCategory="container" android:icon="@android:drawable/ic_menu_edit">
+        <menu >
+            <item android:id="@+id/create_embl_query" android:title="@string/embl"/>
+            <item android:id="@+id/create_ncbi_query" android:title="@string/ncbi"/>
+        </menu>
+        
+    </item>
+
+</menu>
