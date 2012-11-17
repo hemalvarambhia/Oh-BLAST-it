@@ -39,7 +39,7 @@ public final class R {
         public static final int blastqueryentry_score_spinner=0x7f070013;
         public static final int blastquerystats_lineage_textview=0x7f070036;
         public static final int blastquerystats_scientificName_textview=0x7f070033;
-        public static final int blastquerystats_screen_scroller=0x7f070031;
+        public static final int blastquerystats_screen_scroller=0x7f070032;
         public static final int blastquerystats_taxId=0x7f070038;
         public static final int create_a_query=0x7f07003c;
         public static final int create_embl_query=0x7f07003d;
@@ -70,20 +70,21 @@ public final class R {
         public static final int ncbi_wordsize_spinner=0x7f070020;
         public static final int organismTextView=0x7f070001;
         public static final int parameter_program_label=0x7f070023;
-        public static final int parameter_sequence_label=0x7f07002e;
-        public static final int parameters_blastdatabase_label=0x7f070028;
-        public static final int parameters_expthreshold_label=0x7f07002c;
-        public static final int parameters_program_label=0x7f070026;
-        public static final int parameters_scoring_label=0x7f07002a;
-        public static final int parent_layout=0x7f070025;
-        public static final int query_database_value=0x7f070029;
-        public static final int query_expthreshold_value=0x7f07002d;
+        public static final int parameter_sequence_label=0x7f07002f;
+        public static final int parameters_blastdatabase_label=0x7f070029;
+        public static final int parameters_expthreshold_label=0x7f07002d;
+        public static final int parameters_program_label=0x7f070027;
+        public static final int parameters_scoring_label=0x7f07002b;
+        public static final int parent_layout=0x7f070026;
+        public static final int query_database_value=0x7f07002a;
+        public static final int query_expthreshold_value=0x7f07002e;
         public static final int query_job_id_label=0x7f070005;
         public static final int query_job_status_label=0x7f070006;
-        public static final int query_program_value=0x7f070027;
-        public static final int query_score_value=0x7f07002b;
-        public static final int query_sequence_value=0x7f07002f;
-        public static final int retrieve_results_button=0x7f070030;
+        public static final int query_program_text_view=0x7f070024;
+        public static final int query_program_value=0x7f070028;
+        public static final int query_score_value=0x7f07002c;
+        public static final int query_sequence_value=0x7f070030;
+        public static final int retrieve_results_button=0x7f070031;
         public static final int save_query=0x7f07003a;
         public static final int score_label=0x7f070012;
         public static final int send_query=0x7f070039;
@@ -91,8 +92,7 @@ public final class R {
         public static final int settings=0x7f07003b;
         public static final int settings_item=0x7f070041;
         public static final int taxId_label=0x7f070037;
-        public static final int textView1=0x7f070032;
-        public static final int textView2=0x7f070024;
+        public static final int textView1=0x7f070025;
         public static final int type_of_query_textview=0x7f070008;
     }
     public static final class layout {
