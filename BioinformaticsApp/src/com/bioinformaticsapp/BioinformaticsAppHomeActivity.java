@@ -13,6 +13,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * This Activity is the 'home screen' of this application
+ * @author Hemal N Varambhia
+ *
+ */
 public class BioinformaticsAppHomeActivity extends ListActivity {
     
 	public static final int READY_TO_SEND = 1;

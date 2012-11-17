@@ -30,6 +30,12 @@ import com.bioinformaticsapp.models.BLASTQueryValidator;
 import com.bioinformaticsapp.models.OptionalParameter;
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
+/**
+ * This activity allows a user to set up a BLAST query for the EMBL EBI BLAST
+ * web service
+ * @author Hemal N Varambhia
+ *
+ */
 public class EMBLEBISetUpQueryActivity extends Activity {
 
 	/* (non-Javadoc)
