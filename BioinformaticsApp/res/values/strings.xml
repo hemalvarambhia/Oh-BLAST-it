@@ -103,5 +103,6 @@
                 <string name="embl">EMBL</string>
                 <string name="ncbi">NCBI</string>
                 <string name="no_hits_message">No BLAST Hits Found</string>
+                <string name="view_query_parameters">View BLAST query parameters</string>
 
 </resources>
