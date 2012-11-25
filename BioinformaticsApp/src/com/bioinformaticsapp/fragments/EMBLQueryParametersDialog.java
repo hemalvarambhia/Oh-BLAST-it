@@ -20,7 +20,7 @@ public class EMBLQueryParametersDialog extends DialogFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
-		super.onCreateDialog(savedInstanceState);
+		super.onCreate(savedInstanceState);
 		emblQuery = (BLASTQuery)getArguments().getSerializable("query");
 		
 	}
@@ -31,7 +31,7 @@ public class EMBLQueryParametersDialog extends DialogFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+		super.onCreateView(inflater, container, savedInstanceState);
 		View dialogView = inflater.inflate(R.layout.embl_parameters_dialog_layout, container);
 		
 		TextView programTextView = (TextView)dialogView.findViewById(R.id.query_program_text_view);

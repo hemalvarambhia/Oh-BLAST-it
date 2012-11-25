@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/query_program_text_view"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="36dp"
         android:text="@string/blastqueryentry_database_spinner_label" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/query_database_text_view"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="46dp"
         android:text="@string/blastqueryentry_expthreshold_txtview_label" />
 
     <TextView
@@ -60,9 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/query_exp_threshold_text_view"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="56dp"
         android:text="@string/blastqueryentry_score_label" />
-
     <TextView
         android:id="@+id/query_score_text_view"
         android:layout_width="wrap_content"
@@ -77,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/query_score_text_view"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="66dp"
         android:text="@string/blastqueryentry_email_label" />
 
     <TextView
