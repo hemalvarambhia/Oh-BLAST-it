@@ -32,7 +32,7 @@ import android.widget.SimpleCursorAdapter;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
-import com.bioinformaticsapp.fragments.EMBLQueryParametersDialog;
+import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.OptionalParameter;
@@ -161,7 +161,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 		
 		case R.id.view_parameters_menu_item: {
 			
-			EMBLQueryParametersDialog dialog = new EMBLQueryParametersDialog();
+			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
 			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
 			List<OptionalParameter> parameters = parameterController.getParametersForQuery(menuinfo.id);
 			selected.updateAllParameters(parameters);

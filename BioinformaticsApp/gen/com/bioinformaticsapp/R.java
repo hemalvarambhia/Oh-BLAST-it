@@ -115,8 +115,9 @@ public final class R {
         public static final int embl_parameters_dialog_layout=0x7f030006;
         public static final int main=0x7f030007;
         public static final int ncbi_blast_query_form=0x7f030008;
-        public static final int query_parameters_screen=0x7f030009;
-        public static final int view_taxonomy_info=0x7f03000a;
+        public static final int ncbi_parameters_dialog_layout=0x7f030009;
+        public static final int query_parameters_screen=0x7f03000a;
+        public static final int view_taxonomy_info=0x7f03000b;
     }
     public static final class menu {
         public static final int blastqueryentry_menu=0x7f060000;
