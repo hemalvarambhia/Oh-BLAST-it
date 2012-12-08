@@ -85,7 +85,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ncbi_exp_threshold_edittext"
         android:layout_marginTop="31dp"
-        android:text="@string/ncbi_word_size_options_label" />
+        android:text="@string/ncbi_word_size_label" />
 
     <Spinner
         android:id="@+id/ncbi_wordsize_spinner"

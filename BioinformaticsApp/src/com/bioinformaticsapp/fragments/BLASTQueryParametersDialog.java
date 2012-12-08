@@ -53,16 +53,17 @@ public class BLASTQueryParametersDialog extends DialogFragment {
 
 	
 	private View populateView(View dialogView){
+		TextView programTextView = (TextView)dialogView.findViewById(R.id.query_program_text_view);
+		programTextView.setText(mBLASTquery.getBLASTProgram());
+		
+		TextView databaseTextView = (TextView)dialogView.findViewById(R.id.query_database_text_view);
+		databaseTextView.setText(mBLASTquery.getSearchParameter("database").getValue());
+		
+		TextView expThresholdTextView = (TextView)dialogView.findViewById(R.id.query_exp_threshold_text_view);
+		expThresholdTextView.setText(mBLASTquery.getSearchParameter("exp_threshold").getValue());
+		
+		
 		if(mBLASTquery.getVendorID() == BLASTVendor.EMBL_EBI){
-			
-			TextView programTextView = (TextView)dialogView.findViewById(R.id.query_program_text_view);
-			programTextView.setText(mBLASTquery.getBLASTProgram());
-			
-			TextView databaseTextView = (TextView)dialogView.findViewById(R.id.query_database_text_view);
-			databaseTextView.setText(mBLASTquery.getSearchParameter("database").getValue());
-			
-			TextView expThresholdTextView = (TextView)dialogView.findViewById(R.id.query_exp_threshold_text_view);
-			expThresholdTextView.setText(mBLASTquery.getSearchParameter("exp_threshold").getValue());
 			
 			TextView scoreTextView = (TextView)dialogView.findViewById(R.id.query_score_text_view);
 			scoreTextView.setText(mBLASTquery.getSearchParameter("score").getValue());
@@ -75,11 +76,12 @@ public class BLASTQueryParametersDialog extends DialogFragment {
 		}
 		
 		if(mBLASTquery.getVendorID() == BLASTVendor.NCBI){
-			TextView programTextView = (TextView)dialogView.findViewById(R.id.query_program_text_view);
-			programTextView.setText(mBLASTquery.getBLASTProgram());
 			
-			TextView databaseTextView = (TextView)dialogView.findViewById(R.id.query_database_text_view);
-			databaseTextView.setText(mBLASTquery.getSearchParameter("database").getValue());
+			TextView wordSizeTextView = (TextView)dialogView.findViewById(R.id.query_word_size_text_view);
+			wordSizeTextView.setText(mBLASTquery.getSearchParameter("word_size").getValue());
+			
+			TextView matchMismatchScoreTextView = (TextView)dialogView.findViewById(R.id.query_match_mismatch_score_text_view);
+			matchMismatchScoreTextView.setText(mBLASTquery.getSearchParameter("match_mismatch_score").getValue());
 			
 			
 			return dialogView;

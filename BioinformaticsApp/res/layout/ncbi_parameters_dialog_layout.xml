@@ -35,4 +35,54 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/dialog_database_label"
         android:text="@string/app_name" />
+	
+	<TextView
+        android:id="@+id/query_exp_threshold_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/query_database_text_view"
+        android:layout_marginTop="20dp"
+        android:text="@string/blastqueryentry_expthreshold_txtview_label" />
+	
+	<TextView
+        android:id="@+id/query_exp_threshold_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/query_exp_threshold_label"
+        android:text="@string/app_name" />
+	
+	<TextView
+        android:id="@+id/query_word_size_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/query_exp_threshold_text_view"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/ncbi_word_size_label" />
+
+	<TextView
+	    android:id="@+id/query_word_size_text_view"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/query_word_size_label"
+	    android:text="@string/app_name" />
+	
+	<TextView
+        android:id="@+id/query_match_mismatch_score_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/query_word_size_text_view"
+        android:layout_marginTop="20dp"
+        android:text="@string/blastqueryentry_matchmismatch_score_label" />
+	
+	<TextView
+	    android:id="@+id/query_match_mismatch_score_text_view"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+        android:layout_below="@+id/query_match_mismatch_score_label"
+	    android:text="@string/app_name" />
+	
 </RelativeLayout>

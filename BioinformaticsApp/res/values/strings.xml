@@ -78,7 +78,7 @@
             <item >nt</item>
             <item >refseq_genomic</item>
         </string-array>
-            <string name="ncbi_word_size_options_label">Word Size</string>
+            <string name="ncbi_word_size_label">Word Size</string>
             <string-array name="ncbi_word_size_options">
                 <item >16</item>
                 <item >20</item>
