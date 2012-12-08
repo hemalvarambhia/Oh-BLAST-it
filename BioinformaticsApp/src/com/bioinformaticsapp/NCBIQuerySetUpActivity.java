@@ -4,25 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQueryValidator;
-import com.bioinformaticsapp.models.OptionalParameter;
-import com.bioinformaticsapp.text.DNASymbolFilter;
-import com.bioinformaticsapp.web.BLASTQuerySender;
-import com.bioinformaticsapp.web.BLASTSequenceQueryingService;
-import com.bioinformaticsapp.web.NCBIBLASTService;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +19,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.bioinformaticsapp.data.BLASTQueryController;
+import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.models.BLASTQueryValidator;
+import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.text.DNASymbolFilter;
 
 public class NCBIQuerySetUpActivity extends Activity {
 
