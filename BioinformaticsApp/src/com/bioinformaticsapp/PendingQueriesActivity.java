@@ -1,23 +1,31 @@
 package com.bioinformaticsapp;
 
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import java.util.List;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
+import com.bioinformaticsapp.data.BLASTQueryController;
+import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
+import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.models.OptionalParameter;
 
 public class PendingQueriesActivity extends ListActivity implements LoaderCallbacks<Cursor>{
 
@@ -28,6 +36,9 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
 	
 	private final static int REFRESH_MENU_ITEM = 0;
 	
+	private BLASTQueryController queryController;
+	
+	private OptionalParameterController parameterController;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -52,6 +63,12 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
         
         setListAdapter(mCursorAdapter);
         
+        registerForContextMenu(getListView());
+     
+        queryController = new BLASTQueryController(this);
+        
+        parameterController = new OptionalParameterController(this);
+        
     }
 	
 	
@@ -61,19 +78,24 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
 	 */
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, this);
 	}
 
 
+	public void onPause(){
+		super.onPause();
+		if(isFinishing()){
+			queryController.close();
+			parameterController.close();
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		
 		MenuItem item = menu.add(0, REFRESH_MENU_ITEM, 0, "Refresh");
 		
@@ -111,29 +133,50 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
 		return itemSelectionHandled;
 	}
 
-
-
-	/* Event handling when the user taps a row in the list item
-	 * 
-	 * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
-	 */
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
 		
-		super.onListItemClick(l, v, position, id);
+		MenuInflater menuInflater = getMenuInflater();
+		menu.setHeaderTitle("Select an option:");
+		menuInflater.inflate(R.menu.general_context_menu, menu);
 		
-		//Set up the intent to launch the setup screen
-		Intent setupExistingQuery = new Intent(this, QueryParametersActivity.class);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
 		
-		//Create the content uri for the selected list item
-		Uri uri = ContentUris.withAppendedId(BLASTJob.CONTENT_QUERY_ID_BASE_URI, id);	
-				
-		//Attach the URI to the intent so the content resolver for the set up screen
-		//can retrieve the corresponding content value
-		setupExistingQuery.setData(uri);
+		boolean itemSelectionHandled = false;
 		
-		//Launch the activity
-		startActivity(setupExistingQuery);
+		AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+		
+		int itemId = item.getItemId();
+		
+		switch(itemId){
+		
+		case R.id.view_parameters_menu_item: {
+			
+			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
+			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
+			List<OptionalParameter> parameters = parameterController.getParametersForQuery(menuinfo.id);
+			selected.updateAllParameters(parameters);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("query", selected);
+			dialog.setArguments(bundle);
+			dialog.show(getFragmentManager(), "dialog");
+			
+			itemSelectionHandled = true;
+		}
+		
+		default:
+			itemSelectionHandled = super.onContextItemSelected(item);
+			break;
+		}
+		
+		getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, this);
+		
+		return itemSelectionHandled;
 		
 	}
 
