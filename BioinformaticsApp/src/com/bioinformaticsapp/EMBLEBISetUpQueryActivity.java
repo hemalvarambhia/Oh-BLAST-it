@@ -1,10 +1,8 @@
 package com.bioinformaticsapp;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -35,7 +33,7 @@ import com.bioinformaticsapp.text.DNASymbolFilter;
  * @author Hemal N Varambhia
  *
  */
-public class EMBLEBISetUpQueryActivity extends Activity {
+public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -54,10 +52,6 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 	private ProgressDialog mProgressDialog;
 	
 	private EditText mEmailEditor;
-	
-	private BLASTQueryController controller;
-	private OptionalParameterController optionalParametersController; 
-	private BLASTQuery draftQuery;
 	
 	
 	@SuppressWarnings("unused")
@@ -91,7 +85,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 			
 			EMBLEBIBLASTQueryValidator sender = new EMBLEBIBLASTQueryValidator();
 			
-			sender.execute(new BLASTQuery[]{draftQuery});
+			sender.execute(new BLASTQuery[]{query});
 			
 		}
 		//...and exit	
@@ -148,9 +142,10 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 		Intent launchingIntent = getIntent();
 		
 		controller = new BLASTQueryController(this);
+		
 		optionalParametersController = new OptionalParameterController(this);
 		
-		draftQuery = (BLASTQuery)launchingIntent.getSerializableExtra("query");
+		query = (BLASTQuery)launchingIntent.getSerializableExtra("query");
 		
 		
 	}
@@ -168,7 +163,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 			}
 		}
 		
-		switch(draftQuery.getStatus()){
+		switch(query.getStatus()){
 		case DRAFT:
 			storeQueryInDatabase();
 			Toast toast = Toast.makeText(this, R.string.blastquerysaved_text, Toast.LENGTH_LONG);
@@ -196,37 +191,37 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 	private void setUpScreenWithInitialValues(){
 		Resources appResources = getResources();
 		
-		String program = draftQuery.getBLASTProgram();
+		String program = query.getBLASTProgram();
 		String[] blastProgramsOptions = appResources.getStringArray(R.array.blast_program_options);
 		List<String> listOfBLASTPrograms = Arrays.asList(blastProgramsOptions);
 		int programPosition = listOfBLASTPrograms.indexOf(program);
 		mProgramSpinner.setSelection(programPosition);
 		
-		OptionalParameter database = draftQuery.getSearchParameter("database");
+		OptionalParameter database = query.getSearchParameter("database");
 		String[] databaseOptions = appResources.getStringArray(R.array.blast_database_options);
 		List<String> listOfDatabases = Arrays.asList(databaseOptions);
 		int databasePosition = listOfDatabases.indexOf(database.getValue());
 		mDatabaseSpinner.setSelection(databasePosition);
 		
-		OptionalParameter expThreshold = draftQuery.getSearchParameter("exp_threshold");
+		OptionalParameter expThreshold = query.getSearchParameter("exp_threshold");
 		String[] expThresholdOptions = appResources.getStringArray(R.array.exp_threshold_options);
 		List<String> listOfExpThresholds = Arrays.asList(expThresholdOptions);
 		int expThresholdPosition = listOfExpThresholds.indexOf(expThreshold.getValue());
 		mExpThresholdSpinner.setSelection(expThresholdPosition);
 		
-		OptionalParameter score = draftQuery.getSearchParameter("score");
+		OptionalParameter score = query.getSearchParameter("score");
 		String[] scoreOptions = appResources.getStringArray(R.array.blastqueryentry_score_options);
 		List<String> listOfScores = Arrays.asList(scoreOptions);
 		int scorePosition = listOfScores.indexOf(score.getValue());
 		mScoreSpinner.setSelection(scorePosition);
 		
-		if(draftQuery.getSequence() == null || draftQuery.getSequence().isEmpty()){
+		if(query.getSequence() == null || query.getSequence().isEmpty()){
 			mSequenceEditor.setHint("Enter a sequence");
 		}else{
-			mSequenceEditor.setText(draftQuery.getSequence());
+			mSequenceEditor.setText(query.getSequence());
 		}
 		
-		OptionalParameter email = draftQuery.getSearchParameter("email");
+		OptionalParameter email = query.getSearchParameter("email");
 		
 		if(email.getValue() == null || email.getValue().isEmpty()){
 			
@@ -247,7 +242,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				draftQuery.setBLASTProgram(mProgramSpinner.getSelectedItem().toString());
+				query.setBLASTProgram(mProgramSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -270,7 +265,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 			
 			public void afterTextChanged(Editable s) {
 				
-				draftQuery.setSequence(s.toString());
+				query.setSequence(s.toString());
 				
 			}
 		});
@@ -289,7 +284,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 			}
 			
 			public void afterTextChanged(Editable s) {
-				draftQuery.setSearchParameter("email", s.toString());
+				query.setSearchParameter("email", s.toString());
 				
 			}
 		});
@@ -298,7 +293,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				draftQuery.setSearchParameter("database", mDatabaseSpinner.getSelectedItem().toString());
+				query.setSearchParameter("database", mDatabaseSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -311,7 +306,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				draftQuery.setSearchParameter("score", mScoreSpinner.getSelectedItem().toString());
+				query.setSearchParameter("score", mScoreSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -326,7 +321,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				draftQuery.setSearchParameter("exp_threshold", mExpThresholdSpinner.getSelectedItem().toString());
+				query.setSearchParameter("exp_threshold", mExpThresholdSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -337,45 +332,6 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 		});
 	}
 	
-	private void storeQueryInDatabase(){
-		
-		if(draftQuery.getPrimaryKey() == null){
-			//Add the job to our database of BLAST queries...
-			long primaryKey = controller.save(draftQuery);
-			draftQuery.setPrimaryKeyId(primaryKey);
-			
-			//Save the parameters:
-			List<OptionalParameter> parameters = new ArrayList<OptionalParameter>();
-			for(OptionalParameter parameter: draftQuery.getAllParameters()){
-				parameter.setBlastQueryId(draftQuery.getPrimaryKey());
-				long parameterPrimaryKey = optionalParametersController.save(parameter);
-				parameter.setPrimaryKey(parameterPrimaryKey);
-				parameters.add(parameter);
-				
-			}
-			
-			draftQuery.updateAllParameters(parameters);
-			
-		}else{ 
-			//...or date the columns for the specified row:
-			controller.update(draftQuery.getPrimaryKey(), draftQuery);
-			for(OptionalParameter parameter: draftQuery.getAllParameters()){
-				if(parameter.getBlastQueryId() == null){
-					parameter.setBlastQueryId(draftQuery.getPrimaryKey());
-				}
-				if(parameter.getPrimaryKey() == null){
-					
-					optionalParametersController.save(parameter);
-				
-				}else{
-					optionalParametersController.update(parameter.getPrimaryKey(), parameter);
-				}
-			}
-			
-		}
-		
-	}
-		
 	private class EMBLEBIBLASTQueryValidator extends BLASTQueryValidator {
 
 		/* (non-Javadoc)
@@ -394,7 +350,7 @@ public class EMBLEBISetUpQueryActivity extends Activity {
 			if(isValid.booleanValue()){
 				
 				//The query is ready to be sent
-				draftQuery.setStatus(BLASTQuery.Status.PENDING);
+				query.setStatus(BLASTQuery.Status.PENDING);
 				storeQueryInDatabase();
 				setResult(DraftBLASTQueriesActivity.READY_TO_SEND);
 				Toast t = Toast.makeText(EMBLEBISetUpQueryActivity.this, "Sending query", Toast.LENGTH_LONG);

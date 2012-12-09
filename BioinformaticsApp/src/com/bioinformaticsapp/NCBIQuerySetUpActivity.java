@@ -1,10 +1,8 @@
 package com.bioinformaticsapp;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -24,10 +22,9 @@ import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQueryValidator;
-import com.bioinformaticsapp.models.OptionalParameter;
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
-public class NCBIQuerySetUpActivity extends Activity {
+public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 
 	private EditText mSequenceEditor;
 	private Spinner mProgramSpinner;
@@ -36,9 +33,6 @@ public class NCBIQuerySetUpActivity extends Activity {
 	private EditText mExpThresholdEditText;
 	private Spinner mMatchMismatchScoreSpinner;
 	private ProgressDialog mProgressDialog;
-	private BLASTQueryController controller;
-	private OptionalParameterController optionalParametersController;
-	private BLASTQuery ncbiQuery;
 	
 	private static final String TAG = "NCBIQuerySetUpActivity";
 	
@@ -65,7 +59,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 		controller = new BLASTQueryController(this);
 		optionalParametersController = new OptionalParameterController(this);
 		
-		ncbiQuery = (BLASTQuery)getIntent().getSerializableExtra("query");
+		query = (BLASTQuery)getIntent().getSerializableExtra("query");
 		
 		
 	}
@@ -82,7 +76,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 				mProgressDialog.dismiss();
 			}
 		}
-		switch(ncbiQuery.getStatus()){
+		switch(query.getStatus()){
 		case DRAFT:
 			storeQueryInDatabase();
 			Toast saved = Toast.makeText(this, R.string.blastquerysaved_text, Toast.LENGTH_LONG);
@@ -107,40 +101,40 @@ public class NCBIQuerySetUpActivity extends Activity {
 	private void setUpScreenWithInitialValues(){
 		Resources appResources = getResources();
 		
-		String program = ncbiQuery.getBLASTProgram();
+		String program = query.getBLASTProgram();
 		String[] blastProgramsOptions = appResources.getStringArray(R.array.blast_program_options);
 		List<String> listOfBLASTPrograms = Arrays.asList(blastProgramsOptions);
 		int programPosition = listOfBLASTPrograms.indexOf(program);
 		mProgramSpinner.setSelection(programPosition);
 		
-		String database = ncbiQuery.getSearchParameter("database").getValue();
+		String database = query.getSearchParameter("database").getValue();
 		String[] databaseOptions = appResources.getStringArray(R.array.ncbi_database_options);
 		List<String> listOfNCBIDatabases = Arrays.asList(databaseOptions);
 		int databasePosition = listOfNCBIDatabases.indexOf(database);
 		mDatabaseSpinner.setSelection(databasePosition);
 		
-		String wordSize = ncbiQuery.getSearchParameter("word_size").getValue();
+		String wordSize = query.getSearchParameter("word_size").getValue();
 		String[] wordSizeOptions = appResources.getStringArray(R.array.ncbi_word_size_options);
 		List<String> listOfWordSizes = Arrays.asList(wordSizeOptions);
 		int wordSizePosition = listOfWordSizes.indexOf(wordSize);
 		mWordSizeSpinner.setSelection(wordSizePosition);
 		
-		String expThreshold = ncbiQuery.getSearchParameter("exp_threshold").getValue();
+		String expThreshold = query.getSearchParameter("exp_threshold").getValue();
 		mExpThresholdEditText.setText(expThreshold);
 		
-		String matchMisMatchScore = ncbiQuery.getSearchParameter("match_mismatch_score").getValue();
+		String matchMisMatchScore = query.getSearchParameter("match_mismatch_score").getValue();
 		String[] matchMisMatchScoreOptions = appResources.getStringArray(R.array.ncbi_match_mismatch_score_options);
 		List<String> matchMisMatchScores = Arrays.asList(matchMisMatchScoreOptions);
 		int matchMismatchScorePosition = matchMisMatchScores.indexOf(matchMisMatchScore);
 		mMatchMismatchScoreSpinner.setSelection(matchMismatchScorePosition);
 		
-		if(ncbiQuery.getSequence() == null || ncbiQuery.getSequence().isEmpty()){
+		if(query.getSequence() == null || query.getSequence().isEmpty()){
 			
 			mSequenceEditor.setHint("Enter a sequence");
 		
 		}else{
 			
-			mSequenceEditor.setText(ncbiQuery.getSequence());
+			mSequenceEditor.setText(query.getSequence());
 		
 		}
 		
@@ -151,7 +145,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				ncbiQuery.setBLASTProgram(mProgramSpinner.getSelectedItem().toString());
+				query.setBLASTProgram(mProgramSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -165,7 +159,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				ncbiQuery.setSearchParameter("database", mDatabaseSpinner.getSelectedItem().toString());
+				query.setSearchParameter("database", mDatabaseSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -179,7 +173,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				ncbiQuery.setSearchParameter("match_mismatch_score", mMatchMismatchScoreSpinner.getSelectedItem().toString());
+				query.setSearchParameter("match_mismatch_score", mMatchMismatchScoreSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -194,7 +188,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				ncbiQuery.setSearchParameter("word_size", mWordSizeSpinner.getSelectedItem().toString());
+				query.setSearchParameter("word_size", mWordSizeSpinner.getSelectedItem().toString());
 				
 			}
 
@@ -217,7 +211,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 			}
 			
 			public void afterTextChanged(Editable s) {
-				ncbiQuery.setSequence(s.toString());
+				query.setSequence(s.toString());
 			}
 		});
 		
@@ -236,7 +230,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 			
 			public void afterTextChanged(Editable s) {
 				
-				ncbiQuery.setSearchParameter("exp_threshold", s.toString());
+				query.setSearchParameter("exp_threshold", s.toString());
 				
 			}
 		});
@@ -267,7 +261,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 		switch(selectedMenuItemId){
 		
 		case R.id.save_query:
-				switch(ncbiQuery.getStatus()){
+				switch(query.getStatus()){
 				case DRAFT:
 					storeQueryInDatabase();
 					break;
@@ -277,45 +271,14 @@ public class NCBIQuerySetUpActivity extends Activity {
 		
 		case R.id.send_query:
 			NCBIBLASTQueryValidator sender = new NCBIBLASTQueryValidator();
-			sender.execute(ncbiQuery);
+			sender.execute(query);
 			break;
 		}
 		
 		return true;
 	}
 
-	private void storeQueryInDatabase(){
-		
-		
-		if(ncbiQuery.getPrimaryKey() == null){
-			//Add the job to our database of BLAST queries...
-			long primaryKey = controller.save(ncbiQuery);
-			
-			ncbiQuery.setPrimaryKeyId(primaryKey);
-			
-			//Save the parameters:
-			List<OptionalParameter> parameters = new ArrayList<OptionalParameter>();
-			for(OptionalParameter parameter: ncbiQuery.getAllParameters()){
-				parameter.setBlastQueryId(ncbiQuery.getPrimaryKey());
-				long parameterPrimaryKey = optionalParametersController.save(parameter);
-				parameter.setPrimaryKey(parameterPrimaryKey);
-				parameters.add(parameter);
-				
-			}
-			
-			ncbiQuery.updateAllParameters(parameters);
-			
-			
-		}else{ 
-			//...or date the columns for the specified row:
-			controller.update(ncbiQuery.getPrimaryKey(), ncbiQuery);
-			
-			for(OptionalParameter parameter: ncbiQuery.getAllParameters()){
-				optionalParametersController.update(parameter.getPrimaryKey(), parameter);
-			}
-			
-		}
-	}
+	
 
 	private class NCBIBLASTQueryValidator extends BLASTQueryValidator {
 
@@ -323,7 +286,7 @@ public class NCBIQuerySetUpActivity extends Activity {
 		protected void onPostExecute(Boolean isValid) {
 			
 			if(isValid.booleanValue()){
-				ncbiQuery.setStatus(BLASTQuery.Status.PENDING);
+				query.setStatus(BLASTQuery.Status.PENDING);
 				storeQueryInDatabase();
 				setResult(DraftBLASTQueriesActivity.READY_TO_SEND);
 				Toast sentMessage = Toast.makeText(NCBIQuerySetUpActivity.this, "Sending query", Toast.LENGTH_LONG);
