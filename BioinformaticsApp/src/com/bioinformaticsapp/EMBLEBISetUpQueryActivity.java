@@ -91,13 +91,6 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		
 		break;
 		
-		case R.id.settings: {
-			Intent settings = new Intent(this, AppPreferences.class);
-			settings.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			startActivity(settings);
-			break;
-		}
-			
 		default:
 			break;
 		

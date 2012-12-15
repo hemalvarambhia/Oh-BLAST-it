@@ -245,20 +245,25 @@ public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 		switch(selectedMenuItemId){
 		
 		case R.id.save_query:
-				switch(query.getStatus()){
-				case DRAFT:
-					storeQueryInDatabase();
-					break;
-				}
-				
+					
+			storeQueryInDatabase();
+			
+			Toast querySavedMessage = Toast.makeText(this, R.string.blastquerysaved_text, Toast.LENGTH_LONG);
+			
+			//Now show it
+			querySavedMessage.show();
 			break;
 		
 		case R.id.send_query:
 			NCBIBLASTQueryValidator sender = new NCBIBLASTQueryValidator();
 			sender.execute(query);
 			break;
-		}
+			
+		default:
+			break;
 		
+		}
+			
 		return true;
 	}
 
