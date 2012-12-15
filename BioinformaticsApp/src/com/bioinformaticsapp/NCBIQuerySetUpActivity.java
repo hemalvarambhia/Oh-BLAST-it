@@ -15,9 +15,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
-import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
 public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
@@ -51,10 +48,6 @@ public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 		mProgressDialog.setCancelable(false);
 		mProgressDialog.setCanceledOnTouchOutside(false);
 		attachListeners();
-		controller = new BLASTQueryController(this);
-		optionalParametersController = new OptionalParameterController(this);
-		
-		query = (BLASTQuery)getIntent().getSerializableExtra("query");
 		
 		
 	}

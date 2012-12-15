@@ -5,7 +5,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +20,17 @@ import com.bioinformaticsapp.models.OptionalParameter;
 
 public abstract class SetUpBLASTQueryActivity extends Activity {
 
+	protected void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		Intent launchingIntent = getIntent();
+		
+		controller = new BLASTQueryController(this);
+		
+		optionalParametersController = new OptionalParameterController(this);
+		
+		query = (BLASTQuery)launchingIntent.getSerializableExtra("query");
+	}
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */

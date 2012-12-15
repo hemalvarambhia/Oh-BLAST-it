@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,9 +16,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
-import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.OptionalParameter;
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
@@ -74,14 +70,6 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		mProgressDialog.setCanceledOnTouchOutside(false);
 		mEmailEditor = (EditText)findViewById(R.id.embl_send_to_email);
 		attachListeners();
-		Intent launchingIntent = getIntent();
-		
-		controller = new BLASTQueryController(this);
-		
-		optionalParametersController = new OptionalParameterController(this);
-		
-		query = (BLASTQuery)launchingIntent.getSerializableExtra("query");
-		
 		
 	}
 
