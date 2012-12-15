@@ -27,10 +27,6 @@ import com.bioinformaticsapp.text.DNASymbolFilter;
  */
 public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
-	
 	private EditText mSequenceEditor;
 	
 	private Spinner mProgramSpinner;
@@ -41,17 +37,11 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 	
 	private Spinner mExpThresholdSpinner;
 	
-	
 	private EditText mEmailEditor;
-	
 	
 	@SuppressWarnings("unused")
 	private static final String TAG = "SetupBLASTQueryActivity";
 
-	
-	
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -152,7 +142,6 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 	
 	private void attachListeners(){
 		
-		
 		mProgramSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -226,8 +215,7 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
-				
-				
+								
 			}
 			
 		});
