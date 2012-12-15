@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -116,15 +115,7 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		
 	}
 	
-	protected void onResume(){
-		
-		super.onResume();
-		
-		setUpScreenWithInitialValues();
-		
-	}
-	
-	private void setUpScreenWithInitialValues(){
+	protected void setUpScreenWithInitialValues(){
 		Resources appResources = getResources();
 		
 		String program = query.getBLASTProgram();

@@ -16,7 +16,7 @@ import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.OptionalParameter;
 
-public class SetUpBLASTQueryActivity extends Activity {
+public abstract class SetUpBLASTQueryActivity extends Activity {
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -73,6 +73,15 @@ public class SetUpBLASTQueryActivity extends Activity {
 		return true;
 	}
 
+	protected void onResume(){
+		
+		super.onResume();
+		
+		setUpScreenWithInitialValues();
+		
+	}
+	
+	protected abstract void setUpScreenWithInitialValues();
 	
 	protected void storeQueryInDatabase(){
 		

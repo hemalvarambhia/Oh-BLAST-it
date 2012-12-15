@@ -87,13 +87,7 @@ public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 		
 	}
 
-	protected void onResume(){
-		super.onResume();
-		setUpScreenWithInitialValues();
-		
-	}
-
-	private void setUpScreenWithInitialValues(){
+	protected void setUpScreenWithInitialValues(){
 		Resources appResources = getResources();
 		
 		String program = query.getBLASTProgram();
