@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -232,37 +231,4 @@ public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 		});
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		int selectedMenuItemId = item.getItemId();
-		
-		switch(selectedMenuItemId){
-		
-		case R.id.save_query:
-					
-			storeQueryInDatabase();
-			
-			Toast querySavedMessage = Toast.makeText(this, R.string.blastquerysaved_text, Toast.LENGTH_LONG);
-			
-			//Now show it
-			querySavedMessage.show();
-			break;
-		
-		case R.id.send_query:
-			BLASTQueryValidator sender = new BLASTQueryValidator();
-			sender.execute(query);
-			break;
-			
-		default:
-			break;
-		
-		}
-			
-		return true;
-	}
-
 }

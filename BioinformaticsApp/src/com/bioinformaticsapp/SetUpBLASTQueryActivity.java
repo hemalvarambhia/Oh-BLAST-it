@@ -3,18 +3,18 @@ package com.bioinformaticsapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQueryValidator;
-import com.bioinformaticsapp.models.OptionalParameter;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.bioinformaticsapp.data.BLASTQueryController;
+import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.models.OptionalParameter;
 
 public class SetUpBLASTQueryActivity extends Activity {
 
@@ -31,6 +31,49 @@ public class SetUpBLASTQueryActivity extends Activity {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		int itemId = item.getItemId();
+		
+		switch(itemId){
+		
+		case R.id.send_query: {
+			
+			BLASTQueryValidator sender = new BLASTQueryValidator();
+			
+			sender.execute(new BLASTQuery[]{query});
+			
+		}
+		//...and exit	
+		break;
+		
+		case R.id.save_query: {
+			//Store into our database or update
+			storeQueryInDatabase();
+			
+			//Create a toast message to tell the user the query was saved
+			Toast querySavedMessage = Toast.makeText(this, R.string.blastquerysaved_text, Toast.LENGTH_LONG);
+			
+			//Now show it
+			querySavedMessage.show();
+		
+		}
+		
+		break;
+		
+		default:
+			break;
+		
+		}
+		
+		return true;
+	}
+
+	
 	protected void storeQueryInDatabase(){
 		
 		
