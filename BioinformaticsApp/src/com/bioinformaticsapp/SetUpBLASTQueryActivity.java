@@ -9,10 +9,24 @@ import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.OptionalParameter;
 
 import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class SetUpBLASTQueryActivity extends Activity {
 
-	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		MenuInflater inflater = getMenuInflater();
+		
+		inflater.inflate(R.menu.blastqueryentry_menu, menu);
+		
+		return true;
+	}
+
 
 	protected void storeQueryInDatabase(){
 		

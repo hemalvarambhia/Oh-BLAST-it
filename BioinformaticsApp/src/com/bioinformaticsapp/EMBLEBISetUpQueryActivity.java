@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,19 +56,7 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 	private static final String TAG = "SetupBLASTQueryActivity";
 
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		MenuInflater inflater = getMenuInflater();
-		
-		inflater.inflate(R.menu.blastqueryentry_menu, menu);
-		
-		return true;
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
 	 */
