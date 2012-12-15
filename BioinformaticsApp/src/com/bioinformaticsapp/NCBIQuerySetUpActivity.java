@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQueryValidator;
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
 public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
@@ -30,7 +29,6 @@ public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 	private Spinner mWordSizeSpinner;
 	private EditText mExpThresholdEditText;
 	private Spinner mMatchMismatchScoreSpinner;
-	private ProgressDialog mProgressDialog;
 	
 	private static final String TAG = "NCBIQuerySetUpActivity";
 	
@@ -255,7 +253,7 @@ public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 			break;
 		
 		case R.id.send_query:
-			NCBIBLASTQueryValidator sender = new NCBIBLASTQueryValidator();
+			BLASTQueryValidator sender = new BLASTQueryValidator();
 			sender.execute(query);
 			break;
 			
@@ -267,39 +265,4 @@ public class NCBIQuerySetUpActivity extends SetUpBLASTQueryActivity {
 		return true;
 	}
 
-	
-
-	private class NCBIBLASTQueryValidator extends BLASTQueryValidator {
-
-		@Override
-		protected void onPostExecute(Boolean isValid) {
-			
-			if(isValid.booleanValue()){
-				query.setStatus(BLASTQuery.Status.PENDING);
-				storeQueryInDatabase();
-				setResult(DraftBLASTQueriesActivity.READY_TO_SEND);
-				Toast sentMessage = Toast.makeText(NCBIQuerySetUpActivity.this, "Sending query", Toast.LENGTH_LONG);
-				sentMessage.show();
-				finish();
-			}else{
-				Toast message = Toast.makeText(NCBIQuerySetUpActivity.this, "Query could not be sent as it is invalid", Toast.LENGTH_LONG);
-				message.show();
-			}
-			
-		}
-
-		/* (non-Javadoc)
-		 * @see android.os.AsyncTask#onPreExecute()
-		 */
-		@Override
-		protected void onPreExecute() {			
-			super.onPreExecute();
-			mProgressDialog.setTitle("Validating BLAST query");
-			mProgressDialog.setMessage("Please wait");
-			mProgressDialog.show();			
-		}
-		
-		
-	}
-	
 }

@@ -47,7 +47,6 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 	
 	private Spinner mExpThresholdSpinner;
 	
-	private ProgressDialog mProgressDialog;
 	
 	private EditText mEmailEditor;
 	
@@ -69,7 +68,7 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		
 		case R.id.send_query: {
 			
-			EMBLEBIBLASTQueryValidator sender = new EMBLEBIBLASTQueryValidator();
+			BLASTQueryValidator sender = new BLASTQueryValidator();
 			
 			sender.execute(new BLASTQuery[]{query});
 			
@@ -309,41 +308,6 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 			}
 			
 		});
-	}
-	
-	private class EMBLEBIBLASTQueryValidator extends BLASTQueryValidator {
-
-		/* (non-Javadoc)
-		 * @see android.os.AsyncTask#onPreExecute()
-		 */
-		@Override
-		protected void onPreExecute() {
-			mProgressDialog.setTitle("Validating BLAST query");
-			mProgressDialog.setMessage("Please wait...");
-			mProgressDialog.show();
-			
-		}
-		
-		protected void onPostExecute(Boolean isValid){
-			
-			if(isValid.booleanValue()){
-				
-				//The query is ready to be sent
-				query.setStatus(BLASTQuery.Status.PENDING);
-				storeQueryInDatabase();
-				setResult(DraftBLASTQueriesActivity.READY_TO_SEND);
-				Toast t = Toast.makeText(EMBLEBISetUpQueryActivity.this, "Sending query", Toast.LENGTH_LONG);
-				t.show();
-				//Start the polling service
-				finish();
-			}else{
-				Toast t = Toast.makeText(EMBLEBISetUpQueryActivity.this, "Query could not be sent as it is invalid", Toast.LENGTH_LONG);
-				t.show();
-				
-			}
-
-		}
-		
 	}
 		
 }

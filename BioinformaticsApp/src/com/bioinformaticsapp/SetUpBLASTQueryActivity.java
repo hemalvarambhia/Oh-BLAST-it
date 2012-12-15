@@ -6,11 +6,15 @@ import java.util.List;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.models.BLASTQueryValidator;
 import com.bioinformaticsapp.models.OptionalParameter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 public class SetUpBLASTQueryActivity extends Activity {
 
@@ -26,7 +30,6 @@ public class SetUpBLASTQueryActivity extends Activity {
 		
 		return true;
 	}
-
 
 	protected void storeQueryInDatabase(){
 		
@@ -60,6 +63,50 @@ public class SetUpBLASTQueryActivity extends Activity {
 			
 		}
 	}
+	
+	protected class BLASTQueryValidator extends AsyncTask<BLASTQuery, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(BLASTQuery... query) {
+			
+			boolean isValid = query[0].isValid();
+			return isValid;
+		}
+		
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#onPreExecute()
+		 */
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog.setTitle("Validating BLAST query");
+			mProgressDialog.setMessage("Please wait...");
+			mProgressDialog.show();
+			
+		}
+		
+		protected void onPostExecute(Boolean isValid){
+			
+			if(isValid.booleanValue()){
+				
+				//The query is ready to be sent
+				query.setStatus(BLASTQuery.Status.PENDING);
+				storeQueryInDatabase();
+				setResult(DraftBLASTQueriesActivity.READY_TO_SEND);
+				Toast t = Toast.makeText(SetUpBLASTQueryActivity.this, "Sending query", Toast.LENGTH_LONG);
+				t.show();
+				//Start the polling service
+				finish();
+			}else{
+				Toast t = Toast.makeText(SetUpBLASTQueryActivity.this, "Query could not be sent as it is invalid", Toast.LENGTH_LONG);
+				t.show();
+				
+			}
+
+		}
+		
+	}
+	
+	protected ProgressDialog mProgressDialog;
 	
 	protected BLASTQuery query;
 	
