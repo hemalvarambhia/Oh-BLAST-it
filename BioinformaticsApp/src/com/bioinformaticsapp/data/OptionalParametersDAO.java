@@ -75,7 +75,9 @@ public class OptionalParametersDAO {
 	}
 	
 	public int deleteOptionsFor(long queryPrimaryKey){
-		throw new UnsupportedOperationException("Not implemented yet");
+		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_QUERY_FK + "= ?";
+		String[] id = new String[]{String.valueOf(queryPrimaryKey)};
+		return database.delete(BLASTQuery.BLAST_SEARCH_PARAMS_TABLE, where, id);
 	}
 	
 	public int updateParameters(long id, ContentValues newValues){

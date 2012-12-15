@@ -41,8 +41,12 @@ public class OptionalParameterController {
 		
 		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_QUERY_FK +" = ?";
 		String[] queryFK = new String[]{String.valueOf(queryId)};
-		List<OptionalParameter> parametersForQuery = new ArrayList<OptionalParameter>();
+		List<OptionalParameter> parametersForQuery = null;
 		Cursor cursor = mDAO.query(BLASTJob.OPTIONAL_PARAMETER_FULL_PROJECTION, where, queryFK);
+		
+		if(cursor.getCount() > 0){
+			parametersForQuery = new ArrayList<OptionalParameter>();
+		}
 		
 		while(cursor.moveToNext()){
 			long id = cursor.getLong(0);
@@ -71,6 +75,10 @@ public class OptionalParameterController {
 		
 		return numberUpdated;
 		
+	}
+
+	public int deleteParametersFor(long queryId){
+		return mDAO.deleteOptionsFor(queryId);
 	}
 	
 }

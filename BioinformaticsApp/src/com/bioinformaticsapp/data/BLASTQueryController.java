@@ -84,7 +84,6 @@ public class BLASTQueryController {
 		return query;
 	}
 	
-	
 	public List<BLASTQuery> findBLASTQueriesByStatus(Status status){
 		String[] projection = new String[]{
 				BLASTJob.COLUMN_NAME_PRIMARY_KEY, //0 
@@ -150,6 +149,12 @@ public class BLASTQueryController {
 		row.close();
 		
 		return runningAndSubmittedQueries;
+	}
+
+	public int delete(long id){
+		
+		return mDAO.deleteById(id);
+	
 	}
 	
 }
