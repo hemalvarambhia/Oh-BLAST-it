@@ -7,7 +7,6 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -256,8 +255,7 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 		startActivityForResult(setupExistingQuery, CREATE_QUERY);
 	}
 	
-	private void doDeleteAction(long id){
-		final Uri uri = ContentUris.withAppendedId(BLASTJob.CONTENT_QUERY_ID_BASE_URI, id);
+	private void doDeleteAction(final long id){
 		
 		AlertDialog.Builder builder = new Builder(this);
 		builder = builder.setTitle("Deleting");
@@ -268,7 +266,8 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 			
 			public void onClick(DialogInterface dialog, int which) {
 				
-				deleteQuery(uri);
+				deleteQuery(id);
+				
 			}
 		});
 		
@@ -279,12 +278,15 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 		
 	}
 
-	private int deleteQuery(Uri uriToDelete){
+	private boolean deleteQuery(long id){
 		
-		int numberOfRowsDeleted = getContentResolver().delete(uriToDelete, null, null);
-		getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, this);
+		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
+	
+		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
 		
-		return numberOfRowsDeleted;
+		int numberOfQueriesDeleted = queryController.delete(id);
+		
+		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
 	
 	}
 
