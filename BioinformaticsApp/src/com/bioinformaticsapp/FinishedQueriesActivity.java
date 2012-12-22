@@ -10,7 +10,6 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -46,7 +45,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 	
 	private BLASTQueryController queryController;
 	
-	private OptionalParameterController parameterController;
+	private OptionalParameterController parametersController;
 	
 	private BLASTQuery selected;
 	
@@ -79,7 +78,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
         setListAdapter(mCursorAdapter);
         
         queryController = new BLASTQueryController(this);
-        parameterController = new OptionalParameterController(this);
+        parametersController = new OptionalParameterController(this);
         
     }
 	
@@ -163,7 +162,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 			
 			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
 			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
-			List<OptionalParameter> parameters = parameterController.getParametersForQuery(menuinfo.id);
+			List<OptionalParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
 			selected.updateAllParameters(parameters);
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("query", selected);
@@ -189,7 +188,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 		
 		if(isFinishing()){
 			queryController.close();
-			parameterController.close();
+			parametersController.close();
 		}
 	}
 	
@@ -213,7 +212,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 		super.onListItemClick(l, v, position, id);
 		
 		selected = queryController.findBLASTQueryById(id);
-		List<OptionalParameter> parameters = parameterController.getParametersForQuery(id);
+		List<OptionalParameter> parameters = parametersController.getParametersForQuery(id);
 		
 		selected.updateAllParameters(parameters);
 		
@@ -261,24 +260,14 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 		return fileExists;
 	}
 	
-	private File getBLASTXMLFile(Uri uri){
-		long id = ContentUris.parseId(uri);
-		String where = BLASTJob.COLUMN_NAME_PRIMARY_KEY + "= ?";
-		String[] whereArgs = new String[]{new Long(id).toString()};
-		String[] projection = new String[]{BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID};
-		Cursor c = getContentResolver().query(uri, projection, where, whereArgs, null);
-		File blastXmlFile = null;
-		if(c.moveToFirst()){
-			String jobIdentifier = c.getString(0);
-			blastXmlFile = getFileStreamPath(jobIdentifier+".xml");
-		}
+	private File getBLASTXMLFile(BLASTQuery selected){
+		
+		File blastXmlFile = getFileStreamPath(selected.getJobIdentifier()+".xml");
 		
 		return blastXmlFile;
 	}
 	
-	private void doDeleteAction(long id){
-		final Uri uri = ContentUris.withAppendedId(BLASTJob.CONTENT_QUERY_ID_BASE_URI, id);
-		final File blastXmlFile = getBLASTXMLFile(uri);
+	private void doDeleteAction(final long id){
 		
 		AlertDialog.Builder builder = new Builder(this);
 		builder = builder.setTitle("Deleting");
@@ -289,12 +278,20 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 			
 			public void onClick(DialogInterface dialog, int which) {
 				
+				BLASTQuery queryToDelete = queryController.findBLASTQueryById(id);
+				
+				final File blastXmlFile = getBLASTXMLFile(queryToDelete);
+				
 				if(blastXmlFile != null){
 					if(blastXmlFile.exists()){
 						blastXmlFile.delete();
 					}
 				}
-				deleteQuery(uri);
+				
+				deleteQuery(id);
+				
+				getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, FinishedQueriesActivity.this);
+				
 			}
 		});
 		
@@ -305,13 +302,16 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 		
 	}
 	
-	private int deleteQuery(Uri uriToDelete){
+	private boolean deleteQuery(long id){
 		
-		int numberOfRowsDeleted = getContentResolver().delete(uriToDelete, null, null);
-		getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, this);
+		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
 		
-		return numberOfRowsDeleted;
-	
+		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
+		
+		int numberOfQueriesDeleted = queryController.delete(id);
+		
+		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
+		
 	}
 	
 	private class BLASTHitsDownloader extends BLASTHitsDownloadingTask {

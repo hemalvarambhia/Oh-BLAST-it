@@ -267,7 +267,7 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 			public void onClick(DialogInterface dialog, int which) {
 				
 				deleteQuery(id);
-				
+				getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, DraftBLASTQueriesActivity.this);
 			}
 		});
 		
