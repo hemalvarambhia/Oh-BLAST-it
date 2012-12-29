@@ -48,8 +48,6 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
         registerForContextMenu(getListView());
      
     }
-	
-	
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onResume()
@@ -58,15 +56,6 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
 	protected void onResume() {
 		super.onResume();
 		getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, this);
-	}
-
-
-	public void onPause(){
-		super.onPause();
-		if(isFinishing()){
-			queryController.close();
-			parametersController.close();
-		}
 	}
 
 	/* (non-Javadoc)

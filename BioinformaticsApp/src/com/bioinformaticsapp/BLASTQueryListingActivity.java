@@ -32,6 +32,15 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
         
 	}
 	
+	protected void onPause(){
+		super.onPause();
+		
+		if(isFinishing()){
+			queryController.close();
+			parametersController.close();
+		}
+		
+	}
 	
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri uri = getIntent().getData();

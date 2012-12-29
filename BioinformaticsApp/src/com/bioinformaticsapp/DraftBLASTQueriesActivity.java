@@ -157,16 +157,6 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
         setListAdapter(mCursorAdapter);
 	}
 	
-	protected void onPause(){
-		super.onPause();
-		
-		if(isFinishing()){
-			queryController.close();
-			parametersController.close();
-		}
-		
-	}
-	
 	protected void onResume(){
 		super.onResume();
 		

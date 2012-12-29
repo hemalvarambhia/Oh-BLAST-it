@@ -163,15 +163,6 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 		
 	}
 
-	protected void onPause(){
-		super.onPause();
-		
-		if(isFinishing()){
-			queryController.close();
-			parametersController.close();
-		}
-	}
-	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onResume()
 	 */
