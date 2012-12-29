@@ -19,9 +19,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.Filter;
-import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
@@ -138,7 +136,7 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		
@@ -158,12 +156,7 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
         //We wish to load data from the content provider asynchronously
         //and not on the UI thread.
         getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
-        
-        
-
-    	queryController = new BLASTQueryController(this); 
-    	parametersController = new OptionalParameterController(this);
-        
+                
         //Register each list item for a context menu:
         registerForContextMenu(getListView());
         

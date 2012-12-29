@@ -18,7 +18,12 @@ import android.widget.SimpleCursorAdapter;
 
 public class BLASTQueryListingActivity extends ListActivity implements LoaderCallbacks<Cursor> {
 
-	
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+    	queryController = new BLASTQueryController(this); 
+    	parametersController = new OptionalParameterController(this);
+
+	}
 	
 	
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {

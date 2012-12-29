@@ -55,10 +55,6 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
         
         registerForContextMenu(getListView());
      
-        queryController = new BLASTQueryController(this);
-        
-        parametersController = new OptionalParameterController(this);
-        
     }
 	
 	
