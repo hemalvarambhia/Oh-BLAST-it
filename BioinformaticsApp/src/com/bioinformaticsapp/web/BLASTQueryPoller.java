@@ -7,11 +7,14 @@ import java.util.Map;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
+import com.bioinformaticsapp.FinishedQueriesActivity;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
@@ -74,6 +77,9 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 			builder.setTicker("BLAST queries finished");
 			builder.setContentText("Click to view the results");
 			builder.setContentTitle("BLAST Queries Finished");
+			Intent finishedQueriesActivity = new Intent(context, FinishedQueriesActivity.class);
+			PendingIntent finishedQueries = PendingIntent.getActivity(context, 0, finishedQueriesActivity, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			builder.setContentIntent(finishedQueries);
 			Notification notification = builder.getNotification();
 			mgr.notify(JOB_FINISHED_NOTI_ID, notification);
 		}
