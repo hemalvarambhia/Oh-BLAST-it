@@ -16,7 +16,7 @@ import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 
 public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoller.Report> {
 
@@ -119,11 +119,11 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 		BLASTQueryController queryController = new BLASTQueryController(this.context);
 		OptionalParameterController parametersController = new OptionalParameterController(this.context);
 		
-		List<OptionalParameter> parameters = query.getAllParameters();
+		List<SearchParameter> parameters = query.getAllParameters();
 		
 		queryController.update(query.getPrimaryKey(), query);
 		
-		for(OptionalParameter parameter: parameters){
+		for(SearchParameter parameter: parameters){
 			parametersController.update(parameter.getPrimaryKey(), parameter);
 		}
 

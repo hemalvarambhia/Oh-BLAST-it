@@ -17,7 +17,7 @@ import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 
 public class BLASTQuerySender extends
 		AsyncTask<BLASTQuery, Void, BLASTQuerySender.Report> {
@@ -123,11 +123,11 @@ public class BLASTQuerySender extends
 		BLASTQueryController queryController = new BLASTQueryController(this.context);
 		OptionalParameterController parametersController = new OptionalParameterController(this.context);
 		
-		List<OptionalParameter> parameters = query.getAllParameters();
+		List<SearchParameter> parameters = query.getAllParameters();
 		
 		queryController.update(query.getPrimaryKey(), query);
 		
-		for(OptionalParameter parameter: parameters){
+		for(SearchParameter parameter: parameters){
 			parametersController.update(parameter.getPrimaryKey(), parameter);
 		}
 

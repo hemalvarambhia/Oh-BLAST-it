@@ -12,7 +12,7 @@ import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 import com.bioinformaticsapp.web.BLASTQuerySender;
 
 public class SubmitQueryService extends IntentService {
@@ -42,7 +42,7 @@ public class SubmitQueryService extends IntentService {
 		
 		for(int i = 0; i < pendingQueries.size(); i++){
 			BLASTQuery pendingQuery = pendingQueries.get(i);
-			List<OptionalParameter> parameters = parametersController.getParametersForQuery(pendingQuery.getPrimaryKey());
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(pendingQuery.getPrimaryKey());
 			pendingQuery.updateAllParameters(parameters);
 			pending[i] = pendingQuery;
 		}

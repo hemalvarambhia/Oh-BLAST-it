@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
 /**
@@ -102,19 +102,19 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		int programPosition = listOfBLASTPrograms.indexOf(program);
 		mProgramSpinner.setSelection(programPosition);
 		
-		OptionalParameter database = query.getSearchParameter("database");
+		SearchParameter database = query.getSearchParameter("database");
 		String[] databaseOptions = appResources.getStringArray(R.array.blast_database_options);
 		List<String> listOfDatabases = Arrays.asList(databaseOptions);
 		int databasePosition = listOfDatabases.indexOf(database.getValue());
 		mDatabaseSpinner.setSelection(databasePosition);
 		
-		OptionalParameter expThreshold = query.getSearchParameter("exp_threshold");
+		SearchParameter expThreshold = query.getSearchParameter("exp_threshold");
 		String[] expThresholdOptions = appResources.getStringArray(R.array.exp_threshold_options);
 		List<String> listOfExpThresholds = Arrays.asList(expThresholdOptions);
 		int expThresholdPosition = listOfExpThresholds.indexOf(expThreshold.getValue());
 		mExpThresholdSpinner.setSelection(expThresholdPosition);
 		
-		OptionalParameter score = query.getSearchParameter("score");
+		SearchParameter score = query.getSearchParameter("score");
 		String[] scoreOptions = appResources.getStringArray(R.array.blastqueryentry_score_options);
 		List<String> listOfScores = Arrays.asList(scoreOptions);
 		int scorePosition = listOfScores.indexOf(score.getValue());
@@ -126,7 +126,7 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 			mSequenceEditor.setText(query.getSequence());
 		}
 		
-		OptionalParameter email = query.getSearchParameter("email");
+		SearchParameter email = query.getSearchParameter("email");
 		
 		if(email.getValue() == null || email.getValue().isEmpty()){
 			

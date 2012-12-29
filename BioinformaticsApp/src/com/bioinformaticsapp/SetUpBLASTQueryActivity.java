@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 
 public abstract class SetUpBLASTQueryActivity extends Activity {
 
@@ -106,8 +106,8 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 			query.setPrimaryKeyId(primaryKey);
 			
 			//Save the parameters:
-			List<OptionalParameter> parameters = new ArrayList<OptionalParameter>();
-			for(OptionalParameter parameter: query.getAllParameters()){
+			List<SearchParameter> parameters = new ArrayList<SearchParameter>();
+			for(SearchParameter parameter: query.getAllParameters()){
 				parameter.setBlastQueryId(query.getPrimaryKey());
 				long parameterPrimaryKey = optionalParametersController.save(parameter);
 				parameter.setPrimaryKey(parameterPrimaryKey);
@@ -122,7 +122,7 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 			//...or date the columns for the specified row:
 			controller.update(query.getPrimaryKey(), query);
 			
-			for(OptionalParameter parameter: query.getAllParameters()){
+			for(SearchParameter parameter: query.getAllParameters()){
 				optionalParametersController.update(parameter.getPrimaryKey(), parameter);
 			}
 			

@@ -24,7 +24,7 @@ import android.util.Log;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.web.BLASTQueryPoller;
@@ -78,7 +78,7 @@ public class PollQueryService extends IntentService {
 		
 		for(int i = 0; i < sentQueries.size(); i++){
 			BLASTQuery sentQuery = sentQueries.get(i);
-			List<OptionalParameter> parameters = parametersController.getParametersForQuery(sentQuery.getPrimaryKey());
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(sentQuery.getPrimaryKey());
 			sentQuery.updateAllParameters(parameters);
 			sent[i] = sentQuery;
 		}

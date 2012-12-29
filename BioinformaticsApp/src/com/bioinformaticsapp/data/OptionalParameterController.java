@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 
 import android.content.ContentValues;
@@ -25,7 +25,7 @@ public class OptionalParameterController {
 		mDAO.close();
 	}
 	
-	public long save(OptionalParameter parameter){
+	public long save(SearchParameter parameter){
 		ContentValues values = new ContentValues();
 		values.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_PARAM_NAME, parameter.getName());
 		values.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_PARAM_VALUE, parameter.getValue());
@@ -37,15 +37,15 @@ public class OptionalParameterController {
 		
 	}
 	
-	public List<OptionalParameter> getParametersForQuery(long queryId){
+	public List<SearchParameter> getParametersForQuery(long queryId){
 		
 		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_QUERY_FK +" = ?";
 		String[] queryFK = new String[]{String.valueOf(queryId)};
-		List<OptionalParameter> parametersForQuery = null;
+		List<SearchParameter> parametersForQuery = null;
 		Cursor cursor = mDAO.query(BLASTJob.OPTIONAL_PARAMETER_FULL_PROJECTION, where, queryFK);
 		
 		if(cursor.getCount() > 0){
-			parametersForQuery = new ArrayList<OptionalParameter>();
+			parametersForQuery = new ArrayList<SearchParameter>();
 		}
 		
 		while(cursor.moveToNext()){
@@ -53,7 +53,7 @@ public class OptionalParameterController {
 			String parameterName = cursor.getString(1);
 			String valueOfParameter = cursor.getString(2);
 			long queryForeignKey = cursor.getLong(3);
-			OptionalParameter parameter = new OptionalParameter(parameterName, valueOfParameter);
+			SearchParameter parameter = new SearchParameter(parameterName, valueOfParameter);
 			parameter.setPrimaryKey(id);
 			parameter.setBlastQueryId(queryForeignKey);
 			parametersForQuery.add(parameter);
@@ -64,7 +64,7 @@ public class OptionalParameterController {
 		
 	}
 	
-	public int update(long primaryKey, OptionalParameter parameter){
+	public int update(long primaryKey, SearchParameter parameter){
 		ContentValues newValues = new ContentValues();
 		newValues.put(BLASTJob.COLUMN_NAME_PRIMARY_KEY, parameter.getPrimaryKey());
 		newValues.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_PARAM_NAME, parameter.getName());

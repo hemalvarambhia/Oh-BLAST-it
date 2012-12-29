@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class OptionalParameter implements Serializable{
+public class SearchParameter implements Serializable{
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class OptionalParameter implements Serializable{
 	
 	private String value;
 	
-	public OptionalParameter(String name, String value){
+	public SearchParameter(String name, String value){
 		this.name = name;
 		this.value = value;
 	}
@@ -109,7 +109,7 @@ public class OptionalParameter implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OptionalParameter other = (OptionalParameter) obj;
+		SearchParameter other = (SearchParameter) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -137,23 +137,23 @@ public class OptionalParameter implements Serializable{
 				+ ", value=" + value + "]";
 	}
 	
-	public static List<OptionalParameter> createDefaultParametersFor(int vendorID){
-		List<OptionalParameter> queryOptionalParameters = new ArrayList<OptionalParameter>();
+	public static List<SearchParameter> createDefaultParametersFor(int vendorID){
+		List<SearchParameter> queryOptionalParameters = new ArrayList<SearchParameter>();
 		switch(vendorID){
 		case BLASTVendor.EMBL_EBI:			
-			queryOptionalParameters.add(new OptionalParameter("database", "em_rel_fun"));
-			queryOptionalParameters.add(new OptionalParameter("exp_threshold", "10"));
-			queryOptionalParameters.add(new OptionalParameter("score", "50"));
-			queryOptionalParameters.add(new OptionalParameter("match_mismatch_score", "1,-2"));
-			queryOptionalParameters.add(new OptionalParameter("email", ""));
+			queryOptionalParameters.add(new SearchParameter("database", "em_rel_fun"));
+			queryOptionalParameters.add(new SearchParameter("exp_threshold", "10"));
+			queryOptionalParameters.add(new SearchParameter("score", "50"));
+			queryOptionalParameters.add(new SearchParameter("match_mismatch_score", "1,-2"));
+			queryOptionalParameters.add(new SearchParameter("email", ""));
 			
 			break;
 			
 		case BLASTVendor.NCBI:
-			queryOptionalParameters.add(new OptionalParameter("database", "nr"));
-			queryOptionalParameters.add(new OptionalParameter("word_size", "28"));
-			queryOptionalParameters.add(new OptionalParameter("exp_threshold", "10"));
-			queryOptionalParameters.add(new OptionalParameter("match_mismatch_score", "1,-2"));
+			queryOptionalParameters.add(new SearchParameter("database", "nr"));
+			queryOptionalParameters.add(new SearchParameter("word_size", "28"));
+			queryOptionalParameters.add(new SearchParameter("exp_threshold", "10"));
+			queryOptionalParameters.add(new SearchParameter("match_mismatch_score", "1,-2"));
 			break;
 		default:
 			break;

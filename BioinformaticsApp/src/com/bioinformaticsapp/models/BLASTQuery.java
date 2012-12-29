@@ -46,7 +46,7 @@ public class BLASTQuery implements Serializable {
 	private int destination;
 	
 	/*Optional parameters*/
-	private List<OptionalParameter> queryOptionalParameters;
+	private List<SearchParameter> queryOptionalParameters;
 	
 	private String sequence;
 	
@@ -58,7 +58,7 @@ public class BLASTQuery implements Serializable {
 		statusOfJob = Status.DRAFT;
 		sequence = null;
 		program = typeOfQuery;
-		queryOptionalParameters = OptionalParameter.createDefaultParametersFor(vendor);
+		queryOptionalParameters = SearchParameter.createDefaultParametersFor(vendor);
 		destination = vendor;
 		
 	}
@@ -92,7 +92,7 @@ public class BLASTQuery implements Serializable {
 		
 		boolean containsParameter = false;
 		for(int i = 0; i < queryOptionalParameters.size(); i++){
-			OptionalParameter parameter = queryOptionalParameters.get(i);
+			SearchParameter parameter = queryOptionalParameters.get(i);
 			if(parameter.getName().equals(parameterName)){
 				containsParameter = true;
 				parameter.setValue(value);
@@ -101,20 +101,20 @@ public class BLASTQuery implements Serializable {
 		}
 		
 		if(!containsParameter){
-			queryOptionalParameters.add(new OptionalParameter(parameterName, value));
+			queryOptionalParameters.add(new SearchParameter(parameterName, value));
 		}
 		
 	}
 	
-	public void updateAllParameters(List<OptionalParameter> newSetOfParameters){
-		queryOptionalParameters = new ArrayList<OptionalParameter>(newSetOfParameters);
+	public void updateAllParameters(List<SearchParameter> newSetOfParameters){
+		queryOptionalParameters = new ArrayList<SearchParameter>(newSetOfParameters);
 	}
 	
-	public OptionalParameter getSearchParameter(String parameterName){
+	public SearchParameter getSearchParameter(String parameterName){
 		
-		OptionalParameter parameterWithName = null;
+		SearchParameter parameterWithName = null;
 		for(int i = 0; i < queryOptionalParameters.size(); i++){
-			OptionalParameter parameter = queryOptionalParameters.get(i);
+			SearchParameter parameter = queryOptionalParameters.get(i);
 			if(parameter.getName().equals(parameterName)){
 				parameterWithName = parameter;
 			}
@@ -123,8 +123,8 @@ public class BLASTQuery implements Serializable {
 		return parameterWithName;
 	}
 	
-	public List<OptionalParameter> getAllParameters(){
-		return new ArrayList<OptionalParameter>(queryOptionalParameters);
+	public List<SearchParameter> getAllParameters(){
+		return new ArrayList<SearchParameter>(queryOptionalParameters);
 	}
 	
 	public void setStatus(Status newStatus){
@@ -264,7 +264,7 @@ public class BLASTQuery implements Serializable {
 			return false;
 		}
 		
-		OptionalParameter email = getSearchParameter("email");
+		SearchParameter email = getSearchParameter("email");
 		
 		if(email != null){
 			

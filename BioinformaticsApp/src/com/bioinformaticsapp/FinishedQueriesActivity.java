@@ -34,7 +34,7 @@ import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 import com.bioinformaticsapp.web.BLASTHitsDownloadingTask;
 
 public class FinishedQueriesActivity extends ListActivity implements LoaderCallbacks<Cursor>{
@@ -162,7 +162,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 			
 			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
 			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
-			List<OptionalParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
 			selected.updateAllParameters(parameters);
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("query", selected);
@@ -212,7 +212,7 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 		super.onListItemClick(l, v, position, id);
 		
 		selected = queryController.findBLASTQueryById(id);
-		List<OptionalParameter> parameters = parametersController.getParametersForQuery(id);
+		List<SearchParameter> parameters = parametersController.getParametersForQuery(id);
 		
 		selected.updateAllParameters(parameters);
 		

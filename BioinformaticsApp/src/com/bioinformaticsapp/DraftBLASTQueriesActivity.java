@@ -31,7 +31,7 @@ import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.BLASTVendor;
-import com.bioinformaticsapp.models.OptionalParameter;
+import com.bioinformaticsapp.models.SearchParameter;
 
 public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCallbacks<Cursor>{
 
@@ -233,7 +233,7 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 		
 		super.onListItemClick(l, v, position, id);
 		BLASTQuery selectedQuery = queryController.findBLASTQueryById(id);
-		List<OptionalParameter> parameters = parametersController.getParametersForQuery(selectedQuery.getPrimaryKey());
+		List<SearchParameter> parameters = parametersController.getParametersForQuery(selectedQuery.getPrimaryKey());
 		
 		selectedQuery.updateAllParameters(parameters);
 		Log.d(TAG, selectedQuery.toString());
