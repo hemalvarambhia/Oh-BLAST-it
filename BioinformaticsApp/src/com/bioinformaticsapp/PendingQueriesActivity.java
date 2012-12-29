@@ -2,13 +2,7 @@ package com.bioinformaticsapp;
 
 import java.util.List;
 
-import android.app.ListActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -17,35 +11,31 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
+import com.bioinformaticsapp.data.Filter;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.SearchParameter;
 
-public class PendingQueriesActivity extends ListActivity implements LoaderCallbacks<Cursor>{
+public class PendingQueriesActivity extends BLASTQueryListingActivity {
 
 
 	private static final int RUNNING_CURSOR_LOADER = 0x03;
 	
-	private CursorAdapter mCursorAdapter;
-	
 	private final static int REFRESH_MENU_ITEM = 0;
-	
-	private BLASTQueryController queryController;
-	
-	private OptionalParameterController parameterController;
 	
 	/** Called when the activity is first created. */
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         
     	super.onCreate(savedInstanceState);
-        
+		
+		filter = new Filter(BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS +" IN (?, ?, ?)", new String[]{BLASTQuery.Status.RUNNING.toString(), BLASTQuery.Status.PENDING.toString(), BLASTQuery.Status.SUBMITTED.toString()});
+    	
         int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         
         Intent intent = getIntent();
@@ -67,7 +57,7 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
      
         queryController = new BLASTQueryController(this);
         
-        parameterController = new OptionalParameterController(this);
+        parametersController = new OptionalParameterController(this);
         
     }
 	
@@ -87,7 +77,7 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
 		super.onPause();
 		if(isFinishing()){
 			queryController.close();
-			parameterController.close();
+			parametersController.close();
 		}
 	}
 
@@ -159,7 +149,7 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
 			
 			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
 			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
-			List<SearchParameter> parameters = parameterController.getParametersForQuery(menuinfo.id);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
 			selected.updateAllParameters(parameters);
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("query", selected);
@@ -179,28 +169,5 @@ public class PendingQueriesActivity extends ListActivity implements LoaderCallba
 		return itemSelectionHandled;
 		
 	}
-
-
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		Uri uri = getIntent().getData();
-		
-		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS +" IN (?, ?, ?)";
-		
-		String[] whereArgs = new String[]{BLASTQuery.Status.RUNNING.toString(), BLASTQuery.Status.PENDING.toString(), BLASTQuery.Status.SUBMITTED.toString()};
-		
-		CursorLoader cursorLoader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, where, whereArgs, null);
-		
-		return cursorLoader;
-	}
-
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-		mCursorAdapter.swapCursor(cursor);
-		
-	}
-
-	public void onLoaderReset(Loader<Cursor> arg0) {
-		mCursorAdapter.swapCursor(null);
-	}
-
 
 }
