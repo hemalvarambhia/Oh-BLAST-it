@@ -49,12 +49,6 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
     	
         int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         
-        Intent intent = getIntent();
-        
-        if(intent.getData() == null){
-        	intent.setData(BLASTQuery.BLASTJob.CONTENT_URI);
-        }
-        
         registerForContextMenu(getListView());
         
         //We only wish to show running and finished queries:

@@ -36,12 +36,6 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
     	
         int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         
-        Intent intent = getIntent();
-        
-        if(intent.getData() == null){
-        	intent.setData(BLASTQuery.BLASTJob.CONTENT_URI);
-        }
-        
         //We only wish to show running and finished queries:
         String [] dataColumns = new String[]{BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS};
         

@@ -144,12 +144,6 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		
 		int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         
-	    Intent intent = getIntent();
-        
-        if(intent.getData() == null){
-        	intent.setData(BLASTQuery.BLASTJob.CONTENT_URI);
-        }
-        
         String [] dataColumns = new String[]{BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS};
         
         mCursorAdapter = new SimpleCursorAdapter(this, R.layout.draft_query_list_item, null, dataColumns, viewId, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);

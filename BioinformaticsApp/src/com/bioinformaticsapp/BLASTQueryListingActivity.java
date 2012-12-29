@@ -10,6 +10,7 @@ import com.bioinformaticsapp.models.BLASTQuery.Status;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -23,6 +24,12 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
     	queryController = new BLASTQueryController(this); 
     	parametersController = new OptionalParameterController(this);
 
+    	Intent intent = getIntent();
+        
+        if(intent.getData() == null){
+        	intent.setData(BLASTQuery.BLASTJob.CONTENT_URI);
+        }
+        
 	}
 	
 	
