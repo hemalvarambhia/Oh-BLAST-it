@@ -2,7 +2,7 @@ package com.bioinformaticsapp;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.Filter;
-import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
@@ -22,7 +22,7 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
     	queryController = new BLASTQueryController(this); 
-    	parametersController = new OptionalParameterController(this);
+    	parametersController = new SearchParameterController(this);
 
     	Intent intent = getIntent();
         
@@ -66,7 +66,7 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	
 	protected BLASTQueryController queryController;
 	
-	protected OptionalParameterController parametersController;
+	protected SearchParameterController parametersController;
 
 	protected Filter filter;
 	

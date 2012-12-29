@@ -11,12 +11,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-public class OptionalParameterController {
+public class SearchParameterController {
 
-	private OptionalParametersDAO mDAO;
+	private SearchParametersDAO mDAO;
 	
-	public OptionalParameterController(Context context){
-		mDAO = new OptionalParametersDAO(context);
+	public SearchParameterController(Context context){
+		mDAO = new SearchParametersDAO(context);
 		mDAO.open();
 	}
 	

@@ -22,7 +22,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.SearchParameter;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
@@ -72,7 +72,7 @@ public class PollQueryService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		BLASTQueryController queryController = new BLASTQueryController(this);
-		OptionalParameterController parametersController = new OptionalParameterController(this);
+		SearchParameterController parametersController = new SearchParameterController(this);
 		List<BLASTQuery> sentQueries = queryController.getSubmittedAndRunningQueries();
 		BLASTQuery[] sent = new BLASTQuery[sentQueries.size()];
 		

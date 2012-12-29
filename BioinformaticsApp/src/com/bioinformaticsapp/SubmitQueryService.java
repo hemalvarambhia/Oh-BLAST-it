@@ -9,7 +9,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.SearchParameter;
@@ -36,7 +36,7 @@ public class SubmitQueryService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent launchingIntent) {
 		BLASTQueryController queryController = new BLASTQueryController(this);
-		OptionalParameterController parametersController = new OptionalParameterController(this);
+		SearchParameterController parametersController = new SearchParameterController(this);
 		List<BLASTQuery> pendingQueries = queryController.findBLASTQueriesByStatus(Status.PENDING);
 		BLASTQuery[] pending = new BLASTQuery[pendingQueries.size()];
 		

@@ -17,7 +17,7 @@ import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
  * @author Hemal N Varambhia
  *
  */
-public class OptionalParametersDAO {
+public class SearchParametersDAO {
 	private static final String TAG = "OptionalParametersDAO";
 	/**
 	 * The delegate class that will create our database
@@ -44,11 +44,11 @@ public class OptionalParametersDAO {
 	
 	private SQLiteDatabase database;
 	
-	public OptionalParametersDAO(Context context){
+	public SearchParametersDAO(Context context){
 		mDatabaseHelper = new DatabaseHelper(context);
 	}
 	
-	public OptionalParametersDAO open(){
+	public SearchParametersDAO open(){
 		database = mDatabaseHelper.getWritableDatabase();
 		return this;
 	}

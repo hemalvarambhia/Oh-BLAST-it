@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
@@ -121,7 +121,7 @@ public class BLASTQuerySender extends
 	
 	private void save(BLASTQuery query){
 		BLASTQueryController queryController = new BLASTQueryController(this.context);
-		OptionalParameterController parametersController = new OptionalParameterController(this.context);
+		SearchParameterController parametersController = new SearchParameterController(this.context);
 		
 		List<SearchParameter> parameters = query.getAllParameters();
 		

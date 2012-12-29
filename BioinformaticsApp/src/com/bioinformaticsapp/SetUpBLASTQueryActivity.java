@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.SearchParameter;
 
@@ -26,7 +26,7 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 		
 		controller = new BLASTQueryController(this);
 		
-		optionalParametersController = new OptionalParameterController(this);
+		optionalParametersController = new SearchParameterController(this);
 		
 		query = (BLASTQuery)launchingIntent.getSerializableExtra("query");
 	}
@@ -180,6 +180,6 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 	
 	protected BLASTQueryController controller;
 	
-	protected OptionalParameterController optionalParametersController;
+	protected SearchParameterController optionalParametersController;
 	
 }

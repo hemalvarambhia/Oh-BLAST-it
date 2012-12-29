@@ -16,7 +16,7 @@ import android.os.AsyncTask;
 
 import com.bioinformaticsapp.FinishedQueriesActivity;
 import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.OptionalParameterController;
+import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
 import com.bioinformaticsapp.models.SearchParameter;
@@ -123,7 +123,7 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 
 	private void save(BLASTQuery query){
 		BLASTQueryController queryController = new BLASTQueryController(this.context);
-		OptionalParameterController parametersController = new OptionalParameterController(this.context);
+		SearchParameterController parametersController = new SearchParameterController(this.context);
 		
 		List<SearchParameter> parameters = query.getAllParameters();
 		
