@@ -34,18 +34,13 @@ import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.SearchParameter;
 import com.bioinformaticsapp.web.BLASTHitsDownloadingTask;
 
-public class FinishedQueriesActivity extends ListActivity implements LoaderCallbacks<Cursor>{
+public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 
 	private static final int FINISHED_CURSOR_LOADER = 0x02;
-	
-	private CursorAdapter mCursorAdapter;
-	
-	private BLASTQueryController queryController;
-	
-	private OptionalParameterController parametersController;
 	
 	private BLASTQuery selected;
 	
@@ -57,7 +52,9 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
     public void onCreate(Bundle savedInstanceState) {
         
     	super.onCreate(savedInstanceState);
-        
+    
+    	status = Status.FINISHED;
+    	
         int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         
         Intent intent = getIntent();
@@ -226,27 +223,6 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 		}
 	}
 
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		Uri uri = getIntent().getData();
-		
-		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS +" = ?";
-		
-		String[] whereArgs = new String[]{BLASTQuery.Status.FINISHED.toString()};
-		
-		CursorLoader cursorLoader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, where, whereArgs, null);
-		
-		return cursorLoader;
-	}
-
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-		mCursorAdapter.swapCursor(cursor);
-		
-	}
-
-	public void onLoaderReset(Loader<Cursor> arg0) {
-		mCursorAdapter.swapCursor(null);
-	}
-	
 	private boolean fileExists(String blastHitsFile){
 		boolean fileExists = false;
 		try {
@@ -351,8 +327,6 @@ public class FinishedQueriesActivity extends ListActivity implements LoaderCallb
 			mProgressDialog.setMessage("Please wait...");
 			mProgressDialog.show();
 		}
-		
-		
 		
 	}
 

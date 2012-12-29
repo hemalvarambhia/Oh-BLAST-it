@@ -5,16 +5,9 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.ListActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -30,10 +23,11 @@ import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.BLASTVendor;
 import com.bioinformaticsapp.models.SearchParameter;
 
-public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCallbacks<Cursor>{
+public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 
 	private final static int DRAFT_QUERIES_LOADER = 0x01;
 	
@@ -41,45 +35,7 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 	
 	private final static int CREATE_QUERY = 2;
 	
-	private CursorAdapter mCursorAdapter;
-	
-	private BLASTQueryController queryController;
-	private OptionalParameterController parametersController;
-	
 	public static final int READY_TO_SEND = 1;
-	
-	
-	/**
-	 * Here we retrieve the draft queries from a separate thread 
-	 */
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		
-		//Get the path to the content
-		Uri uri = getIntent().getData();
-		
-		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?";
-        
-		//We want to retrieve DRAFT queries:
-        String[] whereArgs = new String[]{BLASTQuery.Status.DRAFT.toString()};
-		
-        CursorLoader loader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, where, whereArgs, null);
-		
-		return loader;
-	}
-
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-		
-		mCursorAdapter.swapCursor(cursor);
-	
-	}
-
-	public void onLoaderReset(Loader<Cursor> arg0) {
-		
-		mCursorAdapter.swapCursor(null);
-	
-	}
-
-	
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -185,6 +141,8 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 		
 		super.onCreate(savedInstanceState);
 		
+		status = Status.DRAFT;
+		
 		int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         
 	    Intent intent = getIntent();
@@ -195,11 +153,11 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
         
         String [] dataColumns = new String[]{BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS};
         
+        mCursorAdapter = new SimpleCursorAdapter(this, R.layout.draft_query_list_item, null, dataColumns, viewId, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         //We wish to load data from the content provider asynchronously
         //and not on the UI thread.
         getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
         
-        mCursorAdapter = new SimpleCursorAdapter(this, R.layout.draft_query_list_item, null, dataColumns, viewId, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         
 
     	queryController = new BLASTQueryController(this); 
@@ -236,7 +194,6 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 		List<SearchParameter> parameters = parametersController.getParametersForQuery(selectedQuery.getPrimaryKey());
 		
 		selectedQuery.updateAllParameters(parameters);
-		Log.d(TAG, selectedQuery.toString());
 		Intent setupExistingQuery = null;
 		
 		switch(selectedQuery.getVendorID()){
@@ -309,6 +266,4 @@ public class DraftBLASTQueriesActivity extends ListActivity implements LoaderCal
 		}
 		
 	}
-	
-
 }
