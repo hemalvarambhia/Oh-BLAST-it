@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.SimpleCursorAdapter;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.Filter;
-import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
