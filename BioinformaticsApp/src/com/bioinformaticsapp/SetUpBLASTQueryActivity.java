@@ -162,6 +162,9 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 				//Start the polling service
 				finish();
 			}else{
+				if(mProgressDialog.isShowing()){
+					mProgressDialog.dismiss();
+				}
 				Toast t = Toast.makeText(SetUpBLASTQueryActivity.this, "Query could not be sent as it is invalid", Toast.LENGTH_LONG);
 				t.show();
 				
