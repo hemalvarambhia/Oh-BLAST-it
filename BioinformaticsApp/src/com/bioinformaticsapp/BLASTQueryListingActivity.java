@@ -1,6 +1,7 @@
 package com.bioinformaticsapp;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
+import com.bioinformaticsapp.data.Filter;
 import com.bioinformaticsapp.data.OptionalParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
@@ -23,11 +24,7 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri uri = getIntent().getData();
 		
-		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS +" = ?";
-		
-		String[] whereArgs = new String[]{status.toString()};
-		
-		CursorLoader cursorLoader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, where, whereArgs, null);
+		CursorLoader cursorLoader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, filter.condition(), filter.arguments(), null);
 		
 		return cursorLoader;
 	}
@@ -50,6 +47,6 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	
 	protected OptionalParameterController parametersController;
 
-	protected Status status;
+	protected Filter filter;
 	
 }
