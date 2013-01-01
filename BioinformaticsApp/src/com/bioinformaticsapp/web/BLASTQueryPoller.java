@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import com.bioinformaticsapp.FinishedQueriesActivity;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
+import com.bioinformaticsapp.helpers.StatusTranslator;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
 import com.bioinformaticsapp.models.SearchParameter;
@@ -33,10 +34,13 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 	
 	private EMBLEBIBLASTService emblService;
 	
+	private StatusTranslator translator;
+	
 	public BLASTQueryPoller(Context context){
 		this.context = context;
 		ncbiService = new NCBIBLASTService();
 		emblService = new EMBLEBIBLASTService();
+		translator = new StatusTranslator();
 	}
 	
 	@Override
@@ -47,13 +51,13 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 				
 				BLASTSequenceQueryingService service = getServiceFor(queries[i].getVendorID());
 				
-				BLASTQuery.Status current = service.pollQuery(queries[i].getJobIdentifier());
+				SearchStatus current = service.pollQuery(queries[i].getJobIdentifier());
 				
-				queries[i].setStatus(current);
+				queries[i].setStatus(translator.translate(current));
 				
 				save(queries[i]);
 
-				report.addOutcome(queries[i].getPrimaryKey(), current);
+				report.addOutcome(queries[i].getPrimaryKey(), translator.translate(current));
 			}
 		}
 		close();

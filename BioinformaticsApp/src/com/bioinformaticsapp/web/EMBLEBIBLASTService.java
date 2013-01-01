@@ -83,7 +83,7 @@ public class EMBLEBIBLASTService implements BLASTSequenceQueryingService {
 		return ebiJobIdentifier;
 	}
 	
-	public Status pollQuery(String jobIdentifier) {
+	public SearchStatus pollQuery(String jobIdentifier) {
 		
 		if(jobIdentifier == null){
 			throw new IllegalArgumentException("Job identifier was null");
@@ -109,7 +109,7 @@ public class EMBLEBIBLASTService implements BLASTSequenceQueryingService {
 			statusOfQueryString = "RUNNING";
 			Log.e(TAG, "IOException");
 		}
-		Status statusOfQuery = BLASTQuery.Status.valueOf(statusOfQueryString);
+		SearchStatus statusOfQuery = SearchStatus.valueOf(statusOfQueryString);
 		
 		return statusOfQuery;
 		

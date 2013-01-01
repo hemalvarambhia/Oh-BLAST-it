@@ -93,7 +93,7 @@ public class NCBIBLASTService implements BLASTSequenceQueryingService {
 		
 	}
 	
-	public Status pollQuery(String jobIdentifier){
+	public SearchStatus pollQuery(String jobIdentifier){
 		
 		if(jobIdentifier == null){
 			throw new IllegalArgumentException("BLAST job identifier cannot be null");
@@ -147,22 +147,22 @@ public class NCBIBLASTService implements BLASTSequenceQueryingService {
 		}
 		
 		if(statusOfQueryString.equals("WAITING")){
-			return BLASTQuery.Status.RUNNING;
+			return SearchStatus.RUNNING;
 		}
 		
 		if(statusOfQueryString.equals("READY")){
-			return BLASTQuery.Status.FINISHED;
+			return SearchStatus.FINISHED;
 		}
 		
 		if(statusOfQueryString.equals("ERROR")){
-			return BLASTQuery.Status.ERROR;
+			return SearchStatus.ERROR;
 		}
 		
 		if(statusOfQueryString.equals("UNKNOWN")){
-			return BLASTQuery.Status.NOT_FOUND;
+			return SearchStatus.NOT_FOUND;
 		}
 		
-		return Status.UNSURE;
+		return SearchStatus.UNSURE;
 	}
 	
 	public String retrieveBLASTResults(String jobIdentifier, String resultType){
