@@ -22,13 +22,32 @@
         android:layout_below="@+id/sequence_label"
         android:layout_centerHorizontal="true" />
 
+      <TextView
+        android:id="@+id/email_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/sequence_label"
+        android:text="@string/blastqueryentry_email_label" />  
+     
+     <EditText
+        android:id="@+id/embl_send_to_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/email_label"
+        android:layout_alignBottom="@+id/email_label"
+        android:layout_marginLeft="140dp"
+        android:inputType="textEmailAddress"
+         />
+    
     <TextView
         android:id="@+id/blast_program_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/embl_sequence_editor"
-        android:layout_marginTop="22dp"
+        android:layout_below="@+id/embl_send_to_email"
+        android:layout_marginTop="20dp"
         android:text="@string/blastqueryentry_program_label" />
 
     <Spinner
@@ -43,7 +62,7 @@
         android:id="@+id/database_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/blast_program_label"
         android:text="@string/blastqueryentry_database_spinner_label" />
@@ -61,7 +80,7 @@
         android:id="@+id/exp_threshold_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/database_label"
         android:text="@string/blastqueryentry_expthreshold_txtview_label" />
@@ -79,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/exp_threshold_label"
         android:text="@string/blastqueryentry_score_label" />
      
@@ -91,24 +110,7 @@
         android:layout_marginLeft="140dp"
         android:entries="@array/blastqueryentry_score_options" />
 
-     <TextView
-        android:id="@+id/email_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="55dp"
-        android:layout_below="@+id/score_label"
-        android:text="@string/blastqueryentry_email_label" />  
-     
-     <EditText
-        android:id="@+id/embl_send_to_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/email_label"
-        android:layout_alignBottom="@+id/email_label"
-        android:layout_marginLeft="140dp"
-        android:inputType="textEmailAddress"
-         />
+   
     
     
 </RelativeLayout>
