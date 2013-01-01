@@ -5,11 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.biojava.bio.seq.DNATools;
-import org.biojava.bio.seq.Sequence;
-import org.biojava.bio.seq.SequenceTools;
 import org.biojava.bio.symbol.IllegalSymbolException;
-import org.biojava.bio.symbol.SimpleSymbolList;
-
 
 import android.net.Uri;
 import android.provider.BaseColumns;
