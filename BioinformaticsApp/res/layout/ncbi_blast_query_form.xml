@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:text="@string/blastquerystats_sequence_label" />
 
     <EditText
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ncbi_sequence_edittext"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/blastqueryentry_program_label" />
 
     <Spinner
