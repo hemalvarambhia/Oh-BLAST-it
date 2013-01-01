@@ -1,12 +1,5 @@
 package com.bioinformaticsapp;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.Filter;
-import com.bioinformaticsapp.data.SearchParameterController;
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
-import com.bioinformaticsapp.models.BLASTQuery.Status;
-
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
@@ -16,6 +9,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.SimpleCursorAdapter;
+
+import com.bioinformaticsapp.data.BLASTQueryController;
+import com.bioinformaticsapp.data.SearchParameterController;
+import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 
 public class BLASTQueryListingActivity extends ListActivity implements LoaderCallbacks<Cursor> {
 
@@ -45,7 +43,7 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri uri = getIntent().getData();
 		
-		CursorLoader cursorLoader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, filter.condition(), filter.arguments(), null);
+		CursorLoader cursorLoader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, filterCondition, values, null);
 		
 		return cursorLoader;
 	}
@@ -68,6 +66,8 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	
 	protected SearchParameterController parametersController;
 
-	protected Filter filter;
+	protected String filterCondition;
+	
+	protected String[] values;
 	
 }

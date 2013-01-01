@@ -22,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.bioinformaticsapp.data.Filter;
 import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
@@ -45,7 +44,8 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
         
     	super.onCreate(savedInstanceState);
     
-    	filter = new Filter(BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?", new String[]{Status.FINISHED.toString()});
+    	filterCondition = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?";
+    	values = new String[]{Status.FINISHED.toString()};
     	
         int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         

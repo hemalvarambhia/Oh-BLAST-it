@@ -2,7 +2,6 @@ package com.bioinformaticsapp;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.SimpleCursorAdapter;
 
-import com.bioinformaticsapp.data.Filter;
 import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
@@ -32,7 +30,8 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
         
     	super.onCreate(savedInstanceState);
 		
-		filter = new Filter(BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS +" IN (?, ?, ?)", new String[]{BLASTQuery.Status.RUNNING.toString(), BLASTQuery.Status.PENDING.toString(), BLASTQuery.Status.SUBMITTED.toString()});
+		filterCondition = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS +" = ?";
+		values = new String[]{BLASTQuery.Status.SUBMITTED.toString()};
     	
         int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         

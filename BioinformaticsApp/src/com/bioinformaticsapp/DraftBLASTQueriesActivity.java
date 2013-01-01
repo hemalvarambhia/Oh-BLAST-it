@@ -19,7 +19,6 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.bioinformaticsapp.data.Filter;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
@@ -140,7 +139,8 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		
 		super.onCreate(savedInstanceState);
 		
-		filter = new Filter(BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?", new String[]{Status.DRAFT.toString()});
+		filterCondition = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?";
+		values = new String[]{Status.DRAFT.toString()};
 		
 		int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
         
