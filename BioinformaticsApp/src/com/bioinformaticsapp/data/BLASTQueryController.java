@@ -117,8 +117,7 @@ public class BLASTQueryController {
 		return queriesWithStatus;
 	}
 
-	public List<BLASTQuery> getSubmittedAndRunningQueries() {
-		// TODO Auto-generated method stub
+	public List<BLASTQuery> getSubmittedBLASTQueries() {
 		String[] projection = new String[]{
 				BLASTJob.COLUMN_NAME_PRIMARY_KEY, //0 
 				BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, //1
@@ -127,8 +126,8 @@ public class BLASTQueryController {
 				BLASTJob.COLUMN_NAME_BLASTQUERY_SEQUENCE, //4
 				BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS}; //5
 		
-		String whereClause = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" IN (?, ?)";
-		String[] primaryKey = new String[]{String.valueOf(Status.SUBMITTED), String.valueOf(Status.RUNNING)};
+		String whereClause = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?";
+		String[] primaryKey = new String[]{String.valueOf(Status.SUBMITTED)};
 		
 		Cursor row = mDAO.query(projection, whereClause, primaryKey, null);
 		

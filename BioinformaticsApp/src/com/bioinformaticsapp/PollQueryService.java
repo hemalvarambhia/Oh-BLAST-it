@@ -58,7 +58,7 @@ public class PollQueryService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		BLASTQueryController queryController = new BLASTQueryController(this);
 		SearchParameterController parametersController = new SearchParameterController(this);
-		List<BLASTQuery> sentQueries = queryController.getSubmittedAndRunningQueries();
+		List<BLASTQuery> sentQueries = queryController.getSubmittedBLASTQueries();
 		BLASTQuery[] sent = new BLASTQuery[sentQueries.size()];
 		
 		for(int i = 0; i < sentQueries.size(); i++){
