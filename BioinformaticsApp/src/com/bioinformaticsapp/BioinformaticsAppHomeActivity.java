@@ -22,6 +22,9 @@ public class BioinformaticsAppHomeActivity extends ListActivity {
     
 	public static final int READY_TO_SEND = 1;
 	
+	private final static int CREATE_QUERY = 2;
+	
+	
 	/** Called when the activity is first created. */
 	
 	@Override
@@ -62,7 +65,7 @@ public class BioinformaticsAppHomeActivity extends ListActivity {
 		case R.id.create_embl_query: {
 			Intent setupBLASTQuery = new Intent(this, EMBLEBISetUpQueryActivity.class);
 			setupBLASTQuery.putExtra("query", new BLASTQuery("blastn", BLASTVendor.EMBL_EBI));
-			startActivity(setupBLASTQuery);
+			startActivityForResult(setupBLASTQuery, CREATE_QUERY);
 			handled = true;
 			
 		}
@@ -71,7 +74,7 @@ public class BioinformaticsAppHomeActivity extends ListActivity {
 		case R.id.create_ncbi_query: {
 			Intent setupBLASTQuery = new Intent(this, NCBIQuerySetUpActivity.class);
 			setupBLASTQuery.putExtra("query", new BLASTQuery("blastn", BLASTVendor.NCBI));
-			startActivity(setupBLASTQuery);
+			startActivityForResult(setupBLASTQuery, CREATE_QUERY);
 			handled = true;
 		}
 		break;
