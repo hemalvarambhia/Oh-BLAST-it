@@ -48,9 +48,9 @@
             </intent-filter>
         </receiver>
         <activity android:name="NCBIQuerySetUpActivity"></activity>
-        <receiver android:name=".BLASTQuerySubmissionAlarmReceiver">
+        <receiver android:name=".BLASTQueriesFinishedReceiver">
             <intent-filter >
-                <action android:name="com.bioinformaticsapp.SUBMIT_PENDING_QUERIES_ACTION">
+                <action android:name="com.bioinformaticsapp.QUERIES_FINISHED_ACTION">
                     
                 </action>
             </intent-filter>

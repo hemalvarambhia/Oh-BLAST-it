@@ -5,16 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
-import com.bioinformaticsapp.FinishedQueriesActivity;
+import com.bioinformaticsapp.BLASTQueriesFinishedReceiver;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.helpers.StatusTranslator;
@@ -26,7 +23,7 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 
 	private Context context;
 	
-	private static final int JOB_FINISHED_NOTI_ID = 2;
+	public static final int JOB_FINISHED_NOTI_ID = 2;
 
 	private static final String TAG = "BLASTQueryPoller";
 	
@@ -73,19 +70,8 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		if(result.anyQueriesFinished()){
-			NotificationManager mgr = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-			Notification.Builder builder = new Notification.Builder(context);
-			builder.setWhen(System.currentTimeMillis());
-			builder.setAutoCancel(true);
-			builder.setSmallIcon(com.bioinformaticsapp.R.drawable.ic_dna);
-			builder.setTicker("BLAST queries finished");
-			builder.setContentText("Click to view the results");
-			builder.setContentTitle("BLAST Queries Finished");
-			Intent finishedQueriesActivity = new Intent(context, FinishedQueriesActivity.class);
-			PendingIntent finishedQueries = PendingIntent.getActivity(context, 0, finishedQueriesActivity, Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			builder.setContentIntent(finishedQueries);
-			Notification notification = builder.getNotification();
-			mgr.notify(JOB_FINISHED_NOTI_ID, notification);
+			Intent queriesFinishedAnnouncement = new Intent(BLASTQueriesFinishedReceiver.QUERIES_FINISHED_ACTION);
+			context.sendBroadcast(queriesFinishedAnnouncement);
 		}
 		
 	}

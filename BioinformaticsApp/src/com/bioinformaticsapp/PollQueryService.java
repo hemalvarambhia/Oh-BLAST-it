@@ -1,34 +1,19 @@
 package com.bioinformaticsapp;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
-import android.app.Notification;
-import android.app.Notification.Builder;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.SystemClock;
-import android.util.Log;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.SearchParameter;
-import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
-import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.web.BLASTQueryPoller;
-import com.bioinformaticsapp.web.EMBLEBIBLASTService;
 
 
 /**
