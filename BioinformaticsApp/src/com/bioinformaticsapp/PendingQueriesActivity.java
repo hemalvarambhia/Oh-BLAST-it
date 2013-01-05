@@ -179,17 +179,5 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
 		dialog.show();
 		
 	}
-	
-	private boolean deleteQuery(long id){
-		
-		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
-	
-		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
-		
-		int numberOfQueriesDeleted = queryController.delete(id);
-		
-		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
-	
-	}
 
 }

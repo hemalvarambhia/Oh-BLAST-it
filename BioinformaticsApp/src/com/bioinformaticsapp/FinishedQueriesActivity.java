@@ -252,18 +252,6 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 		
 	}
 	
-	private boolean deleteQuery(long id){
-		
-		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
-		
-		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
-		
-		int numberOfQueriesDeleted = queryController.delete(id);
-		
-		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
-		
-	}
-	
 	private class BLASTHitsDownloader extends BLASTHitsDownloadingTask {
 
 		private ProgressDialog mProgressDialog;

@@ -1,8 +1,12 @@
 package com.bioinformaticsapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.AlertDialog.Builder;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -59,6 +63,19 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 		mCursorAdapter.swapCursor(null);
 		
 	}
+	
+	protected boolean deleteQuery(long id){
+		
+		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
+	
+		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
+		
+		int numberOfQueriesDeleted = queryController.delete(id);
+		
+		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
+	
+	}
+
 
 	protected SimpleCursorAdapter mCursorAdapter;
 	

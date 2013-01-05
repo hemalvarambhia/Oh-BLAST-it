@@ -213,18 +213,6 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		
 	}
 
-	private boolean deleteQuery(long id){
-		
-		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
-	
-		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
-		
-		int numberOfQueriesDeleted = queryController.delete(id);
-		
-		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
-	
-	}
-
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
 	 */
