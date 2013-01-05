@@ -2,6 +2,10 @@ package com.bioinformaticsapp;
 
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -121,6 +125,12 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
 		
 		switch(itemId){
 		
+		case R.id.delete_menu_item: {
+			doDeleteAction(menuinfo.id);
+			itemSelectionHandled = true;
+		}
+		break;
+		
 		case R.id.view_parameters_menu_item: {
 			
 			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
@@ -134,6 +144,7 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
 			
 			itemSelectionHandled = true;
 		}
+		break;
 		
 		default:
 			itemSelectionHandled = super.onContextItemSelected(item);
@@ -144,6 +155,41 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
 		
 		return itemSelectionHandled;
 		
+	}
+	
+	private void doDeleteAction(final long id){
+		
+		AlertDialog.Builder builder = new Builder(this);
+		builder = builder.setTitle("Deleting");
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder = builder.setMessage(R.string.delete_query_message);
+		builder.setCancelable(false);
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				
+				deleteQuery(id);
+				getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, PendingQueriesActivity.this);
+			}
+		});
+		
+		builder.setNegativeButton("Cancel", null);
+		
+		Dialog dialog = builder.create();
+		dialog.show();
+		
+	}
+	
+	private boolean deleteQuery(long id){
+		
+		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
+	
+		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
+		
+		int numberOfQueriesDeleted = queryController.delete(id);
+		
+		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
+	
 	}
 
 }
