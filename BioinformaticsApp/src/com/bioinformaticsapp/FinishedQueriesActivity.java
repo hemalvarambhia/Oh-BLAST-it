@@ -151,7 +151,7 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 			
 			itemSelectionHandled = true;
 		}
-		
+		break;
 		default:
 			itemSelectionHandled = super.onContextItemSelected(item);
 			break;

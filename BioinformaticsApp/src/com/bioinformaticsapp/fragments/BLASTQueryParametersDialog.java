@@ -34,7 +34,11 @@ public class BLASTQueryParametersDialog extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		getDialog().setTitle(mBLASTquery.getJobIdentifier());
+		if(mBLASTquery.getJobIdentifier() == null){
+			getDialog().setTitle("BLAST Query parameters");
+		}else{
+			getDialog().setTitle(mBLASTquery.getJobIdentifier());
+		}
 		
 		View dialogView = null;
 		switch(mBLASTquery.getVendorID()){

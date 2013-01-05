@@ -19,6 +19,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import com.bioinformaticsapp.fragments.BLASTQueryParametersDialog;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
@@ -119,7 +120,21 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		}
 		
 		break;
+		
+		case R.id.view_parameters_menu_item: {
+			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
+			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
+			selected.updateAllParameters(parameters);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("query", selected);
+			dialog.setArguments(bundle);
+			dialog.show(getFragmentManager(), "dialog");
 			
+			itemSelectionHandled = true;
+		
+		}
+		break;
 		default:
 			itemSelectionHandled = super.onContextItemSelected(item);
 			break;
