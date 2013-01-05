@@ -32,7 +32,7 @@ public class BLASTQuery implements Serializable {
 	public static final String BLAST_SEARCH_PARAMS_TABLE = "BLASTsearch_params";
 	
 	public enum Status {
-		DRAFT, PENDING, SUBMITTED, RUNNING, UNSURE, FINISHED, ERROR, NOT_FOUND;
+		DRAFT, PENDING, SUBMITTED, UNSURE, FINISHED, ERROR, NOT_FOUND;
 	}
 	
 	private String blastJobID;
