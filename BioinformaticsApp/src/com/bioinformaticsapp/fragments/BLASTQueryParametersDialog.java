@@ -35,7 +35,7 @@ public class BLASTQueryParametersDialog extends DialogFragment {
 			Bundle savedInstanceState) {
 		
 		if(mBLASTquery.getJobIdentifier() == null){
-			getDialog().setTitle("BLAST Query parameters");
+			getDialog().setTitle("BLAST Query Parameters");
 		}else{
 			getDialog().setTitle(mBLASTquery.getJobIdentifier());
 		}
