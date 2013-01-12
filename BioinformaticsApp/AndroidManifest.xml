@@ -55,6 +55,7 @@
                 </action>
             </intent-filter>
         </receiver>
+        <activity android:name=".BLASTQuerySearchParametersActivity" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
 </manifest>
