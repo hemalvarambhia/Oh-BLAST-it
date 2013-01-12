@@ -63,6 +63,10 @@ public class SearchParametersAdapter extends ArrayAdapter<SearchParameter> {
 			return "Match/Mismatch Score";
 		}
 		
+		if(parameterName.equals("email")){
+			return "E-mail";
+		}
+		
 		
 		return null;
 		
