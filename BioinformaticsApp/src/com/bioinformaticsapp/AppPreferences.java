@@ -2,6 +2,7 @@ package com.bioinformaticsapp;
 
 
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -19,7 +20,7 @@ public class AppPreferences extends PreferenceActivity {
 	public static final String OHBLASTIT_PREFERENCES_FILE = "ohblastit_preferences";
 	
 	public static final String EMAIL_PREF = "email";
-	
+	public static final String NOTIFICATIONS_SWITCH = "notifications";
 	/* (non-Javadoc)
 	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
 	 */
@@ -51,6 +52,13 @@ public class AppPreferences extends PreferenceActivity {
         emailPref.setTitle("E-mail");
         emailPref.setSummary("Please provide an e-mail address. This is required and used by some of the webservices to notify you when results are ready");
         inlinePrefCat.addPreference(emailPref);
+        
+        CheckBoxPreference notificationSwitch = new CheckBoxPreference(this);
+        notificationSwitch.setKey(NOTIFICATIONS_SWITCH);
+        notificationSwitch.setTitle("Notifications");
+        notificationSwitch.setSummary("Notify me when BLAST sequence searches have finished");
+        inlinePrefCat.addPreference(notificationSwitch);
+        
 
         return preferencesScreen;
 		
