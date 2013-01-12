@@ -71,6 +71,10 @@ public class SearchParametersAdapter extends ArrayAdapter<SearchParameter> {
 			return "Maximum number of scores";
 		}
 		
+		if(parameterName.equals("word_size")){
+			return "Word size";
+		}
+		
 		return null;
 		
 	}
