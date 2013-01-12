@@ -123,6 +123,8 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		
 		case R.id.view_parameters_menu_item: {
 			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
+			selected.updateAllParameters(parameters);
 			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);

@@ -142,6 +142,8 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 			
 			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
 			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
+			selected.updateAllParameters(parameters);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);
 			itemSelectionHandled = true;
