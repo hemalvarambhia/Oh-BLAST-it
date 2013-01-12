@@ -122,15 +122,10 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		break;
 		
 		case R.id.view_parameters_menu_item: {
-			BLASTQueryParametersDialog dialog = new BLASTQueryParametersDialog();
 			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
-			selected.updateAllParameters(parameters);
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("query", selected);
-			dialog.setArguments(bundle);
-			dialog.show(getFragmentManager(), "dialog");
-			
+			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
+			viewParameters.putExtra("query", selected);
+			startActivity(viewParameters);
 			itemSelectionHandled = true;
 		
 		}
