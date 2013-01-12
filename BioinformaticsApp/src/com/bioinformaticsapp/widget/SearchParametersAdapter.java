@@ -67,6 +67,9 @@ public class SearchParametersAdapter extends ArrayAdapter<SearchParameter> {
 			return "E-mail";
 		}
 		
+		if(parameterName.equals("score")){
+			return "Maximum number of scores";
+		}
 		
 		return null;
 		
