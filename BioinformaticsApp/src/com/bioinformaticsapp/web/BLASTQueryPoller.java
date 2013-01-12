@@ -7,10 +7,12 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
+import com.bioinformaticsapp.AppPreferences;
 import com.bioinformaticsapp.BLASTQueriesFinishedReceiver;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
@@ -71,7 +73,11 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 		super.onPostExecute(result);
 		if(result.anyQueriesFinished()){
 			Intent queriesFinishedAnnouncement = new Intent(BLASTQueriesFinishedReceiver.QUERIES_FINISHED_ACTION);
-			context.sendBroadcast(queriesFinishedAnnouncement);
+			SharedPreferences preferences = context.getSharedPreferences(AppPreferences.OHBLASTIT_PREFERENCES_FILE, Context.MODE_PRIVATE);
+			boolean notifyUser = preferences.getBoolean(AppPreferences.NOTIFICATIONS_SWITCH, false);
+			if(notifyUser){
+				context.sendBroadcast(queriesFinishedAnnouncement);
+			}
 		}
 		
 	}
