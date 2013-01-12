@@ -56,8 +56,8 @@ public class BLASTQuerySender extends
 				} catch(IllegalBLASTQueryException e){
 					
 					Log.i(TAG, "Could not assign query with ID "+pendingQueries[0].getPrimaryKey()+" a job identifier");
-					pendingQueries[i].setStatus(BLASTQuery.Status.ERROR);
-					sendReport.addOutcome(pendingQueries[i].getPrimaryKey(), BLASTQuery.Status.ERROR);
+					pendingQueries[i].setStatus(BLASTQuery.Status.DRAFT);
+					sendReport.addOutcome(pendingQueries[i].getPrimaryKey(), BLASTQuery.Status.DRAFT);
 				} finally {
 					save(pendingQueries[i]);				
 				}
@@ -163,7 +163,7 @@ public class BLASTQuerySender extends
 			List<Long> erroneous = new ArrayList<Long>();
 			
 			for(Long queryID: report.keySet()){
-				if(report.get(queryID).equals(BLASTQuery.Status.ERROR)){
+				if(report.get(queryID).equals(BLASTQuery.Status.DRAFT)){
 					erroneous.add(queryID);
 				}
 			}
