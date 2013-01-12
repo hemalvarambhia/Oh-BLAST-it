@@ -11,7 +11,6 @@ public class BLASTQuerySearchParametersActivity extends ListActivity {
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.search_parameters_layout);
 		query = (BLASTQuery)getIntent().getSerializableExtra("query");
 		
 		if(query.getJobIdentifier() == null){
@@ -20,8 +19,6 @@ public class BLASTQuerySearchParametersActivity extends ListActivity {
 			setTitle(query.getJobIdentifier());
 		}
 		
-		TextView programValueLabel = (TextView)findViewById(R.id.program_value_label);
-		programValueLabel.setText(query.getBLASTProgram());
 		SearchParametersAdapter adapter = new SearchParametersAdapter(this, query.getAllParameters());
 		setListAdapter(adapter);
 	}
