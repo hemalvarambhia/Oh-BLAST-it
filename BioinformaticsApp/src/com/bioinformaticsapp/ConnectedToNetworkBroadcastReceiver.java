@@ -1,5 +1,7 @@
 package com.bioinformaticsapp;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +34,10 @@ public class ConnectedToNetworkBroadcastReceiver extends BroadcastReceiver {
 				Intent pendingJobsSubmitter = new Intent(context, SubmitQueryService.class);
 				context.startService(pendingJobsSubmitter);
 				
+			}else{
+				AlarmManager alarmManager =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+				Intent polling = new Intent(context, PollQueryService.class);
+				alarmManager.cancel(PendingIntent.getActivity(context, 0, polling, 0));
 			}
 			
 		}
