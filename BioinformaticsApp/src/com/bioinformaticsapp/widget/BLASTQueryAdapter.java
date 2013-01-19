@@ -36,12 +36,18 @@ public class BLASTQueryAdapter extends ArrayAdapter<BLASTQuery> {
 		
 		BLASTQuery query = getItem(position);
 		
-		TextView jobIdentifierView = (TextView)view.findViewById(R.id.query_job_id_label);
+		TextView jobIdentifierLabel = (TextView)view.findViewById(R.id.query_job_id_label);
 		
-		if(jobIdentifierView != null){
+		if(jobIdentifierLabel != null){
 			if(query.getJobIdentifier() != null){
-				jobIdentifierView.setText(query.getJobIdentifier());
+				jobIdentifierLabel.setText(query.getJobIdentifier());
 			}
+		}
+		
+		TextView statusLabel = (TextView)view.findViewById(R.id.query_job_status_label);
+		
+		if(statusLabel != null){
+			statusLabel.setText(query.getStatus().toString());
 		}
 		
 		return view;
