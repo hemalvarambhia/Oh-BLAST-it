@@ -1,4 +1,4 @@
-package com.bioinformatics.content;
+package com.bioinformaticsapp.content;
 
 import java.util.List;
 

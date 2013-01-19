@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 
-import com.bioinformatics.content.BLASTQueryLoader;
+import com.bioinformaticsapp.content.BLASTQueryLoader;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
