@@ -8,7 +8,7 @@ import android.content.Context;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.models.BLASTQuery;
 
-public class BLASTQueryLoader extends AsyncTaskLoader<List<BLASTQuery>> {
+public class BLASTQueryLoader extends AsyncTaskLoader<BLASTQuery[]> {
 
 	public BLASTQueryLoader(Context context) {
 		super(context);
@@ -21,12 +21,12 @@ public class BLASTQueryLoader extends AsyncTaskLoader<List<BLASTQuery>> {
 	}
 
 	@Override
-	public List<BLASTQuery> loadInBackground() {
+	public BLASTQuery[] loadInBackground() {
 		BLASTQueryController queryController = new BLASTQueryController(getContext());
 		List<BLASTQuery> queries = queryController.findBLASTQueriesByStatus(mStatusOfQuery);
 		queryController.close();
 		
-		return queries;
+		return queries.toArray(new BLASTQuery[queries.size()]);
 	}
 	
 	/* (non-Javadoc)
