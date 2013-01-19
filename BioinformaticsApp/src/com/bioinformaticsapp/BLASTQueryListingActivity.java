@@ -1,18 +1,14 @@
 package com.bioinformaticsapp;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
-import android.app.AlertDialog.Builder;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.SimpleCursorAdapter;
+import android.widget.CursorAdapter;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
@@ -77,7 +73,7 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	}
 
 
-	protected SimpleCursorAdapter mCursorAdapter;
+	protected CursorAdapter mCursorAdapter;
 	
 	protected BLASTQueryController queryController;
 	
