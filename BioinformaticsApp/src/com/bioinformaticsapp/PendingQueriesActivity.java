@@ -19,6 +19,7 @@ import android.widget.SimpleCursorAdapter;
 
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.SearchParameter;
 
 public class PendingQueriesActivity extends BLASTQueryListingActivity {
@@ -34,19 +35,9 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
         
     	super.onCreate(savedInstanceState);
 		
-		filterCondition = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS +" = ?";
-		values = new String[]{BLASTQuery.Status.SUBMITTED.toString()};
+		mStatus = Status.SUBMITTED;
     	
-        int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
-        
-        //We only wish to show running and finished queries:
-        String [] dataColumns = new String[]{BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS};
-        
         getLoaderManager().initLoader(RUNNING_CURSOR_LOADER, null, this);
-        
-        mCursorAdapter = new SimpleCursorAdapter(this, R.layout.blastquery_list_item, null, dataColumns, viewId);
-        
-        setListAdapter(mCursorAdapter);
         
         registerForContextMenu(getListView());
      
@@ -126,15 +117,16 @@ public class PendingQueriesActivity extends BLASTQueryListingActivity {
 		switch(itemId){
 		
 		case R.id.delete_menu_item: {
-			doDeleteAction(menuinfo.id);
+			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
+			doDeleteAction(selected.getPrimaryKey());
 			itemSelectionHandled = true;
 		}
 		break;
 		
 		case R.id.view_parameters_menu_item: {
 			
-			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
+			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
 			selected.updateAllParameters(parameters);
 			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
 			viewParameters.putExtra("query", selected);
