@@ -43,21 +43,13 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
         
     	super.onCreate(savedInstanceState);
     
-    	filterCondition = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?";
-    	values = new String[]{Status.FINISHED.toString()};
+    	mStatus = Status.FINISHED;
     	
-        int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
-        
-        registerForContextMenu(getListView());
-        
-        //We only wish to show running and finished queries:
-        String [] dataColumns = new String[]{BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS};
-        
         getLoaderManager().initLoader(FINISHED_CURSOR_LOADER, null, this);
         
-        mCursorAdapter = new SimpleCursorAdapter(this, R.layout.blastquery_list_item, null, dataColumns, viewId);
+        setListAdapter(mQueryAdapter);
         
-        setListAdapter(mCursorAdapter);
+        registerForContextMenu(getListView());
         
     }
 	
@@ -129,8 +121,10 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 		
 		switch(itemId){
 		case R.id.delete_menu_item: {
+
+			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
 			
-			doDeleteAction(menuinfo.id);
+			doDeleteAction(selected.getPrimaryKey());
 			
 			itemSelectionHandled = true;
 		}
@@ -139,9 +133,9 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 		
 		case R.id.view_parameters_menu_item: {
 			
-			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
+			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
 			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
 			selected.updateAllParameters(parameters);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);
