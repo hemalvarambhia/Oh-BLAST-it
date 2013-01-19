@@ -22,7 +22,6 @@ public class BLASTQueryLoader extends AsyncTaskLoader<List<BLASTQuery>> {
 
 	@Override
 	public List<BLASTQuery> loadInBackground() {
-		// TODO Auto-generated method stub
 		BLASTQueryController queryController = new BLASTQueryController(getContext());
 		List<BLASTQuery> queries = queryController.findBLASTQueriesByStatus(mStatusOfQuery);
 		queryController.close();
