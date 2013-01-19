@@ -2,19 +2,14 @@ package com.bioinformaticsapp;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.widget.CursorAdapter;
 
 import com.bioinformatics.content.BLASTQueryLoader;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.widget.BLASTQueryAdapter;
 
