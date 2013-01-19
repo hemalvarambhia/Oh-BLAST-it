@@ -10,12 +10,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.CursorAdapter;
 
+import com.bioinformatics.content.BLASTQueryLoader;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.models.BLASTQuery.Status;
+import com.bioinformaticsapp.widget.BLASTQueryAdapter;
 
-public class BLASTQueryListingActivity extends ListActivity implements LoaderCallbacks<Cursor> {
+public class BLASTQueryListingActivity extends ListActivity implements LoaderCallbacks<BLASTQuery[]> {
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -40,23 +43,22 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 		
 	}
 	
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		Uri uri = getIntent().getData();
+	public Loader<BLASTQuery[]> onCreateLoader(int id, Bundle args) {
 		
-		CursorLoader cursorLoader = new CursorLoader(this, uri, BLASTJob.LIST_PROJECTIONS, filterCondition, values, null);
+		Loader<BLASTQuery[]> cursorLoader = new BLASTQueryLoader(this, mStatus);
 		
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+	public void onLoadFinished(Loader<BLASTQuery[]> cursorLoader, BLASTQuery[] queries) {
 		
-		mCursorAdapter.swapCursor(cursor);
+		mQueryAdapter = new BLASTQueryAdapter(this, queries);
+		
+		setListAdapter(mQueryAdapter);
 	
 	}
 
-	public void onLoaderReset(Loader<Cursor> cursorLoader) {
-		
-		mCursorAdapter.swapCursor(null);
+	public void onLoaderReset(Loader<BLASTQuery[]> cursorLoader) {
 		
 	}
 	
@@ -73,14 +75,12 @@ public class BLASTQueryListingActivity extends ListActivity implements LoaderCal
 	}
 
 
-	protected CursorAdapter mCursorAdapter;
+	protected BLASTQueryAdapter mQueryAdapter;
 	
 	protected BLASTQueryController queryController;
 	
 	protected SearchParameterController parametersController;
 
-	protected String filterCondition;
-	
-	protected String[] values;
+	protected Status mStatus;
 	
 }

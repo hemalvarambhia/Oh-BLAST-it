@@ -112,8 +112,9 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		
 		switch(itemId){
 		case R.id.delete_menu_item: {
+			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
 			
-			doDeleteAction(menuinfo.id);
+			doDeleteAction(selected.getPrimaryKey());
 			
 			itemSelectionHandled = true;
 		}
@@ -121,8 +122,8 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		break;
 		
 		case R.id.view_parameters_menu_item: {
-			BLASTQuery selected = queryController.findBLASTQueryById(menuinfo.id);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(menuinfo.id);
+			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
+			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
 			selected.updateAllParameters(parameters);
 			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
 			viewParameters.putExtra("query", selected);
@@ -150,14 +151,7 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		
 		super.onCreate(savedInstanceState);
 		
-		filterCondition = BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS+" = ?";
-		values = new String[]{Status.DRAFT.toString()};
-		
-		int[] viewId = new int[]{R.id.query_job_id_label, R.id.query_job_status_label};
-        
-        String [] dataColumns = new String[]{BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS};
-        
-        mCursorAdapter = new SimpleCursorAdapter(this, R.layout.draft_query_list_item, null, dataColumns, viewId, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+		mStatus = Status.DRAFT;
         //We wish to load data from the content provider asynchronously
         //and not on the UI thread.
         getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
@@ -165,7 +159,7 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
         //Register each list item for a context menu:
         registerForContextMenu(getListView());
         
-        setListAdapter(mCursorAdapter);
+        setListAdapter(mQueryAdapter);
 	}
 	
 	protected void onResume(){
@@ -179,7 +173,7 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		
 		super.onListItemClick(l, v, position, id);
-		BLASTQuery selectedQuery = queryController.findBLASTQueryById(id);
+		BLASTQuery selectedQuery = mQueryAdapter.getItem(position);
 		List<SearchParameter> parameters = parametersController.getParametersForQuery(selectedQuery.getPrimaryKey());
 		
 		selectedQuery.updateAllParameters(parameters);
