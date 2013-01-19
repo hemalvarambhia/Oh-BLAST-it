@@ -39,6 +39,8 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 	
 	private EditText mEmailEditor;
 	
+	private Spinner mMatchMismatchSpinner;
+	
 	@SuppressWarnings("unused")
 	private static final String TAG = "SetupBLASTQueryActivity";
 
@@ -55,6 +57,7 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		mDatabaseSpinner = (Spinner)findViewById(R.id.blastqueryentry_database_spinner);
 		mScoreSpinner = (Spinner)findViewById(R.id.blastqueryentry_score_spinner);
 		mExpThresholdSpinner = (Spinner)findViewById(R.id.blastqueryentry_expthreshold_spinner);
+		mMatchMismatchSpinner = (Spinner)findViewById(R.id.ebi_match_mismatch_score_spinner);
 		mProgressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
 		mProgressDialog.setCancelable(false);
 		mProgressDialog.setCanceledOnTouchOutside(false);
@@ -119,6 +122,12 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		List<String> listOfScores = Arrays.asList(scoreOptions);
 		int scorePosition = listOfScores.indexOf(score.getValue());
 		mScoreSpinner.setSelection(scorePosition);
+		
+		SearchParameter matchMismatchScore = query.getSearchParameter("match_mismatch_score");
+		String[] matchMismatchScoreOptions = appResources.getStringArray(R.array.ebi_match_mismatch_score_options);
+		List<String> listOfMatchMismatchScores = Arrays.asList(matchMismatchScoreOptions);
+		int matchMismatchScorePosition = listOfMatchMismatchScores.indexOf(matchMismatchScore.getValue());
+		mMatchMismatchSpinner.setSelection(matchMismatchScorePosition);
 		
 		if(query.getSequence() == null || query.getSequence().isEmpty()){
 			mSequenceEditor.setHint("Enter a sequence");
@@ -229,6 +238,21 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+			
+		});
+		
+		mMatchMismatchSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				query.setSearchParameter("match_mismatch_score", mMatchMismatchSpinner.getSelectedItem().toString());
+				
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
 				
 			}
 			

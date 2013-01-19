@@ -104,5 +104,15 @@
                 <string name="ncbi">NCBI</string>
                 <string name="no_hits_message">No BLAST Hits Found</string>
                 <string name="view_query_parameters">View BLAST query parameters</string>
+                <string-array name="ebi_match_mismatch_score_options">
+                    <item >2,-7</item>
+                    <item >1,-3</item>
+                    <item >2,-5</item>
+                    <item >1,-2</item>
+                    <item >2,-3</item>
+                    <item >1,-1</item>
+                    <item >5,-4</item>
+                    <item >4,-5</item>
+                </string-array>
 
 </resources>

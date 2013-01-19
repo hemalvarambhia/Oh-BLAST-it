@@ -102,7 +102,7 @@
         android:layout_below="@+id/exp_threshold_label"
         android:text="@string/blastqueryentry_score_label" />
      
-      <Spinner
+    <Spinner
         android:id="@+id/blastqueryentry_score_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,7 +110,22 @@
         android:layout_marginLeft="140dp"
         android:entries="@array/blastqueryentry_score_options" />
 
+    <TextView
+        android:id="@+id/match_mismatch_score_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/score_label"
+        android:text="@string/blastqueryentry_matchmismatch_score_label" />
    
-    
+   <Spinner 
+       android:id="@+id/ebi_match_mismatch_score_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/match_mismatch_score_label"
+        android:layout_marginLeft="180dp"
+        android:entries="@array/ebi_match_mismatch_score_options"
+       />
     
 </RelativeLayout>
