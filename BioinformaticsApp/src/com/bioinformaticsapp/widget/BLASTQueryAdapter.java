@@ -41,6 +41,8 @@ public class BLASTQueryAdapter extends ArrayAdapter<BLASTQuery> {
 		if(jobIdentifierLabel != null){
 			if(query.getJobIdentifier() != null){
 				jobIdentifierLabel.setText(query.getJobIdentifier());
+			}else{
+				jobIdentifierLabel.setText("N/A");
 			}
 		}
 		
