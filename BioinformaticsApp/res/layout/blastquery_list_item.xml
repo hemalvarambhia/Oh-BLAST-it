@@ -12,6 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/default_text"
+        android:padding="@dimen/padding"
         android:src="@drawable/ic_dna" />
 
     <TextView
