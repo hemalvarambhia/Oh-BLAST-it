@@ -36,6 +36,12 @@ public class BLASTQueryAdapter extends ArrayAdapter<BLASTQuery> {
 		
 		BLASTQuery query = getItem(position);
 		
+		TextView recipientLabel = (TextView)view.findViewById(R.id.to_label);
+		
+		if(recipientLabel != null){
+			recipientLabel.setText(query.getDestination());
+		}
+		
 		TextView jobIdentifierLabel = (TextView)view.findViewById(R.id.query_job_id_label);
 		
 		if(jobIdentifierLabel != null){
@@ -44,6 +50,12 @@ public class BLASTQueryAdapter extends ArrayAdapter<BLASTQuery> {
 			}else{
 				jobIdentifierLabel.setText("N/A");
 			}
+		}
+		
+		TextView sequenceLabel = (TextView)view.findViewById(R.id.query_sequence_label);
+		
+		if(sequenceLabel != null){
+			sequenceLabel.setText(query.getSequence());
 		}
 		
 		TextView statusLabel = (TextView)view.findViewById(R.id.query_job_status_label);
