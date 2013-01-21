@@ -12,8 +12,6 @@ public class QueryStatusRefreshReceiver extends BroadcastReceiver {
 	
 	@Override
 	public void onReceive(Context context, Intent arg1) {
-		Toast pollingMessage = Toast.makeText(context, "Polling queries", Toast.LENGTH_SHORT);
-		pollingMessage.show();
 		Intent refreshIntent = new Intent(context, PollQueryService.class);
 		context.startService(refreshIntent);
 		
