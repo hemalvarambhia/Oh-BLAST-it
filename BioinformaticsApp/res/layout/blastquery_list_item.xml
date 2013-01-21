@@ -3,12 +3,24 @@
     android:id="@+id/list_item_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
-
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/padding" >
+
+    <TextView
+        android:id="@+id/to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/to" />
+    
     <TextView
         android:id="@+id/to_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/to"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/default_text" />
 
     <TextView

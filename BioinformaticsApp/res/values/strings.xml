@@ -114,6 +114,7 @@
                     <item >5,-4</item>
                     <item >4,-5</item>
                 </string-array>
-                <dimen name="padding">4dp</dimen>
+                <dimen name="padding">6dp</dimen>
+                <string name="to">To: </string>
 
 </resources>
