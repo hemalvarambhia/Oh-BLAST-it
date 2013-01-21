@@ -170,8 +170,8 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 		
 		super.onListItemClick(l, v, position, id);
 		
-		selected = queryController.findBLASTQueryById(id);
-		List<SearchParameter> parameters = parametersController.getParametersForQuery(id);
+		selected = mQueryAdapter.getItem(position);
+		List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
 		
 		selected.updateAllParameters(parameters);
 		
