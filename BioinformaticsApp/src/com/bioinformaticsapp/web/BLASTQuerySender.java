@@ -43,7 +43,7 @@ public class BLASTQuerySender extends
 		if(connectedToWeb()){
 			
 			for(int i = 0; i < pendingQueries.length; i++){
-				BLASTSequenceQueryingService service = getServiceFor(pendingQueries[i].getVendorID());
+				BLASTSearchEngine service = getServiceFor(pendingQueries[i].getVendorID());
 				try {
 					
 					String jobIdentifier = service.submit(pendingQueries[i]);
@@ -106,7 +106,7 @@ public class BLASTQuerySender extends
 		return true;
 	}
 	
-	private BLASTSequenceQueryingService getServiceFor(int blastVendor){
+	private BLASTSearchEngine getServiceFor(int blastVendor){
 		
 		switch(blastVendor){
 		case BLASTVendor.EMBL_EBI:

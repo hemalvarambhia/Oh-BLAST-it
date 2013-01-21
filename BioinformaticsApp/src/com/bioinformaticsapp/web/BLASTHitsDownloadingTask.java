@@ -32,7 +32,7 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 			return null;
 		}
 		
-		BLASTSequenceQueryingService service = getServiceFor(params[0].getVendorID());
+		BLASTSearchEngine service = getServiceFor(params[0].getVendorID());
 		
 		String format = "xml";
 		
@@ -61,7 +61,7 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 		return nameOfResultsFile;
 	}
 	
-	private BLASTSequenceQueryingService getServiceFor(int blastVendor){
+	private BLASTSearchEngine getServiceFor(int blastVendor){
 		switch(blastVendor){
 		case BLASTVendor.EMBL_EBI:
 			return new EMBLEBIBLASTService();

@@ -32,7 +32,7 @@ import com.bioinformaticsapp.models.BLASTHit;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 
-public class EMBLEBIBLASTService implements BLASTSequenceQueryingService {
+public class EMBLEBIBLASTService implements BLASTSearchEngine {
 
 	private static final String TAG = "EMBLEBIBLASTService";
 	

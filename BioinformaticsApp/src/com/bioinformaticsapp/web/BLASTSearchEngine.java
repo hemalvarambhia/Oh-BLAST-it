@@ -3,7 +3,7 @@ package com.bioinformaticsapp.web;
 import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 
-public interface BLASTSequenceQueryingService {
+public interface BLASTSearchEngine {
 	
 	public String submit(BLASTQuery query) throws IllegalBLASTQueryException;
 	

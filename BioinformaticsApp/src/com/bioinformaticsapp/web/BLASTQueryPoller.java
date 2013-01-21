@@ -48,7 +48,7 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 		if(connectedToWeb()){
 			for(int i = 0; i < queries.length; i++){
 				
-				BLASTSequenceQueryingService service = getServiceFor(queries[i].getVendorID());
+				BLASTSearchEngine service = getServiceFor(queries[i].getVendorID());
 				
 				SearchStatus current = service.pollQuery(queries[i].getJobIdentifier());
 				
@@ -104,7 +104,7 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 		
 	}
 	
-	private BLASTSequenceQueryingService getServiceFor(int blastVendor){
+	private BLASTSearchEngine getServiceFor(int blastVendor){
 		
 		switch(blastVendor){
 		case BLASTVendor.EMBL_EBI:

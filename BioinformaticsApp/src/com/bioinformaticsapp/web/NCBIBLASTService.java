@@ -32,7 +32,7 @@ import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 
-public class NCBIBLASTService implements BLASTSequenceQueryingService {
+public class NCBIBLASTService implements BLASTSearchEngine {
 
 	private static final String TAG = "NCBIBLASTService";
 	
