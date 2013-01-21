@@ -4,48 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-    <ImageView
-        android:id="@+id/dna_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:contentDescription="@string/default_text"
-        android:padding="@dimen/padding"
-        android:src="@drawable/ic_dna" />
-    
+
     <TextView
         android:id="@+id/to_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/dna_imageview"
-        android:layout_alignTop="@+id/dna_imageview"
         android:text="@string/default_text" />
-    
+
     <TextView
         android:id="@+id/query_job_id_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/to_label"
         android:layout_alignLeft="@+id/query_job_status_label"
+        android:layout_below="@+id/to_label"
         android:text="@string/default_text" />
 
     <TextView
         android:id="@+id/query_sequence_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/query_job_id_label"
         android:layout_alignLeft="@+id/query_job_status_label"
+        android:layout_below="@+id/query_job_id_label"
         android:text="@string/default_text" />
-    
+
     <TextView
         android:id="@+id/query_job_status_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/query_sequence_label"
-        android:layout_toRightOf="@+id/dna_imageview"
         android:text="@string/default_text" />
-
-    
 
 </RelativeLayout>
