@@ -56,14 +56,13 @@ public class EntryFetcher {
 	
 	public Map<String, String> getOrganism(){
 		
-		Map<String, String> organismMap = new HashMap<String, String>();
-        
 		//If the entry is null, then add an error message
 		if(mBlastHitsDocument == null){
-			organismMap.put("Error", "Unable to load organism data for "+mEntryAccessionNumber);
-			return organismMap;
+			return null;
 		}
-		
+
+		Map<String, String> organismMap = new HashMap<String, String>();
+        
         NodeList organismFeature = mBlastHitsDocument.getElementsByTagName("organism");
         
         Node organism = organismFeature.item(0);
