@@ -56,9 +56,9 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 		
 		case R.id.send_query: {
 			
-			BLASTQueryValidator sender = new BLASTQueryValidator();
+			BLASTQueryValidator validator = new BLASTQueryValidator();
 			
-			sender.execute(new BLASTQuery[]{query});
+			validator.execute(new BLASTQuery[]{query});
 			
 		}
 		//...and exit	
