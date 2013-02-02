@@ -20,7 +20,7 @@ import com.bioinformaticsapp.models.BLASTVendor;
 import com.bioinformaticsapp.models.SearchParameter;
 
 public class BLASTQuerySender extends
-		AsyncTask<BLASTQuery, Void, BLASTQuerySender.Report> {
+		AsyncTask<BLASTQuery, Void, Integer> {
 	
 
 	private static final String TAG = "BLASTQuerySender";
@@ -33,15 +33,15 @@ public class BLASTQuerySender extends
 		this.context = context;
 		ncbiService = new NCBIBLASTService();
 		emblService = new EMBLEBIBLASTService();
-		
+		numberToSend = 0;
 	}
 	@Override
-	protected Report doInBackground(BLASTQuery...pendingQueries) {
-		
-		Report sendReport = new Report();
+	protected Integer doInBackground(BLASTQuery...pendingQueries) {
+		numberToSend = pendingQueries.length;
+		Integer numberOfQueriesSent = null;
 		
 		if(connectedToWeb()){
-			
+			int numberSent = 0;
 			for(int i = 0; i < pendingQueries.length; i++){
 				BLASTSearchEngine service = getServiceFor(pendingQueries[i].getVendorID());
 				try {
@@ -50,35 +50,38 @@ public class BLASTQuerySender extends
 					if(jobIdentifier != null){
 						pendingQueries[i].setJobIdentifier(jobIdentifier);
 						pendingQueries[i].setStatus(BLASTQuery.Status.SUBMITTED);
-						sendReport.addOutcome(pendingQueries[i].getPrimaryKey(), BLASTQuery.Status.SUBMITTED);
+						numberSent++;
 					}
 				
 				} catch(IllegalBLASTQueryException e){
 					
 					Log.i(TAG, "Could not assign query with ID "+pendingQueries[0].getPrimaryKey()+" a job identifier");
 					pendingQueries[i].setStatus(BLASTQuery.Status.DRAFT);
-					sendReport.addOutcome(pendingQueries[i].getPrimaryKey(), BLASTQuery.Status.DRAFT);
 				} finally {
 					save(pendingQueries[i]);				
 				}
 			}
-
+			numberOfQueriesSent = new Integer(numberSent);	
 			close();
 			
 		}
 		
-		return sendReport;
+		return numberOfQueriesSent;
 	}
 	
 	@Override
-	protected void onPostExecute(Report result) {
+	protected void onPostExecute(Integer numberOfQueriesSent) {
 		
-		super.onPostExecute(result);
+		super.onPostExecute(numberOfQueriesSent);
 		
-		if(result.getQueriesThatWereNotSent().length > 0){
+		if(numberOfQueriesSent == null){
+			return;
+		}
+		
+		if(numberOfQueriesSent.intValue() == 0 && numberToSend > 0){
 			Toast t = Toast.makeText(context, "Some queries could not be sent. Please check them", Toast.LENGTH_SHORT);
 			t.show();
-		}else{
+		}else if(numberOfQueriesSent.intValue() == numberToSend){
 			Toast t = Toast.makeText(context, "Queries sent", Toast.LENGTH_SHORT);
 			t.show();
 		}
@@ -142,35 +145,6 @@ public class BLASTQuerySender extends
 	
 	}
 	
-	public class Report {
-
-		private Map<Long, BLASTQuery.Status> report;
-		
-		private Report(){
-			report = new HashMap<Long, BLASTQuery.Status>();
-		}
-		
-		public void addOutcome(Long queryID, BLASTQuery.Status status){
-			report.put(queryID, status);
-		}
-		
-		public BLASTQuery.Status getOutcomeFor(BLASTQuery query){
-			return report.get(query.getPrimaryKey());
-		}
-		
-		public Long[] getQueriesThatWereNotSent(){
-			
-			List<Long> erroneous = new ArrayList<Long>();
-			
-			for(Long queryID: report.keySet()){
-				if(report.get(queryID).equals(BLASTQuery.Status.DRAFT)){
-					erroneous.add(queryID);
-				}
-			}
-			
-			return erroneous.toArray(new Long[erroneous.size()]);
-		}
-		
-	}
+	private int numberToSend;
 	
 }
