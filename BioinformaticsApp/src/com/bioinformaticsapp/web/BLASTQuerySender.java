@@ -78,7 +78,7 @@ public class BLASTQuerySender extends
 				t.show();
 			}else{
 				//If some queries were sent:
-				Toast t = Toast.makeText(context, "Queries could not be sent. Please check that they're valid", Toast.LENGTH_SHORT);
+				Toast t = Toast.makeText(context, "Some queries could not be sent. Please check that they're valid", Toast.LENGTH_SHORT);
 				t.show();
 			}
 		}
