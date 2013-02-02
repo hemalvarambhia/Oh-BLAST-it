@@ -2,9 +2,7 @@ package com.bioinformaticsapp.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class SearchParameter implements Serializable{
