@@ -18,13 +18,7 @@ import com.bioinformaticsapp.models.SearchParameter;
 
 public class BLASTQuerySender extends
 		AsyncTask<BLASTQuery, Void, Integer> {
-	
 
-	private static final String TAG = "BLASTQuerySender";
-	private NCBIBLASTService ncbiService;
-	private EMBLEBIBLASTService emblService;
-	protected Context context;
-	
 	public BLASTQuerySender(Context context){
 		
 		this.context = context;
@@ -146,7 +140,11 @@ public class BLASTQuerySender extends
 		ncbiService.close();
 	
 	}
-	
+
+	private static final String TAG = "BLASTQuerySender";
+	private NCBIBLASTService ncbiService;
+	private EMBLEBIBLASTService emblService;
+	protected Context context;
 	private int numberToSend;
 	
 }
