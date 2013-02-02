@@ -79,10 +79,13 @@ public class BLASTQuerySender extends
 		}
 		if(numberToSend > 0){
 			if(numberOfQueriesSent.intValue() == 0){
-				Toast t = Toast.makeText(context, "Some queries could not be sent. Please check them", Toast.LENGTH_SHORT);
+				Toast t = Toast.makeText(context, "Queries could not be sent. Please check that they're valid", Toast.LENGTH_SHORT);
 				t.show();
 			}else if(numberOfQueriesSent.intValue() == numberToSend){
 				Toast t = Toast.makeText(context, "Queries sent", Toast.LENGTH_SHORT);
+				t.show();
+			}else{
+				Toast t = Toast.makeText(context, "Queries could not be sent. Please check that they're valid", Toast.LENGTH_SHORT);
 				t.show();
 			}
 		}
