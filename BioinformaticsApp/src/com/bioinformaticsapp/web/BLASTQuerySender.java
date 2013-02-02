@@ -29,10 +29,9 @@ public class BLASTQuerySender extends
 	@Override
 	protected Integer doInBackground(BLASTQuery...pendingQueries) {
 		numberToSend = pendingQueries.length;
-		Integer numberOfQueriesSent = null;
+		int numberSent = 0;
 		
 		if(connectedToWeb()){
-			int numberSent = 0;
 			for(int i = 0; i < pendingQueries.length; i++){
 				BLASTSearchEngine service = getServiceFor(pendingQueries[i].getVendorID());
 				try {
@@ -52,10 +51,10 @@ public class BLASTQuerySender extends
 					save(pendingQueries[i]);				
 				}
 			}
-			numberOfQueriesSent = new Integer(numberSent);	
 			close();
 			
 		}
+		Integer numberOfQueriesSent = new Integer(numberSent);	
 		
 		return numberOfQueriesSent;
 	}
@@ -65,9 +64,6 @@ public class BLASTQuerySender extends
 		
 		super.onPostExecute(numberOfQueriesSent);
 		
-		if(numberOfQueriesSent == null){
-			return;
-		}
 		if(numberToSend > 0){
 			Toast message = null;
 			if(numberOfQueriesSent.intValue() == 0){
