@@ -78,6 +78,13 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 		
 		break;
 		
+		case R.id.settings: {
+			storeQueryInDatabase();
+			Intent settings = new Intent(this, AppPreferences.class);
+			startActivity(settings);
+		}
+		break;
+		
 		default:
 			break;
 		
