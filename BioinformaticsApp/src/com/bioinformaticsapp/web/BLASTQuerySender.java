@@ -67,7 +67,13 @@ public class BLASTQuerySender extends
 		if(numberToSend > 0){
 			Toast message = null;
 			if(numberOfQueriesSent.intValue() == 0){
-				message = Toast.makeText(context, "Queries could not be sent. Please check that they're valid", Toast.LENGTH_SHORT);
+				
+				if(connectedToWeb()){
+					message = Toast.makeText(context, "Queries could not be sent. Please check that they're valid", Toast.LENGTH_SHORT);
+				}else{
+					message = Toast.makeText(context, "Queries will be sent when a web connection is available", Toast.LENGTH_SHORT);
+				}
+				
 			}else if(numberOfQueriesSent.intValue() == numberToSend){
 				//If all were sent:
 				message = Toast.makeText(context, "Queries sent", Toast.LENGTH_SHORT);
