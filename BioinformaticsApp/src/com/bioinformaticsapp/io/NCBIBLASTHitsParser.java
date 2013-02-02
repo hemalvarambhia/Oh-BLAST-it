@@ -8,15 +8,13 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.bioinformaticsapp.models.BLASTHit;
-
 import android.util.Log;
 import android.util.Xml;
+
+import com.bioinformaticsapp.models.BLASTHit;
 
 public class NCBIBLASTHitsParser implements BLASTHitsParser {
 	
