@@ -1,7 +1,6 @@
 package com.bioinformaticsapp.web;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +26,7 @@ import org.apache.http.protocol.HttpContext;
 import android.util.Log;
 
 import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
-import com.bioinformaticsapp.io.EMBLEBIBLASTHitsParser;
-import com.bioinformaticsapp.models.BLASTHit;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.Status;
 
 public class EMBLEBIBLASTService implements BLASTSearchEngine {
 
