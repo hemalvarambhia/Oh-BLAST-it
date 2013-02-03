@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
@@ -264,6 +265,11 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 				
 				startActivity(viewResults);
 				
+			}else {
+				if(!connectedToWeb()){
+					Toast webConnectionMessage = Toast.makeText(FinishedQueriesActivity.this, "A web connection is needed to download the results", Toast.LENGTH_SHORT);
+					webConnectionMessage.show();
+				}
 			}
 			
 		}
