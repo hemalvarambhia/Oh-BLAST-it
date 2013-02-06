@@ -18,7 +18,7 @@ import android.widget.ListView;
  * @author Hemal N Varambhia
  *
  */
-public class BioinformaticsAppHomeActivity extends ListActivity {
+public class OhBLASTItAppHomeActivity extends ListActivity {
     
 	public static final int READY_TO_SEND = 1;
 	

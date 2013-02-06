@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_dna"
         android:label="@string/app_name" >
         <activity
-            android:name=".BioinformaticsAppHomeActivity"
+            android:name=".OhBLASTItAppHomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
