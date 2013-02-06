@@ -32,7 +32,6 @@ public class BLASTHitsLoadingTask extends AsyncTask<InputStream, Void, List<Map<
 			
 			if(parser != null){
 				List<BLASTHit> blastHits = getParserForBLASTVendor(vendorID).parse(params[0]);
-				Log.d(TAG, String.valueOf(blastHits.size()));
 				for(int i = 0; i < blastHits.size(); i++){
 					Map<String, String> hitProperties = new HashMap<String, String>();
 					hitProperties.put("accessionNumber", blastHits.get(i).getAccessionNumber());
