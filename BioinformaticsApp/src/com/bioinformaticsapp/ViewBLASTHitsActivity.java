@@ -59,9 +59,6 @@ public class ViewBLASTHitsActivity extends ListActivity {
 	public void onResume(){
 		super.onResume();
 		
-		
-		
-		
 		BLASTHitsLoader hitsLoader = new BLASTHitsLoader();
 		
 		hitsLoader.execute(mBLASTHitsFile);
