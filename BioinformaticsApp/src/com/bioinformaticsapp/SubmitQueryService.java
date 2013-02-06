@@ -3,9 +3,6 @@ package com.bioinformaticsapp;
 import java.util.List;
 
 import android.app.IntentService;
-import android.app.Notification;
-import android.app.Notification.Builder;
-import android.app.PendingIntent;
 import android.content.Intent;
 
 import com.bioinformaticsapp.data.BLASTQueryController;

@@ -1,11 +1,10 @@
 package com.bioinformaticsapp;
 
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.widget.SearchParametersAdapter;
-
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+
+import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.widget.SearchParametersAdapter;
 
 public class BLASTQuerySearchParametersActivity extends ListActivity {
 
