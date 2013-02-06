@@ -59,12 +59,10 @@ public class ViewBLASTHitsActivity extends ListActivity {
 	public void onResume(){
 		super.onResume();
 		
-		ProgressDialog loadingProgress = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-		loadingProgress.setCanceledOnTouchOutside(false);
-		loadingProgress.setCancelable(false);
 		
 		
-		BLASTHitsLoader hitsLoader = new BLASTHitsLoader(loadingProgress);
+		
+		BLASTHitsLoader hitsLoader = new BLASTHitsLoader();
 		
 		hitsLoader.execute(mBLASTHitsFile);
 		
@@ -117,15 +115,17 @@ public class ViewBLASTHitsActivity extends ListActivity {
 
 		private ProgressDialog loadingDialog;
 		
-		public BLASTHitsLoader(ProgressDialog loading){
+		public BLASTHitsLoader(){
 			super(mFinishedQuery.getVendorID());
-			loadingDialog = loading;
-						
+			loadingDialog = new ProgressDialog(ViewBLASTHitsActivity.this, ProgressDialog.STYLE_SPINNER);
+			
 		}
 		
 		protected void onPreExecute(){
-			loadingDialog.setMessage("Loading BLAST hits...");			
-			loadingDialog.show();
+			loadingDialog.setMessage("Loading BLAST hits...");
+			if(!loadingDialog.isShowing()){
+				loadingDialog.show();
+			}
 		}
 		
 		protected void onPostExecute(List<Map<String, String>> result){
