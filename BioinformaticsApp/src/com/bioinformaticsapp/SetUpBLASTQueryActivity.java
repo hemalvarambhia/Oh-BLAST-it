@@ -128,11 +128,17 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 		}else{ 
 			//...or date the columns for the specified row:
 			controller.update(query.getPrimaryKey(), query);
-			
-			for(SearchParameter parameter: query.getAllParameters()){
+			List<SearchParameter> allParameters = query.getAllParameters();
+			for(int i = 0; i < allParameters.size(); i++){
+				SearchParameter parameter = allParameters.get(i);
+				if(parameter.getPrimaryKey() == null){
+					long parameterId = optionalParametersController.save(parameter);
+					parameter.setPrimaryKey(parameterId);
+					allParameters.set(i, parameter);
+				}
 				optionalParametersController.update(parameter.getPrimaryKey(), parameter);
 			}
-			
+			query.updateAllParameters(allParameters);
 		}
 	}
 	
