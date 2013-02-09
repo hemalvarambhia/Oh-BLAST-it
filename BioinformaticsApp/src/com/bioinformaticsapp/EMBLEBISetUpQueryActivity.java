@@ -51,6 +51,13 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		
 		setContentView(R.layout.embl_ebi_blast_query_form);
 		
+		if(isLegacyQuery()){
+			Resources resources = getResources();
+			String[] matchMismatchScores = resources.getStringArray(R.array.ebi_match_mismatch_score_options);
+			query.setSearchParameter("match_mismatch_score", matchMismatchScores[0]);
+			query.setSearchParameter("email", "");
+		}
+		
 		mSequenceEditor = (EditText)findViewById(R.id.embl_sequence_editor);
 		mSequenceEditor.setFilters(new InputFilter[]{ new DNASymbolFilter() });
 		mProgramSpinner = (Spinner)findViewById(R.id.blastqueryentry_program_spinner);
@@ -124,12 +131,11 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		mScoreSpinner.setSelection(scorePosition);
 		
 		SearchParameter matchMismatchScore = query.getSearchParameter("match_mismatch_score");
-		if(matchMismatchScore != null){
-			String[] matchMismatchScoreOptions = appResources.getStringArray(R.array.ebi_match_mismatch_score_options);
-			List<String> listOfMatchMismatchScores = Arrays.asList(matchMismatchScoreOptions);
-			int matchMismatchScorePosition = listOfMatchMismatchScores.indexOf(matchMismatchScore.getValue());
-			mMatchMismatchSpinner.setSelection(matchMismatchScorePosition);
-		}
+		String[] matchMismatchScoreOptions = appResources.getStringArray(R.array.ebi_match_mismatch_score_options);
+		List<String> listOfMatchMismatchScores = Arrays.asList(matchMismatchScoreOptions);
+		int matchMismatchScorePosition = listOfMatchMismatchScores.indexOf(matchMismatchScore.getValue());
+		mMatchMismatchSpinner.setSelection(matchMismatchScorePosition);
+		
 		if(query.getSequence() == null || query.getSequence().isEmpty()){
 			mSequenceEditor.setHint("Enter a sequence");
 		}else{
@@ -137,13 +143,22 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		}
 		
 		SearchParameter email = query.getSearchParameter("email");
-		if(email == null){
-			mEmailEditor.setHint("Enter an e-mail address");
-		}else if(email.getValue() == null || email.getValue().isEmpty()){
+		if(email.getValue() == null || email.getValue().isEmpty()){
 			mEmailEditor.setHint("Enter an e-mail address");		
 		}else{
 			mEmailEditor.setText(email.getValue());
 		}
+		
+	}
+	
+	private boolean isLegacyQuery(){
+		
+		SearchParameter matchMismatchScore = query.getSearchParameter("match_mismatch_score");
+		
+		SearchParameter email = query.getSearchParameter("email");
+		
+		
+		return matchMismatchScore == null && email == null;
 		
 	}
 	
