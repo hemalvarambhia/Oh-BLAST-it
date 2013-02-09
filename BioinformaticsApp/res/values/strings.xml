@@ -11,7 +11,6 @@
     <string-array name="blast_database_options">
         <item >em_rel</item>
         <item >em_rel_fun</item>
-        <item >em_fun</item>
     </string-array>
     <string name="blastqueryentry_database_spinner_label">Database</string>
     <string name="blastqueryentry_program_label">Program</string>
@@ -76,7 +75,6 @@
         <string-array name="ncbi_database_options">
             <item >nr</item>
             <item >nt</item>
-            <item >refseq_genomic</item>
         </string-array>
             <string name="ncbi_word_size_label">Word Size</string>
             <string-array name="ncbi_word_size_options">
