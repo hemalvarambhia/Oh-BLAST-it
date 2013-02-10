@@ -132,9 +132,9 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 			for(int i = 0; i < allParameters.size(); i++){
 				SearchParameter parameter = allParameters.get(i);
 				if(parameter.getPrimaryKey() == null){
+					parameter.setBlastQueryId(query.getPrimaryKey());
 					long parameterId = optionalParametersController.save(parameter);
 					parameter.setPrimaryKey(parameterId);
-					parameter.setBlastQueryId(query.getPrimaryKey());
 					allParameters.set(i, parameter);
 				}else{
 					optionalParametersController.update(parameter.getPrimaryKey(), parameter);
