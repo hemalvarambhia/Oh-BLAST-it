@@ -54,6 +54,7 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 		if(isLegacyQuery()){
 			Resources resources = getResources();
 			String[] matchMismatchScores = resources.getStringArray(R.array.ebi_match_mismatch_score_options);
+			query.setJobIdentifier(null);
 			query.setSearchParameter("match_mismatch_score", matchMismatchScores[0]);
 			query.setSearchParameter("email", "");
 		}
