@@ -8,7 +8,6 @@ import android.content.Context;
 
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.Status;
 
 public class BLASTQueryLoader extends AsyncTaskLoader<BLASTQuery[]> {
 
