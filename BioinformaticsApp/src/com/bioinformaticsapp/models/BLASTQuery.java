@@ -85,7 +85,6 @@ public class BLASTQuery implements Serializable {
 		return program;
 	}
 	
-	
 	public void setSearchParameter(String parameterName, String value){
 		
 		boolean containsParameter = false;
@@ -155,13 +154,11 @@ public class BLASTQuery implements Serializable {
 			break;
 		} 
 		
-		return vendor;
-		
+		return vendor;	
 	}
 
 	public void setSequence(String sequenceString){
-		sequence = sequenceString;
-		
+		sequence = sequenceString;	
 	}
 	
 	/**
@@ -170,7 +167,6 @@ public class BLASTQuery implements Serializable {
 	public String getSequence() {
 		return sequence;
 	}
-
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -241,6 +237,11 @@ public class BLASTQuery implements Serializable {
 		return true;
 	}
 
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return null;
+	}
+
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
 		
@@ -251,11 +252,9 @@ public class BLASTQuery implements Serializable {
 		builder.append(statusOfJob+"\t");
 		builder.append(queryOptionalParameters.toString());
 		
-		return builder.toString();
-		
+		return builder.toString();	
 	}
 	
-
 	public boolean isValid() {
 		
 		if(sequence == null || sequence.isEmpty()){
@@ -277,9 +276,7 @@ public class BLASTQuery implements Serializable {
 		}
 		
 		boolean isValid = false;
-		
-		
-		
+			
 		try {
 			DNATools.createDNA(sequence);
 			isValid = true;
@@ -287,10 +284,7 @@ public class BLASTQuery implements Serializable {
 			// is valid is default set to true
 				
 		}
-		
-		
-		
-		
+	
 		return isValid;
 	}
 	

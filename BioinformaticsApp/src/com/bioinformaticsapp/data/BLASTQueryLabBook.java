@@ -8,13 +8,16 @@ public class BLASTQueryLabBook {
 
 	public BLASTQueryLabBook(Context context) {
 		this.context = context;
+		blastQueryController = new BLASTQueryController(this.context);
 	}
 
-	public boolean save(BLASTQuery aQuery) {
-		// TODO develop the logic for saving a BLAST query
-		return false;
+	public BLASTQuery save(BLASTQuery aQuery) {
+		long queryPrimaryKey = blastQueryController.save(aQuery);
+		
+		return null;
 	}
 	
 	private Context context;
+	private BLASTQueryController blastQueryController;
 
 }
