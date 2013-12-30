@@ -13,8 +13,10 @@ public class BLASTQueryLabBook {
 
 	public BLASTQuery save(BLASTQuery aQuery) {
 		long queryPrimaryKey = blastQueryController.save(aQuery);
+		BLASTQuery savedQuery = (BLASTQuery)aQuery.clone();
+		savedQuery.setPrimaryKeyId(queryPrimaryKey);
 		
-		return new BLASTQuery(aQuery.getBLASTProgram(), aQuery.getVendorID());
+		return savedQuery;
 	}
 	
 	private Context context;
