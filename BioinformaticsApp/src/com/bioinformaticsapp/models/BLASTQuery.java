@@ -58,7 +58,14 @@ public class BLASTQuery implements Serializable {
 		program = typeOfQuery;
 		queryOptionalParameters = SearchParameter.createDefaultParametersFor(vendor);
 		destination = vendor;
-		
+	}
+	
+	public static BLASTQuery ncbiBLASTQuery(String program){
+		return new BLASTQuery(program, BLASTVendor.NCBI);
+	}
+	
+	public static BLASTQuery emblBLASTQuery(String program){
+		return new BLASTQuery(program, BLASTVendor.EMBL_EBI);
 	}
 	
 	public void setPrimaryKeyId(long id){
