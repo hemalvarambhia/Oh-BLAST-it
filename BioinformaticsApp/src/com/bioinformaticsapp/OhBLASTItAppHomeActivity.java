@@ -1,8 +1,5 @@
 package com.bioinformaticsapp;
 
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTVendor;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.bioinformaticsapp.models.BLASTQuery;
 
 /**
  * This Activity is the 'home screen' of this application
@@ -64,7 +63,7 @@ public class OhBLASTItAppHomeActivity extends ListActivity {
 		
 		case R.id.create_embl_query: {
 			Intent setupBLASTQuery = new Intent(this, EMBLEBISetUpQueryActivity.class);
-			setupBLASTQuery.putExtra("query", new BLASTQuery("blastn", BLASTVendor.EMBL_EBI));
+			setupBLASTQuery.putExtra("query", BLASTQuery.emblBLASTQuery("blastn"));
 			startActivityForResult(setupBLASTQuery, CREATE_QUERY);
 			handled = true;
 			
@@ -73,7 +72,7 @@ public class OhBLASTItAppHomeActivity extends ListActivity {
 		
 		case R.id.create_ncbi_query: {
 			Intent setupBLASTQuery = new Intent(this, NCBIQuerySetUpActivity.class);
-			setupBLASTQuery.putExtra("query", new BLASTQuery("blastn", BLASTVendor.NCBI));
+			setupBLASTQuery.putExtra("query", BLASTQuery.ncbiBLASTQuery("blastn"));
 			startActivityForResult(setupBLASTQuery, CREATE_QUERY);
 			handled = true;
 		}
