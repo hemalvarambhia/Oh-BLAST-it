@@ -245,9 +245,10 @@ public class BLASTQuery implements Serializable {
 	}
 
 	@Override
-	public Object clone() throws CloneNotSupportedException {
+	public Object clone() {
 		BLASTQuery clone = new BLASTQuery(program, destination);
-		clone.setPrimaryKeyId(primaryKeyId);
+		if(primaryKeyId != null)
+			clone.setPrimaryKeyId(primaryKeyId);
 		clone.setSequence(sequence);
 		clone.setJobIdentifier(blastJobID);
 		clone.setStatus(statusOfJob);
