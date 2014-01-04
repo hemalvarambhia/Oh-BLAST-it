@@ -20,8 +20,7 @@ public class BLASTQueryLabBook {
 		blastQueryController.close();
 		
 		for(SearchParameter parameter: aQuery.getAllParameters()){
-			parameter.setBlastQueryId(queryPrimaryKey);
-			searchParameterController.save(parameter);
+			searchParameterController.saveFor(queryPrimaryKey, parameter);
 		}
 		searchParameterController.close();
 		BLASTQuery savedQuery = (BLASTQuery)aQuery.clone();
