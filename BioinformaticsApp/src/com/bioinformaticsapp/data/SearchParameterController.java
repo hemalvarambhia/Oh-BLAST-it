@@ -53,12 +53,8 @@ public class SearchParameterController {
 		
 		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_QUERY_FK +" = ?";
 		String[] queryFK = new String[]{String.valueOf(queryId)};
-		List<SearchParameter> parametersForQuery = null;
+		List<SearchParameter> parametersForQuery = new ArrayList<SearchParameter>();;
 		Cursor cursor = mDAO.query(BLASTJob.OPTIONAL_PARAMETER_FULL_PROJECTION, where, queryFK);
-		
-		if(cursor.getCount() > 0){
-			parametersForQuery = new ArrayList<SearchParameter>();
-		}
 		
 		while(cursor.moveToNext()){
 			String parameterName = cursor.getString(1);
