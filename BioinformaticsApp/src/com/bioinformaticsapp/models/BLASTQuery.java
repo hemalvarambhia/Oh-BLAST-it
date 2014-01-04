@@ -252,7 +252,11 @@ public class BLASTQuery implements Serializable {
 		clone.setSequence(sequence);
 		clone.setJobIdentifier(blastJobID);
 		clone.setStatus(statusOfJob);
-		clone.updateAllParameters(queryOptionalParameters);
+		List<SearchParameter> cloned = new ArrayList<SearchParameter>();
+		for(SearchParameter parameter: queryOptionalParameters){
+			cloned.add(new SearchParameter(parameter.getName(), parameter.getValue()));
+		}
+		clone.updateAllParameters(cloned);
 		return clone;
 	}
 
