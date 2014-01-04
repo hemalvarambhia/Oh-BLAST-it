@@ -20,7 +20,6 @@ public class SearchParameterController {
 		mDAO.open();
 	}
 	
-	
 	public void close(){
 		mDAO.close();
 	}
@@ -34,10 +33,7 @@ public class SearchParameterController {
 		long parameterPrimaryKey = mDAO.insert(values);
 		
 		return parameterPrimaryKey;
-		
 	}
-	
-
 
 	public void saveFor(long blastQueryId, SearchParameter parameter) {
 		ContentValues values = new ContentValues();
@@ -47,7 +43,6 @@ public class SearchParameterController {
 		
 		mDAO.insert(values);
 	}
-	
 	
 	public List<SearchParameter> getParametersForQuery(long queryId){
 		
