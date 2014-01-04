@@ -1,5 +1,7 @@
 package com.bioinformaticsapp.data;
 
+import java.util.List;
+
 import android.content.Context;
 
 import com.bioinformaticsapp.models.BLASTQuery;
@@ -28,8 +30,18 @@ public class BLASTQueryLabBook {
 		return savedQuery;
 	}
 	
+	public BLASTQuery findQueryById(Long id) {
+		blastQueryController = new BLASTQueryController(context);
+		searchParameterController = new SearchParameterController(context);
+		BLASTQuery queryWithID = blastQueryController.findBLASTQueryById(id);
+		List<SearchParameter> parameters = searchParameterController.getParametersForQuery(id);
+		queryWithID.updateAllParameters(parameters);
+		return queryWithID;
+	}
+	
 	private Context context;
 	private BLASTQueryController blastQueryController;
 	private SearchParameterController searchParameterController;
+	
 	
 }
