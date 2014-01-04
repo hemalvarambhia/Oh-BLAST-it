@@ -37,6 +37,18 @@ public class SearchParameterController {
 		
 	}
 	
+
+
+	public void saveFor(long blastQueryId, SearchParameter parameter) {
+		ContentValues values = new ContentValues();
+		values.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_PARAM_NAME, parameter.getName());
+		values.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_PARAM_VALUE, parameter.getValue());
+		values.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_QUERY_FK, blastQueryId);
+		
+		mDAO.insert(values);
+	}
+	
+	
 	public List<SearchParameter> getParametersForQuery(long queryId){
 		
 		String where = BLASTJob.COLUMN_NAME_BLASTQUERY_QUERY_FK +" = ?";
@@ -49,13 +61,9 @@ public class SearchParameterController {
 		}
 		
 		while(cursor.moveToNext()){
-			long id = cursor.getLong(0);
 			String parameterName = cursor.getString(1);
 			String valueOfParameter = cursor.getString(2);
-			long queryForeignKey = cursor.getLong(3);
 			SearchParameter parameter = new SearchParameter(parameterName, valueOfParameter);
-			parameter.setPrimaryKey(id);
-			parameter.setBlastQueryId(queryForeignKey);
 			parametersForQuery.add(parameter);
 		}
 		cursor.close();
@@ -80,5 +88,4 @@ public class SearchParameterController {
 	public int deleteParametersFor(long queryId){
 		return mDAO.deleteOptionsFor(queryId);
 	}
-	
 }
