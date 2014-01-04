@@ -155,7 +155,6 @@ public class SearchParameter implements Serializable{
 			break;
 		default:
 			break;
-				
 		}
 		
 		return queryOptionalParameters;
