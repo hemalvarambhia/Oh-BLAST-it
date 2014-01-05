@@ -53,6 +53,17 @@ public class BLASTQueryController {
 		
 		return numberOfRowsUpdated;
 	}
+	
+	public int update(BLASTQuery draftQuery) {
+		ContentValues values = new ContentValues();
+		values.put(BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_ID, draftQuery.getJobIdentifier());
+		values.put(BLASTJob.COLUMN_NAME_BLASTQUERY_PROGRAM, draftQuery.getBLASTProgram());
+		values.put(BLASTJob.COLUMN_NAME_BLASTQUERY_SEQUENCE, draftQuery.getSequence());
+		values.put(BLASTJob.COLUMN_NAME_BLASTQUERY_JOB_STATUS, draftQuery.getStatus().toString());
+		values.put(BLASTJob.COLUMN_NAME_BLASTQUERY_DESTINATION, draftQuery.getVendorID());
+		
+		return mDAO.updateById(draftQuery.getPrimaryKey(), values);
+	}
 
 	public BLASTQuery findBLASTQueryById(long id){
 		String[] projection = new String[]{
@@ -155,9 +166,8 @@ public class BLASTQueryController {
 	}
 
 	public int delete(long id){
-		
 		return mDAO.deleteById(id);
-	
 	}
+
 	
 }
