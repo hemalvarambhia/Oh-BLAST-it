@@ -16,15 +16,20 @@ public class BLASTQueryLabBook {
 	public BLASTQuery save(BLASTQuery aQuery) {
 		blastQueryController = new BLASTQueryController(context);
 		searchParameterController = new SearchParameterController(context);
-		long queryPrimaryKey = blastQueryController.save(aQuery);
+		BLASTQuery savedQuery = (BLASTQuery)aQuery.clone();
+		if(aQuery.getPrimaryKey() == null){
+			long queryPrimaryKey = blastQueryController.save(aQuery);
+			savedQuery.setPrimaryKeyId(queryPrimaryKey);
+		}else{
+			blastQueryController.update(aQuery);
+			searchParameterController.deleteParametersFor(aQuery.getPrimaryKey());
+		}
 		blastQueryController.close();
 		
 		for(SearchParameter parameter: aQuery.getAllParameters()){
-			searchParameterController.saveFor(queryPrimaryKey, parameter);
+			searchParameterController.saveFor(savedQuery.getPrimaryKey(), parameter);
 		}
 		searchParameterController.close();
-		BLASTQuery savedQuery = (BLASTQuery)aQuery.clone();
-		savedQuery.setPrimaryKeyId(queryPrimaryKey);
 		
 		return savedQuery;
 	}
