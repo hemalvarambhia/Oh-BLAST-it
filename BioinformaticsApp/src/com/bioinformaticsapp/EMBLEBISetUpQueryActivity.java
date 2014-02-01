@@ -97,11 +97,6 @@ public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
 			break;
 		}
 		
-		if(isFinishing()){
-			optionalParametersController.close();
-			controller.close();
-		}
-		
 	}
 	
 	protected void setUpScreenWithInitialValues(){
