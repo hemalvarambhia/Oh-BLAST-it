@@ -10,12 +10,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.BLASTQueryLabBook;
-import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 
 public abstract class SetUpBLASTQueryActivity extends Activity {
+
+	private static final String TAG = "SetUpBLASTQueryActivity";
 
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -124,10 +124,5 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 	
 	protected ProgressDialog mProgressDialog;
 	
-	protected BLASTQuery query;
-	
-	protected BLASTQueryController controller;
-	
-	protected SearchParameterController optionalParametersController;
-	
+	protected BLASTQuery query;	
 }

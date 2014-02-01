@@ -40,6 +40,8 @@ public class BLASTQueryLabBook {
 		BLASTQuery queryWithID = blastQueryController.findBLASTQueryById(id);
 		List<SearchParameter> parameters = searchParameterController.getParametersForQuery(id);
 		queryWithID.updateAllParameters(parameters);
+		blastQueryController.close();
+		searchParameterController.close();
 		return queryWithID;
 	}
 	
