@@ -1,7 +1,5 @@
 package com.bioinformaticsapp.web;
 
-import java.util.List;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,12 +7,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.SearchParameterController;
+import com.bioinformaticsapp.data.BLASTQueryLabBook;
 import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
-import com.bioinformaticsapp.models.SearchParameter;
 
 public class BLASTQuerySender extends
 		AsyncTask<BLASTQuery, Void, Integer> {
@@ -123,19 +119,8 @@ public class BLASTQuerySender extends
 	}
 	
 	private void save(BLASTQuery query){
-		BLASTQueryController queryController = new BLASTQueryController(this.context);
-		SearchParameterController parametersController = new SearchParameterController(this.context);
-		
-		List<SearchParameter> parameters = query.getAllParameters();
-		
-		queryController.update(query.getPrimaryKey(), query);
-		
-		for(SearchParameter parameter: parameters){
-			parametersController.update(parameter.getPrimaryKey(), parameter);
-		}
-
-		queryController.close();
-		parametersController.close();
+		BLASTQueryLabBook labBook = new BLASTQueryLabBook(context);
+		labBook.save(query);
 	}
 	
 	private void close(){

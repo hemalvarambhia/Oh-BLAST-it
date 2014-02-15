@@ -82,8 +82,6 @@ public class BLASTDAO {
 		queryBuilder.setTables(BLASTQuery.BLAST_QUERY_TABLE);
 		queryBuilder.setProjectionMap(projections);
 		
-		//SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-		
 		/**
 		 * There is no need for the GROUPBY clause or the HAVING clause
 		 */
@@ -94,10 +92,6 @@ public class BLASTDAO {
 	
 	
 	public int update(String whereClause, String[] whereArguments, ContentValues values){
-		
-		//Get the writable form of our BLAST jobs database
-		//SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-	
 		//Update the row with new columns values as specified by the clause and our values	 
 		int numberOfRowsAffected = database.update(BLASTQuery.BLAST_QUERY_TABLE, values, whereClause, whereArguments);
 		

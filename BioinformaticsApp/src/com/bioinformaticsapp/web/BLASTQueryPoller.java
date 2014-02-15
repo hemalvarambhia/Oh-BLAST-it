@@ -14,12 +14,10 @@ import android.os.AsyncTask;
 
 import com.bioinformaticsapp.AppPreferences;
 import com.bioinformaticsapp.BLASTQueriesFinishedReceiver;
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.SearchParameterController;
+import com.bioinformaticsapp.data.BLASTQueryLabBook;
 import com.bioinformaticsapp.helpers.StatusTranslator;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
-import com.bioinformaticsapp.models.SearchParameter;
 
 public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoller.Report> {
 
@@ -27,12 +25,8 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 	
 	public static final int JOB_FINISHED_NOTI_ID = 2;
 
-	private static final String TAG = "BLASTQueryPoller";
-	
 	private NCBIBLASTService ncbiService;
-	
 	private EMBLEBIBLASTService emblService;
-	
 	private StatusTranslator translator;
 	
 	public BLASTQueryPoller(Context context){
@@ -46,16 +40,11 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 	protected Report doInBackground(BLASTQuery... queries) {
 		Report report = new Report();
 		if(connectedToWeb()){
-			for(int i = 0; i < queries.length; i++){
-				
+			for(int i = 0; i < queries.length; i++){				
 				BLASTSearchEngine service = getServiceFor(queries[i].getVendorID());
-				
 				SearchStatus current = service.pollQuery(queries[i].getJobIdentifier());
-				
 				queries[i].setStatus(translator.translate(current));
-				
 				save(queries[i]);
-
 				report.addOutcome(queries[i].getPrimaryKey(), translator.translate(current));
 			}
 		}
@@ -118,26 +107,13 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 	}
 
 	private void save(BLASTQuery query){
-		BLASTQueryController queryController = new BLASTQueryController(this.context);
-		SearchParameterController parametersController = new SearchParameterController(this.context);
-		
-		List<SearchParameter> parameters = query.getAllParameters();
-		
-		queryController.update(query.getPrimaryKey(), query);
-		
-		for(SearchParameter parameter: parameters){
-			parametersController.update(parameter.getPrimaryKey(), parameter);
-		}
-
-		queryController.close();
-		parametersController.close();
+		BLASTQueryLabBook labBook = new BLASTQueryLabBook(context);
+		labBook.save(query);
 	}
-
 	
 	private void close(){
 		ncbiService.close();
-		emblService.close();
-		
+		emblService.close();	
 	}
 	
 	public class Report {

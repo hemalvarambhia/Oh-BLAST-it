@@ -12,8 +12,6 @@ public class SearchParameter implements Serializable{
 	 */
 	private static final long serialVersionUID = 1362234717956849422L;
 
-	private Long primaryKey;
-	
 	private Long blastQueryId;
 	
 	private String name;
@@ -25,21 +23,6 @@ public class SearchParameter implements Serializable{
 		this.value = value;
 	}
 
-	/**
-	 * @return the primaryKey
-	 */
-	public Long getPrimaryKey() {
-		return primaryKey;
-	}
-
-	/**
-	 * @param primaryKey the primaryKey to set
-	 */
-	public void setPrimaryKey(Long primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-
-	
 	/**
 	 * @return the blastQueryId
 	 */
@@ -90,8 +73,6 @@ public class SearchParameter implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((primaryKey == null) ? 0 : primaryKey.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -113,11 +94,6 @@ public class SearchParameter implements Serializable{
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (primaryKey == null) {
-			if (other.primaryKey != null)
-				return false;
-		} else if (!primaryKey.equals(other.primaryKey))
-			return false;
 		if (value == null) {
 			if (other.value != null)
 				return false;
@@ -125,16 +101,18 @@ public class SearchParameter implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "OptionalParameter [primaryKey=" + primaryKey + ", name=" + name
-				+ ", value=" + value + "]";
+		return "SearchParameter [blastQueryId=" + blastQueryId + ", name="
+				+ name + ", value=" + value + "]";
 	}
-	
+
 	public static List<SearchParameter> createDefaultParametersFor(int vendorID){
 		List<SearchParameter> queryOptionalParameters = new ArrayList<SearchParameter>();
 		switch(vendorID){

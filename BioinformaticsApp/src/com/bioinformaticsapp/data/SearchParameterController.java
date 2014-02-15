@@ -62,19 +62,6 @@ public class SearchParameterController {
 		return parametersForQuery;
 		
 	}
-	
-	public int update(long primaryKey, SearchParameter parameter){
-		ContentValues newValues = new ContentValues();
-		newValues.put(BLASTJob.COLUMN_NAME_PRIMARY_KEY, parameter.getPrimaryKey());
-		newValues.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_PARAM_NAME, parameter.getName());
-		newValues.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_PARAM_VALUE, parameter.getValue());
-		newValues.put(BLASTQuery.BLASTJob.COLUMN_NAME_BLASTQUERY_QUERY_FK, parameter.getBlastQueryId());
-		
-		int numberUpdated = mDAO.updateParameters(parameter.getPrimaryKey(), newValues);
-		
-		return numberUpdated;
-		
-	}
 
 	public int deleteParametersFor(long queryId){
 		return mDAO.deleteOptionsFor(queryId);

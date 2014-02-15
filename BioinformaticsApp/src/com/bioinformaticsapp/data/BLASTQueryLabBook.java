@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 
 import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.SearchParameter;
 
 public class BLASTQueryLabBook {
@@ -45,9 +46,23 @@ public class BLASTQueryLabBook {
 		return queryWithID;
 	}
 	
+	public List<BLASTQuery> findBLASTQueriesByStatus(
+			Status status) {
+		blastQueryController = new BLASTQueryController(context);
+		searchParameterController = new SearchParameterController(context);
+		List<BLASTQuery> queriesWithStatus = blastQueryController.findBLASTQueriesByStatus(status);
+		for(BLASTQuery query: queriesWithStatus){
+			List<SearchParameter> parameters = searchParameterController.getParametersForQuery(query.getPrimaryKey());
+			query.updateAllParameters(parameters);
+		}
+		blastQueryController.close();
+		searchParameterController.close();
+		
+		return queriesWithStatus;
+	}
+	
 	private Context context;
 	private BLASTQueryController blastQueryController;
 	private SearchParameterController searchParameterController;
-	
 	
 }
