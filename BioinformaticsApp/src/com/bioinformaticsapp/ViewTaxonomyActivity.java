@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.bioinformaticsapp.web.EntryFetcher;
+import com.bioinformaticsapp.blastservices.EntryFetcher;
 
 public class ViewTaxonomyActivity extends Activity {
 	

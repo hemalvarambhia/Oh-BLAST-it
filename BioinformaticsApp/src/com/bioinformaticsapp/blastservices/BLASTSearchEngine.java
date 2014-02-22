@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.web;
+package com.bioinformaticsapp.blastservices;
 
 import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;

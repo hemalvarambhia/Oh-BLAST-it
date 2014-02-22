@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.web;
+package com.bioinformaticsapp.blastservices;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,13 +25,13 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 	
 	public static final int JOB_FINISHED_NOTI_ID = 2;
 
-	private NCBIBLASTService ncbiService;
-	private EMBLEBIBLASTService emblService;
+	private BLASTSearchEngine ncbiService;
+	private BLASTSearchEngine emblService;
 	private StatusTranslator translator;
 	
 	public BLASTQueryPoller(Context context){
 		this.context = context;
-		ncbiService = new NCBIBLASTService();
+		this.ncbiService = new NCBIBLASTService();
 		emblService = new EMBLEBIBLASTService();
 		translator = new StatusTranslator();
 	}

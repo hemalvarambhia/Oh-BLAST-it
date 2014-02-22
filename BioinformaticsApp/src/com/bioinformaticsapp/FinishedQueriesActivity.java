@@ -22,10 +22,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bioinformaticsapp.blastservices.BLASTHitsDownloadingTask;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.SearchParameter;
-import com.bioinformaticsapp.web.BLASTHitsDownloadingTask;
 
 public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 

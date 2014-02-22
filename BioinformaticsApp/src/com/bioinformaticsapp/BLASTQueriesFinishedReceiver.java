@@ -7,7 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.bioinformaticsapp.web.BLASTQueryPoller;
+import com.bioinformaticsapp.blastservices.BLASTQueryPoller;
 
 public class BLASTQueriesFinishedReceiver extends BroadcastReceiver {
 

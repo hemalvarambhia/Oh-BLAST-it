@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.web;
+package com.bioinformaticsapp.blastservices;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

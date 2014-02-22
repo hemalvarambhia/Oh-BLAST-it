@@ -5,12 +5,12 @@ import java.util.List;
 import android.app.IntentService;
 import android.content.Intent;
 
+import com.bioinformaticsapp.blastservices.BLASTQuerySender;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.SearchParameter;
-import com.bioinformaticsapp.web.BLASTQuerySender;
 
 public class SubmitQueryService extends IntentService {
 

@@ -9,11 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
+import com.bioinformaticsapp.blastservices.BLASTQueryPoller;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.SearchParameter;
-import com.bioinformaticsapp.web.BLASTQueryPoller;
 
 
 /**

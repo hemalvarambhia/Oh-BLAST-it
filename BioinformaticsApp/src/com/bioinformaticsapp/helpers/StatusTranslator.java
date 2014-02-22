@@ -2,8 +2,8 @@ package com.bioinformaticsapp.helpers;
 
 import java.util.EnumMap;
 
+import com.bioinformaticsapp.blastservices.SearchStatus;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
-import com.bioinformaticsapp.web.SearchStatus;
 
 public class StatusTranslator {
 	
