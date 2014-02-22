@@ -37,10 +37,10 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 	}
 	
 	public BLASTQueryPoller(Context context, BLASTSearchEngine ncbiBLASTService, 
-			BLASTSearchEngine emblBLASTSearch){
+			BLASTSearchEngine emblBLASTService){
 		this.context = context;
 		ncbiService = ncbiBLASTService;
-		emblService = emblBLASTSearch;
+		emblService = emblBLASTService;
 		translator = new StatusTranslator();
 	}
 	
