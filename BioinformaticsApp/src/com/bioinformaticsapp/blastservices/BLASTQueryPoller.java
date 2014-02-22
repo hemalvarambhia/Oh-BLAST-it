@@ -36,6 +36,14 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, BLASTQueryPoll
 		translator = new StatusTranslator();
 	}
 	
+	public BLASTQueryPoller(Context context, BLASTSearchEngine ncbiBLASTService, 
+			BLASTSearchEngine emblBLASTSearch){
+		this.context = context;
+		this.ncbiService = ncbiBLASTService;
+		emblService = new EMBLEBIBLASTService();
+		translator = new StatusTranslator();
+	}
+	
 	@Override
 	protected Report doInBackground(BLASTQuery... queries) {
 		Report report = new Report();
