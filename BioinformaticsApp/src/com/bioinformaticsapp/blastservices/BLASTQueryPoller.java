@@ -51,9 +51,6 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 		return numberOfQueriesFinished;
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
-	 */
 	@Override
 	protected void onPostExecute(Integer numberOfQueriesFinished) {
 		super.onPostExecute(numberOfQueriesFinished);
