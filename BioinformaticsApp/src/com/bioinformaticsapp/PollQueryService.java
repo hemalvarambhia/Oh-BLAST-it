@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.os.SystemClock;
 
 import com.bioinformaticsapp.blastservices.BLASTQueryPoller;
+import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
+import com.bioinformaticsapp.blastservices.EMBLEBIBLASTService;
+import com.bioinformaticsapp.blastservices.NCBIBLASTService;
 import com.bioinformaticsapp.data.BLASTQueryController;
 import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
@@ -70,8 +73,9 @@ public class PollQueryService extends IntentService {
 		
 		parametersController.close();
 		queryController.close();
-		
-		BLASTQueryPoller poller = new BLASTQueryPoller(this);
+		BLASTSearchEngine ncbiBLASTService = new NCBIBLASTService();
+		BLASTSearchEngine emblBLASTService = new EMBLEBIBLASTService();
+		BLASTQueryPoller poller = new BLASTQueryPoller(this, ncbiBLASTService, emblBLASTService);
 		poller.execute(sent);
 		
 	}
