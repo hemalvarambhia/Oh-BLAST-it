@@ -56,7 +56,6 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 	 */
 	@Override
 	protected void onPostExecute(Integer numberOfQueriesFinished) {
-		// TODO Auto-generated method stub
 		super.onPostExecute(numberOfQueriesFinished);
 		if(numberOfQueriesFinished > 0){
 			Intent queriesFinishedAnnouncement = new Intent(BLASTQueriesFinishedReceiver.QUERIES_FINISHED_ACTION);
