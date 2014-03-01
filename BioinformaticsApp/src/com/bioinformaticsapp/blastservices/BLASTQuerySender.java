@@ -16,12 +16,20 @@ public class BLASTQuerySender extends
 		AsyncTask<BLASTQuery, Void, Integer> {
 
 	public BLASTQuerySender(Context context){
-		
 		this.context = context;
 		ncbiService = new NCBIBLASTService();
 		emblService = new EMBLEBIBLASTService();
 		numberToSend = 0;
 	}
+	
+	public BLASTQuerySender(Context context, BLASTSearchEngine ncbiBLASTService, BLASTSearchEngine emblBLASTService){
+		this.context = context;
+		ncbiService = ncbiBLASTService;
+		emblService = emblBLASTService;
+		numberToSend = 0;
+	}
+	
+	
 	@Override
 	protected Integer doInBackground(BLASTQuery...pendingQueries) {
 		numberToSend = pendingQueries.length;
@@ -131,8 +139,8 @@ public class BLASTQuerySender extends
 	}
 
 	private static final String TAG = "BLASTQuerySender";
-	private NCBIBLASTService ncbiService;
-	private EMBLEBIBLASTService emblService;
+	private BLASTSearchEngine ncbiService;
+	private BLASTSearchEngine emblService;
 	protected Context context;
 	private int numberToSend;
 	
