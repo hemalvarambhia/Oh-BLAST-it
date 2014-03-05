@@ -1,5 +1,6 @@
 package com.bioinformaticsapp.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -61,6 +62,22 @@ public class BLASTQueryLabBook {
 		return queriesWithStatus;
 	}
 	
+	public List<BLASTQuery> findPendingBLASTQueriesFor(int vendor){
+		List<BLASTQuery> queriesPending = findBLASTQueriesByStatus(Status.PENDING);
+		if(queriesPending.isEmpty()){
+			return new ArrayList<BLASTQuery>();
+		}
+		
+		List<BLASTQuery> queriesPendingForVendor = new ArrayList<BLASTQuery>();
+		for(BLASTQuery query: queriesPending){
+			if(query.getVendorID() == vendor){
+				queriesPendingForVendor.add(query);
+			}
+		}
+		
+		return queriesPendingForVendor;
+	}
+
 	private Context context;
 	private BLASTQueryController blastQueryController;
 	private SearchParameterController searchParameterController;
