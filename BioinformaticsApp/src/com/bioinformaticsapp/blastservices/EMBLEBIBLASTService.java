@@ -25,7 +25,6 @@ import org.apache.http.protocol.HttpContext;
 
 import android.util.Log;
 
-import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 
 public class EMBLEBIBLASTService implements BLASTSearchEngine {
@@ -44,15 +43,9 @@ public class EMBLEBIBLASTService implements BLASTSearchEngine {
 		HttpParams p = new BasicHttpParams();
 		HttpProtocolParams.setVersion(p, HttpVersion.HTTP_1_1);
 		mHttpClient = new DefaultHttpClient(p);
-		//mHttpClient.setHttpRequestRetryHandler(new HttpResender());
 	}
 	
-	public String submit(BLASTQuery query) throws IllegalBLASTQueryException {
-		
-		if(query.getSequence() == null || query.getSequence().isEmpty()){
-			throw new IllegalBLASTQueryException("The query was not specified. Please provide a valid sequence");
-		}
-		
+	public String submit(BLASTQuery query) {
 		HttpPost postRequest = new HttpPost(EMBL_BLAST_REST_BASE_URI+"run/");
 		postRequest.setHeader("Content-Type", "application/x-www-form-urlencoded");
 		postRequest.setHeader("Accept", "text/plain");
@@ -66,13 +59,8 @@ public class EMBLEBIBLASTService implements BLASTSearchEngine {
 			ebiJobIdentifier = ebiJobIdentifier.replace("\n", "");
 				
 		} catch (ClientProtocolException e){
-		
-			throw new IllegalBLASTQueryException("There was a problem sending this query. " +
-					"It may be due to an optional variable being inappropriate or invalid " +
-					"for the programme you specified");
-			
+			Log.w(TAG, "There was an attempt to incorrectly send the query. Check the service's documentation");
 		}catch (IOException e) {
-			
 			Log.e(TAG, Arrays.toString(e.getStackTrace()));
 		} 
 		

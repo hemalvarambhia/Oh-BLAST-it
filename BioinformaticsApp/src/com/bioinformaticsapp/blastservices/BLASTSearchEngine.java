@@ -1,11 +1,10 @@
 package com.bioinformaticsapp.blastservices;
 
-import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 
 public interface BLASTSearchEngine {
 	
-	public String submit(BLASTQuery query) throws IllegalBLASTQueryException;
+	public String submit(BLASTQuery query);
 	
 	public SearchStatus pollQuery(String jobId);
 	

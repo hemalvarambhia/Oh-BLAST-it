@@ -4,11 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.bioinformaticsapp.data.BLASTQueryLabBook;
-import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
 
@@ -34,32 +32,25 @@ public class BLASTQuerySender extends
 	protected Integer doInBackground(BLASTQuery...pendingQueries) {
 		numberToSend = pendingQueries.length;
 		int numberSent = 0;
-		
 		if(connectedToWeb()){
 			for(int i = 0; i < pendingQueries.length; i++){
-				BLASTSearchEngine service = getServiceFor(pendingQueries[i].getVendorID());
-				try {
-					
-					String jobIdentifier = service.submit(pendingQueries[i]);
+				BLASTQuery pending = pendingQueries[i];
+				if(!pending.isValid()){
+					pending.setStatus(BLASTQuery.Status.DRAFT);
+				}else{
+					BLASTSearchEngine service = getServiceFor(pending.getVendorID());
+					String jobIdentifier = service.submit(pending);
 					if(jobIdentifier != null){
-						pendingQueries[i].setJobIdentifier(jobIdentifier);
-						pendingQueries[i].setStatus(BLASTQuery.Status.SUBMITTED);
+						pending.setJobIdentifier(jobIdentifier);
+						pending.setStatus(BLASTQuery.Status.SUBMITTED);
 						numberSent++;
 					}
-				
-				} catch(IllegalBLASTQueryException e){
-					
-					Log.i(TAG, "Could not assign query with ID "+pendingQueries[0].getPrimaryKey()+" a job identifier");
-					pendingQueries[i].setStatus(BLASTQuery.Status.DRAFT);
-				} finally {
-					save(pendingQueries[i]);				
 				}
+				save(pending);
 			}
 			close();
-			
 		}
 		Integer numberOfQueriesSent = new Integer(numberSent);	
-		
 		return numberOfQueriesSent;
 	}
 	

@@ -28,7 +28,6 @@ import org.jsoup.nodes.Node;
 
 import android.util.Log;
 
-import com.bioinformaticsapp.exception.IllegalBLASTQueryException;
 import com.bioinformaticsapp.models.BLASTQuery;
 
 public class NCBIBLASTService implements BLASTSearchEngine {
@@ -46,12 +45,7 @@ public class NCBIBLASTService implements BLASTSearchEngine {
 		
 	}
 	
-	public String submit(BLASTQuery query) throws IllegalBLASTQueryException {
-		
-		if(!query.isValid()){
-			throw new IllegalBLASTQueryException("Query is invalid. Maybe the sequence was not specified correctly");
-		}
-		//Set up the http post request we are going to send to the web service
+	public String submit(BLASTQuery query) {
 		HttpPost postRequest = new HttpPost(NCBI_BLAST_REST_BASE_URI);
 		postRequest.setHeader("Content-Type", "application/x-www-form-urlencoded");
 		postRequest.setHeader("Accept", "text/plain");
@@ -60,32 +54,19 @@ public class NCBIBLASTService implements BLASTSearchEngine {
 		//post request
 		List<NameValuePair> postRequestArguments = toNameValuePairs(query);
 		
-		//send the request off
 		ResponseHandler<String> handler = new BasicResponseHandler();
 		String ncbiJobIdentifier = null;
 		try{
 			AbstractHttpEntity entity = new UrlEncodedFormEntity(postRequestArguments);
 			postRequest.setEntity(entity);
 			String response = mHttpClient.execute(postRequest, handler);
-			
-			//Parse the html string returned by the request
 			Document responseDoc = Jsoup.parse(response);
-
 			ncbiJobIdentifier = readOffJobIdentifierFrom(responseDoc);
 			
 		}catch(ClientProtocolException e){
-			throw new IllegalBLASTQueryException
-			(
-					"There was a problem with the query that was sent. It could be that one" +
-					"or all of the parameters you submitted were not recognized by the web service." +
-					"Please that the parameters you sent are valid"					
-			);
-			//Log.e(TAG, "ClientProtocolException");
-			//ncbiJobIdentifier = null;
+			Log.e(TAG, "ClientProtocolException: the query may have been sent incorrectly. Check NCBI's documentation on sending queries");
 		}catch(IOException e){
 			Log.e(TAG, "IOException");
-			ncbiJobIdentifier = null;
-		
 		}
 		
 		return ncbiJobIdentifier;
