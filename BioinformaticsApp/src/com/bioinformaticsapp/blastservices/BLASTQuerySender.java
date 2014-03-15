@@ -14,6 +14,7 @@ public class BLASTQuerySender extends
 
 	public BLASTQuerySender(Context context, BLASTSearchEngine service) {
 		blastSearchEngineService = service;
+		this.context = context;
 		numberToSend = 0;
 	}
 	
