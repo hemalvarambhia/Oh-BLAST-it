@@ -13,10 +13,9 @@ import com.bioinformaticsapp.blastservices.BLASTQueryPoller;
 import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
 import com.bioinformaticsapp.blastservices.EMBLEBIBLASTService;
 import com.bioinformaticsapp.blastservices.NCBIBLASTService;
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.SearchParameterController;
+import com.bioinformaticsapp.data.BLASTQueryLabBook;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.SearchParameter;
+import com.bioinformaticsapp.models.BLASTVendor;
 
 
 /**
@@ -59,29 +58,16 @@ public class PollQueryService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		BLASTQueryController queryController = new BLASTQueryController(this);
-		SearchParameterController parametersController = new SearchParameterController(this);
-		List<BLASTQuery> sentQueries = queryController.getSubmittedBLASTQueries();
-		BLASTQuery[] sent = new BLASTQuery[sentQueries.size()];
-		
-		for(int i = 0; i < sentQueries.size(); i++){
-			BLASTQuery sentQuery = sentQueries.get(i);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(sentQuery.getPrimaryKey());
-			sentQuery.updateAllParameters(parameters);
-			sent[i] = sentQuery;
-		}
-		
-		parametersController.close();
-		queryController.close();
+		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+		int[] vendors = new int[]{ BLASTVendor.EMBL_EBI, BLASTVendor.NCBI };
 		BLASTSearchEngine ncbiBLASTService = new NCBIBLASTService();
 		BLASTSearchEngine emblBLASTService = new EMBLEBIBLASTService();
-		BLASTQueryPoller poller = new BLASTQueryPoller(this, ncbiBLASTService, emblBLASTService);
-		poller.execute(sent);
 		
+		for(int vendor: vendors){
+			List<BLASTQuery> sentQueries = labBook.findPendingBLASTQueriesFor(vendor);
+			BLASTQueryPoller poller = new BLASTQueryPoller(this, ncbiBLASTService, emblBLASTService);
+			BLASTQuery[] sent = new BLASTQuery[sentQueries.size()];
+			poller.execute(sentQueries.toArray(sent));
+		}
 	}
-	
-	
-	
-	
-
 }
