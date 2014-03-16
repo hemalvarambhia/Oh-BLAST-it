@@ -31,7 +31,7 @@ import com.bioinformaticsapp.models.BLASTVendor;
 public class PollQueryService extends IntentService {
 
 	private static final String TAG = "PollQueryService";
-	
+	private static final int FIVE_MINUTES = 5*60*1000;
 	private AlarmManager alarmManager;
 	
 	public PollQueryService(String name) {
@@ -52,8 +52,8 @@ public class PollQueryService extends IntentService {
 		alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(QueryStatusRefreshReceiver.REFRESH_ACTION);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-		long timeToRefresh = SystemClock.elapsedRealtime() + 5*60*1000; //refreshing every 5 minutes
-		alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, timeToRefresh, 5*60*1000, pendingIntent);
+		long timeToRefresh = SystemClock.elapsedRealtime() + FIVE_MINUTES; //refreshing every 5 minutes
+		alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, timeToRefresh, FIVE_MINUTES, pendingIntent);
 	}
 
 	@Override
