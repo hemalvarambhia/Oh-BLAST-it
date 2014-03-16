@@ -64,7 +64,7 @@ public class PollQueryService extends IntentService {
 		BLASTSearchEngine emblBLASTService = new EMBLEBIBLASTService();
 		
 		for(int vendor: vendors){
-			List<BLASTQuery> sentQueries = labBook.findPendingBLASTQueriesFor(vendor);
+			List<BLASTQuery> sentQueries = labBook.submittedBLASTQueriesForVendor(vendor);
 			BLASTQueryPoller poller = new BLASTQueryPoller(this, ncbiBLASTService, emblBLASTService);
 			BLASTQuery[] sent = new BLASTQuery[sentQueries.size()];
 			poller.execute(sentQueries.toArray(sent));
