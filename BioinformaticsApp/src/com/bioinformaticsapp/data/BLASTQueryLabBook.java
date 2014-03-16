@@ -63,19 +63,36 @@ public class BLASTQueryLabBook {
 	}
 	
 	public List<BLASTQuery> findPendingBLASTQueriesFor(int vendor){
-		List<BLASTQuery> queriesPending = findBLASTQueriesByStatus(Status.PENDING);
-		if(queriesPending.isEmpty()){
+		List<BLASTQuery> allPendingQueries = findBLASTQueriesByStatus(Status.PENDING);
+		if(allPendingQueries.isEmpty()){
 			return new ArrayList<BLASTQuery>();
 		}
 		
-		List<BLASTQuery> queriesPendingForVendor = new ArrayList<BLASTQuery>();
-		for(BLASTQuery query: queriesPending){
+		List<BLASTQuery> queriesPendingForVendor = queriesForVendor(allPendingQueries, vendor);
+		
+		return queriesPendingForVendor;
+	}
+	
+	public List<BLASTQuery> submittedBLASTQueriesForVentor(int vendor) {
+		List<BLASTQuery> allSubmittedQueries = findBLASTQueriesByStatus(Status.SUBMITTED);
+		if(allSubmittedQueries.isEmpty()){
+			return new ArrayList<BLASTQuery>();
+		}
+		
+		List<BLASTQuery> queriesSubmittedToVendor = queriesForVendor(allSubmittedQueries, vendor);
+		
+		return queriesSubmittedToVendor;
+	}
+	
+	private List<BLASTQuery> queriesForVendor(List<BLASTQuery> queries, int vendor){
+		List<BLASTQuery> queriesForVendor = new ArrayList<BLASTQuery>();
+		for(BLASTQuery query: queries){
 			if(query.getVendorID() == vendor){
-				queriesPendingForVendor.add(query);
+				queriesForVendor.add(query);
 			}
 		}
 		
-		return queriesPendingForVendor;
+		return queriesForVendor;
 	}
 
 	private Context context;
