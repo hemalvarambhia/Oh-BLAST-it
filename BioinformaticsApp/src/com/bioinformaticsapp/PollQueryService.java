@@ -60,14 +60,25 @@ public class PollQueryService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
 		int[] vendors = new int[]{ BLASTVendor.EMBL_EBI, BLASTVendor.NCBI };
-		BLASTSearchEngine ncbiBLASTService = new NCBIBLASTService();
-		BLASTSearchEngine emblBLASTService = new EMBLEBIBLASTService();
 		
 		for(int vendor: vendors){
 			List<BLASTQuery> sentQueries = labBook.submittedBLASTQueriesForVendor(vendor);
-			BLASTQueryPoller poller = new BLASTQueryPoller(this, ncbiBLASTService, emblBLASTService);
+			BLASTSearchEngine searchEngine = getBLASTSearchEngineFor(vendor);
+			BLASTQueryPoller poller = new BLASTQueryPoller(this, searchEngine);
 			BLASTQuery[] sent = new BLASTQuery[sentQueries.size()];
 			poller.execute(sentQueries.toArray(sent));
+		}
+	}
+	
+	
+	private BLASTSearchEngine getBLASTSearchEngineFor(int blastVendor){
+		switch(blastVendor){
+		case BLASTVendor.EMBL_EBI:
+			return new EMBLEBIBLASTService();
+		case BLASTVendor.NCBI:
+			return new NCBIBLASTService();
+		default:
+			return null;
 		}
 	}
 }

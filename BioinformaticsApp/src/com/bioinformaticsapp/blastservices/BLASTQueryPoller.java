@@ -12,7 +12,6 @@ import com.bioinformaticsapp.BLASTQueriesFinishedReceiver;
 import com.bioinformaticsapp.data.BLASTQueryLabBook;
 import com.bioinformaticsapp.helpers.StatusTranslator;
 import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTVendor;
 
 public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 
@@ -20,15 +19,12 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 	
 	public static final int JOB_FINISHED_NOTI_ID = 2;
 
-	private BLASTSearchEngine ncbiService;
-	private BLASTSearchEngine emblService;
+	private BLASTSearchEngine blastSearchEngine;
 	private StatusTranslator translator;
 	
-	public BLASTQueryPoller(Context context, BLASTSearchEngine ncbiBLASTService, 
-			BLASTSearchEngine emblBLASTService){
+	public BLASTQueryPoller(Context context, BLASTSearchEngine searchEngine){
 		this.context = context;
-		ncbiService = ncbiBLASTService;
-		emblService = emblBLASTService;
+		blastSearchEngine = searchEngine;
 		translator = new StatusTranslator();
 	}
 	
@@ -37,8 +33,7 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 		int numberOfQueriesFinished = 0;
 		if(connectedToWeb()){
 			for(int i = 0; i < queries.length; i++){				
-				BLASTSearchEngine service = getServiceFor(queries[i].getVendorID());
-				SearchStatus current = service.pollQuery(queries[i].getJobIdentifier());
+				SearchStatus current = blastSearchEngine.pollQuery(queries[i].getJobIdentifier());
 				queries[i].setStatus(translator.translate(current));
 				if(hasFinished(queries[i])){
 					numberOfQueriesFinished++;
@@ -46,7 +41,7 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 				save(queries[i]);
 			}
 		}
-		close();
+		blastSearchEngine.close();
 		
 		return numberOfQueriesFinished;
 	}
@@ -83,17 +78,6 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 		return true;
 	}
 	
-	private BLASTSearchEngine getServiceFor(int blastVendor){
-		switch(blastVendor){
-		case BLASTVendor.EMBL_EBI:
-			return emblService;
-		case BLASTVendor.NCBI:
-			return ncbiService;
-		default:
-			return null;
-		}
-	}
-	
 	private boolean hasFinished(BLASTQuery query){
 		return query.getStatus().equals(BLASTQuery.Status.FINISHED);
 	}
@@ -102,9 +86,5 @@ public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 		BLASTQueryLabBook labBook = new BLASTQueryLabBook(context);
 		labBook.save(query);
 	}
-	
-	private void close(){
-		ncbiService.close();
-		emblService.close();	
-	}	
+		
 }
