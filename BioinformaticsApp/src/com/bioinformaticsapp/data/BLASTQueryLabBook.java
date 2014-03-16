@@ -73,7 +73,7 @@ public class BLASTQueryLabBook {
 		return queriesPendingForVendor;
 	}
 	
-	public List<BLASTQuery> submittedBLASTQueriesForVentor(int vendor) {
+	public List<BLASTQuery> submittedBLASTQueriesForVendor(int vendor) {
 		List<BLASTQuery> allSubmittedQueries = findBLASTQueriesByStatus(Status.SUBMITTED);
 		if(allSubmittedQueries.isEmpty()){
 			return new ArrayList<BLASTQuery>();
