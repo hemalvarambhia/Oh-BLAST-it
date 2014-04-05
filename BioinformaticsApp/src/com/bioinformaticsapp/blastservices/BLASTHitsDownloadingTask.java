@@ -15,13 +15,14 @@ import com.bioinformaticsapp.models.BLASTVendor;
 
 public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String> {
 
-	private static final String TAG = "BLASTHitsDownloader";
-	private Context context;
-	
 	public BLASTHitsDownloadingTask(Context context){
 		this.context = context;
 	}
 	
+	public BLASTHitsDownloadingTask(Context context, BLASTSearchEngine engine){
+		this.context = context;
+		blastSearchEngine = engine;
+	}
 	
 	@Override
 	protected String doInBackground(BLASTQuery... params) {
@@ -29,8 +30,6 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 		if(!connectedToWeb()){
 			return null;
 		}
-		
-		BLASTSearchEngine service = getServiceFor(params[0].getVendorID());
 		
 		String format = "xml";
 		
@@ -40,7 +39,7 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 			break;
 		}
 		
-		String blastResultsAsXml = service.retrieveBLASTResults(jobIdentifier, format);
+		String blastResultsAsXml = blastSearchEngine.retrieveBLASTResults(jobIdentifier, format);
 		blastResultsAsXml = cleanupXmlOutput(blastResultsAsXml);
 		
 		String nameOfResultsFile = null;
@@ -59,21 +58,9 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 		return nameOfResultsFile;
 	}
 	
-	private BLASTSearchEngine getServiceFor(int blastVendor){
-		switch(blastVendor){
-		case BLASTVendor.EMBL_EBI:
-			return new EMBLEBIBLASTService();
-		case BLASTVendor.NCBI:
-			return new NCBIBLASTService();
-		default:
-			return null;
-		}
-	}
 	
 	private String cleanupXmlOutput(String xmlBlastoutput){
-		
 		return xmlBlastoutput.replaceAll("<CAN>", "<![CDATA[<CAN>]]>");
-		
 	}
 	
 	protected boolean connectedToWeb(){
@@ -98,6 +85,6 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 		
 	}
 	
-
-
+	private BLASTSearchEngine blastSearchEngine;
+	private Context context;
 }
