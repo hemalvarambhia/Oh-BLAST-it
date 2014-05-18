@@ -23,8 +23,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bioinformaticsapp.blastservices.BLASTHitsDownloadingTask;
+import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
+import com.bioinformaticsapp.blastservices.EMBLEBIBLASTService;
+import com.bioinformaticsapp.blastservices.NCBIBLASTService;
+import com.bioinformaticsapp.data.BLASTQueryLabBook;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
+import com.bioinformaticsapp.models.BLASTVendor;
 import com.bioinformaticsapp.models.SearchParameter;
 
 public class FinishedQueriesActivity extends BLASTQueryListingActivity {
@@ -170,14 +175,18 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		
 		super.onListItemClick(l, v, position, id);
-		
-		selected = mQueryAdapter.getItem(position);
-		List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
-		
-		selected.updateAllParameters(parameters);
+		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+		selected = labBook.findQueryById(id);
 		
 		if(!fileExists(selected.getJobIdentifier()+".xml")){
-			BLASTHitsDownloader downloader = new BLASTHitsDownloader(this);
+			BLASTSearchEngine searchEngine = null;
+			switch(selected.getVendorID()){
+			case BLASTVendor.EMBL_EBI:
+				searchEngine = new EMBLEBIBLASTService();
+			case BLASTVendor.NCBI:
+				searchEngine = new NCBIBLASTService();
+			}
+			BLASTHitsDownloader downloader = new BLASTHitsDownloader(this, searchEngine);
 			downloader.execute(selected);
 		}else{
 			Intent viewResults = new Intent(this, ViewBLASTHitsActivity.class);
@@ -245,8 +254,8 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 
 		private ProgressDialog mProgressDialog;
 		
-		public BLASTHitsDownloader(Context context) {
-			super(context);
+		public BLASTHitsDownloader(Context context, BLASTSearchEngine engine) {
+			super(context, engine);
 			mProgressDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
 		}
 

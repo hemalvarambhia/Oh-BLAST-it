@@ -15,10 +15,6 @@ import com.bioinformaticsapp.models.BLASTVendor;
 
 public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String> {
 
-	public BLASTHitsDownloadingTask(Context context){
-		this.context = context;
-	}
-	
 	public BLASTHitsDownloadingTask(Context context, BLASTSearchEngine engine){
 		this.context = context;
 		blastSearchEngine = engine;
