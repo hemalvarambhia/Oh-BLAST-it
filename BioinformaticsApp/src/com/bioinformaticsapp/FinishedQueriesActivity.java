@@ -30,7 +30,6 @@ import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
 import com.bioinformaticsapp.models.BLASTVendor;
 import com.bioinformaticsapp.models.SearchParameter;
-import com.bioinformaticsapp.persistence.BLASTQueryLabBook;
 
 public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 
@@ -173,10 +172,10 @@ public class FinishedQueriesActivity extends BLASTQueryListingActivity {
 	 */
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		
 		super.onListItemClick(l, v, position, id);
-		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
-		selected = labBook.findQueryById(id);
+		selected = mQueryAdapter.getItem(position);
+		List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
+		selected.updateAllParameters(parameters);
 		
 		if(!fileExists(selected.getJobIdentifier()+".xml")){
 			BLASTSearchEngine searchEngine = null;
