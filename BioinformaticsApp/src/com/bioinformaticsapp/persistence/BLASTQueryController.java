@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.data;
+package com.bioinformaticsapp.persistence;
 
 import java.util.ArrayList;
 import java.util.List;

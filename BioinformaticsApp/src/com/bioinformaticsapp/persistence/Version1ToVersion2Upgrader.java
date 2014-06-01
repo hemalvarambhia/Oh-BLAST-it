@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.data;
+package com.bioinformaticsapp.persistence;
 
 import android.content.ContentValues;
 import android.database.Cursor;

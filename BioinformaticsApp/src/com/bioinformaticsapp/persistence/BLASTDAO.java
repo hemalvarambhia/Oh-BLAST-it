@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.data;
+package com.bioinformaticsapp.persistence;
 
 import java.util.HashMap;
 import java.util.Map;

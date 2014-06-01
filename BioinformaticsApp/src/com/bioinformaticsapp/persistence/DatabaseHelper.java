@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.data;
+package com.bioinformaticsapp.persistence;
 
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;

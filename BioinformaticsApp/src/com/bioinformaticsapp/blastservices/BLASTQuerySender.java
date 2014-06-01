@@ -6,8 +6,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.data.BLASTQueryLabBook;
 import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.persistence.BLASTQueryLabBook;
 
 public class BLASTQuerySender extends
 		AsyncTask<BLASTQuery, Void, Integer> {

@@ -7,10 +7,10 @@ import android.content.Loader;
 import android.os.Bundle;
 
 import com.bioinformaticsapp.content.BLASTQueryLoader;
-import com.bioinformaticsapp.data.BLASTQueryController;
-import com.bioinformaticsapp.data.SearchParameterController;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTQuery.Status;
+import com.bioinformaticsapp.persistence.BLASTQueryController;
+import com.bioinformaticsapp.persistence.SearchParameterController;
 import com.bioinformaticsapp.widget.BLASTQueryAdapter;
 
 public class BLASTQueryListingActivity extends ListActivity implements LoaderCallbacks<BLASTQuery[]> {
