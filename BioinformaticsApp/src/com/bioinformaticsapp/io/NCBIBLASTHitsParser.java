@@ -14,7 +14,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Log;
 import android.util.Xml;
 
-import com.bioinformaticsapp.models.BLASTHit;
+import com.bioinformaticsapp.domain.BLASTHit;
 
 public class NCBIBLASTHitsParser implements BLASTHitsParser {
 	

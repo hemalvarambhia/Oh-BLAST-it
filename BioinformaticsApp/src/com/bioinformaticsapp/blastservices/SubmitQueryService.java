@@ -6,8 +6,8 @@ import android.app.IntentService;
 import android.content.Intent;
 
 import com.bioinformaticsapp.QueryStatusRefreshReceiver;
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTVendor;
+import com.bioinformaticsapp.domain.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTVendor;
 import com.bioinformaticsapp.persistence.BLASTQueryLabBook;
 
 public class SubmitQueryService extends IntentService {

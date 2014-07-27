@@ -6,7 +6,7 @@ import java.util.List;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
-import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.persistence.BLASTQueryController;
 
 public class BLASTQueryLoader extends AsyncTaskLoader<BLASTQuery[]> {

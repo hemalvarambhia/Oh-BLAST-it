@@ -1,7 +1,7 @@
 package com.bioinformaticsapp.persistence;
 
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.domain.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery.BLASTJob;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

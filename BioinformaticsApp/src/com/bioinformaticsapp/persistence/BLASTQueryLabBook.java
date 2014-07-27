@@ -5,9 +5,9 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.Status;
-import com.bioinformaticsapp.models.SearchParameter;
+import com.bioinformaticsapp.domain.BLASTQuery;
+import com.bioinformaticsapp.domain.SearchParameter;
+import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
 public class BLASTQueryLabBook {
 

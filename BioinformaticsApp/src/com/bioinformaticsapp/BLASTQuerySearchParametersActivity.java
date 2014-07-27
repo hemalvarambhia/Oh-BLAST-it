@@ -3,7 +3,7 @@ package com.bioinformaticsapp;
 import android.app.ListActivity;
 import android.os.Bundle;
 
-import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.widget.SearchParametersAdapter;
 
 public class BLASTQuerySearchParametersActivity extends ListActivity {

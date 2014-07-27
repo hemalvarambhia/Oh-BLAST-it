@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.models;
+package com.bioinformaticsapp.domain;
 
 /**
  * List of institutions who have made their BLAST algorithms

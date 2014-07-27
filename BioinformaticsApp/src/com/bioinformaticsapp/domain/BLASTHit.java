@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.models;
+package com.bioinformaticsapp.domain;
 
 public class BLASTHit {
 	

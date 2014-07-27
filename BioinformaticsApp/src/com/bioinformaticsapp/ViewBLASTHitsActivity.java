@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.io.BLASTHitsLoadingTask;
-import com.bioinformaticsapp.models.BLASTQuery;
 
 public class ViewBLASTHitsActivity extends ListActivity {
 

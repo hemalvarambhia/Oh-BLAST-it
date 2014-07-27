@@ -1,6 +1,6 @@
 package com.bioinformaticsapp.blastservices;
 
-import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery;
 
 public interface BLASTSearchEngine {
 	

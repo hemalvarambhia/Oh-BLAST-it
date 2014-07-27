@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.models.SearchParameter;
+import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
 /**

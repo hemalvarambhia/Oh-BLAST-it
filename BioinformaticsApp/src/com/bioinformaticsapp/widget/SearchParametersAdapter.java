@@ -3,7 +3,7 @@ package com.bioinformaticsapp.widget;
 import java.util.List;
 
 import com.bioinformaticsapp.R;
-import com.bioinformaticsapp.models.SearchParameter;
+import com.bioinformaticsapp.domain.SearchParameter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

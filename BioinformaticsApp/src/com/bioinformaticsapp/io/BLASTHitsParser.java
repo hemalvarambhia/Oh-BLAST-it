@@ -3,7 +3,7 @@ package com.bioinformaticsapp.io;
 import java.io.InputStream;
 import java.util.List;
 
-import com.bioinformaticsapp.models.BLASTHit;
+import com.bioinformaticsapp.domain.BLASTHit;
 
 public interface BLASTHitsParser {
 	

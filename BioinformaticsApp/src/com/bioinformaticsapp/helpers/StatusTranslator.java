@@ -3,7 +3,7 @@ package com.bioinformaticsapp.helpers;
 import java.util.EnumMap;
 
 import com.bioinformaticsapp.blastservices.SearchStatus;
-import com.bioinformaticsapp.models.BLASTQuery.Status;
+import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
 public class StatusTranslator {
 	

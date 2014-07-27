@@ -7,8 +7,8 @@ import android.content.Loader;
 import android.os.Bundle;
 
 import com.bioinformaticsapp.content.BLASTQueryLoader;
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.Status;
+import com.bioinformaticsapp.domain.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery.Status;
 import com.bioinformaticsapp.persistence.BLASTQueryController;
 import com.bioinformaticsapp.persistence.SearchParameterController;
 import com.bioinformaticsapp.widget.BLASTQueryAdapter;

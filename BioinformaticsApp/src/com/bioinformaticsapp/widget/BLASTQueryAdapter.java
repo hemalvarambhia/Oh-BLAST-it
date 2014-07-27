@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.bioinformaticsapp.R;
-import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery;
 
 public class BLASTQueryAdapter extends ArrayAdapter<BLASTQuery> {
 

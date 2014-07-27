@@ -28,7 +28,7 @@ import org.jsoup.nodes.Node;
 
 import android.util.Log;
 
-import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery;
 
 public class NCBIBLASTService implements BLASTSearchEngine {
 

@@ -1,6 +1,6 @@
 package com.bioinformaticsapp.persistence;
 
-import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;

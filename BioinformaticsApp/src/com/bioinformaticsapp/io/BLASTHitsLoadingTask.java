@@ -10,8 +10,8 @@ import java.util.Map;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.bioinformaticsapp.models.BLASTHit;
-import com.bioinformaticsapp.models.BLASTVendor;
+import com.bioinformaticsapp.domain.BLASTHit;
+import com.bioinformaticsapp.domain.BLASTVendor;
 
 public class BLASTHitsLoadingTask extends AsyncTask<InputStream, Void, List<Map<String, String>>>{
 

@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.models;
+package com.bioinformaticsapp.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;

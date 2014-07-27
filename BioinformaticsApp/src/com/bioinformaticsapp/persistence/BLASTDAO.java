@@ -3,8 +3,8 @@ package com.bioinformaticsapp.persistence;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.domain.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery.BLASTJob;
 
 import android.content.ContentValues;
 import android.content.Context;

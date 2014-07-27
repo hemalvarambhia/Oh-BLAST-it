@@ -11,7 +11,7 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.bioinformaticsapp.models.BLASTHit;
+import com.bioinformaticsapp.domain.BLASTHit;
 
 import android.util.Log;
 import android.util.Xml;

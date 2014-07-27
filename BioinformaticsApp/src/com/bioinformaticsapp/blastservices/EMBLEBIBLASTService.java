@@ -25,7 +25,7 @@ import org.apache.http.protocol.HttpContext;
 
 import android.util.Log;
 
-import com.bioinformaticsapp.models.BLASTQuery;
+import com.bioinformaticsapp.domain.BLASTQuery;
 
 public class EMBLEBIBLASTService implements BLASTSearchEngine {
 

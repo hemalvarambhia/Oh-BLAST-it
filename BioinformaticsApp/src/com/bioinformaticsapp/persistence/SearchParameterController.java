@@ -3,9 +3,9 @@ package com.bioinformaticsapp.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bioinformaticsapp.models.BLASTQuery;
-import com.bioinformaticsapp.models.SearchParameter;
-import com.bioinformaticsapp.models.BLASTQuery.BLASTJob;
+import com.bioinformaticsapp.domain.BLASTQuery;
+import com.bioinformaticsapp.domain.SearchParameter;
+import com.bioinformaticsapp.domain.BLASTQuery.BLASTJob;
 
 import android.content.ContentValues;
 import android.content.Context;
