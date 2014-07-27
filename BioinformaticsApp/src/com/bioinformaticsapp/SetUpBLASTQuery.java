@@ -13,9 +13,7 @@ import android.widget.Toast;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.persistence.BLASTQueryLabBook;
 
-public abstract class SetUpBLASTQueryActivity extends Activity {
-
-	private static final String TAG = "SetUpBLASTQueryActivity";
+public abstract class SetUpBLASTQuery extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -108,7 +106,7 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 				query.setStatus(BLASTQuery.Status.PENDING);
 				storeQueryInDatabase();
 				setResult(DraftBLASTQueriesActivity.READY_TO_SEND);
-				Toast t = Toast.makeText(SetUpBLASTQueryActivity.this, "Sending query", Toast.LENGTH_LONG);
+				Toast t = Toast.makeText(SetUpBLASTQuery.this, "Sending query", Toast.LENGTH_LONG);
 				t.show();
 				//Start the polling service
 				finish();
@@ -116,7 +114,7 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 				if(mProgressDialog.isShowing()){
 					mProgressDialog.dismiss();
 				}
-				Toast t = Toast.makeText(SetUpBLASTQueryActivity.this, "Query could not be sent as it is invalid", Toast.LENGTH_LONG);
+				Toast t = Toast.makeText(SetUpBLASTQuery.this, "Query could not be sent as it is invalid", Toast.LENGTH_LONG);
 				t.show();
 			}
 		}

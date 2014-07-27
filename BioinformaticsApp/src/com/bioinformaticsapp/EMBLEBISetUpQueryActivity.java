@@ -25,7 +25,7 @@ import com.bioinformaticsapp.text.DNASymbolFilter;
  * @author Hemal N Varambhia
  *
  */
-public class EMBLEBISetUpQueryActivity extends SetUpBLASTQueryActivity {
+public class EMBLEBISetUpQueryActivity extends SetUpBLASTQuery {
 
 	private EditText mSequenceEditor;
 	
