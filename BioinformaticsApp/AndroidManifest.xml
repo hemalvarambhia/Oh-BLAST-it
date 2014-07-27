@@ -29,7 +29,7 @@
         <activity android:name=".ViewTaxonomyActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".DraftBLASTQueriesActivity"></activity>
         <activity android:name="AppPreferences"></activity>
-        <receiver android:name=".ConnectedToNetworkBroadcastReceiver">
+        <receiver android:name=".NetworkConnectivityListener">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE">
                     

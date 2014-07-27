@@ -12,7 +12,7 @@ import android.net.ConnectivityManager;
  * @author Hemal N Varambhia
  *
  */
-public class ConnectedToNetworkBroadcastReceiver extends BroadcastReceiver {
+public class NetworkConnectivityListener extends BroadcastReceiver {
 
 	
 	@Override
