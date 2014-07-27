@@ -10,7 +10,4 @@ public class BLASTQueryValidator extends AsyncTask<BLASTQuery, Void, Boolean> {
 		boolean isValid = query[0].isValid();
 		return isValid;
 	}
-	
-	
-
 }
