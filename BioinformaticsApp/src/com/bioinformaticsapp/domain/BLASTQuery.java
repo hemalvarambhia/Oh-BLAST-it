@@ -294,7 +294,7 @@ public class BLASTQuery implements Serializable {
 		}
 		
 		boolean isValid = false;
-			
+
 		try {
 			DNATools.createDNA(sequence);
 			isValid = true;
@@ -302,7 +302,7 @@ public class BLASTQuery implements Serializable {
 			// is valid is default set to true
 				
 		}
-	
+		
 		return isValid;
 	}
 	

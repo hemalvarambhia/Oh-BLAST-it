@@ -44,7 +44,7 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 		switch(itemId){
 		
 		case R.id.send_query: {
-			BLASTQueryValidator validator = new BLASTQueryValidator();
+			BLASTQueryValidation validator = new BLASTQueryValidation();
 			validator.execute(new BLASTQuery[]{query});
 		}
 		//...and exit	
@@ -84,7 +84,7 @@ public abstract class SetUpBLASTQueryActivity extends Activity {
 		query = labBook.save(query);
 	}
 	
-	protected class BLASTQueryValidator extends AsyncTask<BLASTQuery, Void, Boolean> {
+	protected class BLASTQueryValidation extends AsyncTask<BLASTQuery, Void, Boolean> {
 
 		@Override
 		protected Boolean doInBackground(BLASTQuery... query) {
