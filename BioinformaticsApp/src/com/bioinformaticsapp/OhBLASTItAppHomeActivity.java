@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.bioinformaticsapp.blastservices.SubmitQueryService;
 import com.bioinformaticsapp.models.BLASTQuery;
 
 /**

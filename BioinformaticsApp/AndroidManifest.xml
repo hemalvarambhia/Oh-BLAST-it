@@ -25,7 +25,7 @@
         <activity android:name=".EMBLEBISetUpQueryActivity" android:label="@string/blastqueryentry_screen_title" android:screenOrientation="portrait"></activity>
         <provider android:name=".persistence.BLASTQueryProvider" android:authorities="com.bioinformaticsapp"></provider>
         <service android:name="SubmitQueryService"></service>
-        <service android:name=".PollQueryService"></service>
+        <service android:name="com.bioinformaticsapp.blastservices.PollQueryService"></service>
         <activity android:name=".ViewTaxonomyActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".DraftBLASTQueriesActivity"></activity>
         <activity android:name="AppPreferences"></activity>

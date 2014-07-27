@@ -1,5 +1,8 @@
 package com.bioinformaticsapp;
 
+import com.bioinformaticsapp.blastservices.PollQueryService;
+import com.bioinformaticsapp.blastservices.SubmitQueryService;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;

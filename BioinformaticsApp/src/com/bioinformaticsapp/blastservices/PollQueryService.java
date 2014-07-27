@@ -1,4 +1,4 @@
-package com.bioinformaticsapp;
+package com.bioinformaticsapp.blastservices;
 
 import java.util.List;
 
@@ -9,10 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
-import com.bioinformaticsapp.blastservices.BLASTQueryPoller;
-import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
-import com.bioinformaticsapp.blastservices.EMBLEBIBLASTService;
-import com.bioinformaticsapp.blastservices.NCBIBLASTService;
+import com.bioinformaticsapp.QueryStatusRefreshReceiver;
 import com.bioinformaticsapp.models.BLASTQuery;
 import com.bioinformaticsapp.models.BLASTVendor;
 import com.bioinformaticsapp.persistence.BLASTQueryLabBook;
