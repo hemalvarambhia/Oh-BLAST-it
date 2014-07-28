@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EMBLEBISetUpQueryActivity" android:label="@string/blastqueryentry_screen_title" android:screenOrientation="portrait"></activity>
+        <activity android:name=".SetUpEMBLEBIBLASTQuery" android:label="@string/blastqueryentry_screen_title" android:screenOrientation="portrait"></activity>
         <provider android:name=".persistence.BLASTQueryProvider" android:authorities="com.bioinformaticsapp"></provider>
         <service android:name="SubmitQueryService"></service>
         <service android:name="com.bioinformaticsapp.blastservices.PollQueryService"></service>
@@ -46,7 +46,7 @@
                 </action>
             </intent-filter>
         </receiver>
-        <activity android:name="NCBIQuerySetUpActivity"></activity>
+        <activity android:name="SetUpNCBIBLASTQuery"></activity>
         <receiver android:name=".BLASTQueriesFinishedReceiver">
             <intent-filter >
                 <action android:name="com.bioinformaticsapp.QUERIES_FINISHED_ACTION">

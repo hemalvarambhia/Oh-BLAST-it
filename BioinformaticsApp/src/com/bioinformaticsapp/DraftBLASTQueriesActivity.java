@@ -58,12 +58,12 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		switch(selectedItemId){
 		
 		case R.id.create_embl_query:
-			setupNewQuery = new Intent(this, EMBLEBISetUpQueryActivity.class);
+			setupNewQuery = new Intent(this, SetUpEMBLEBIBLASTQuery.class);
 			setupNewQuery.putExtra("query", BLASTQuery.emblBLASTQuery("blastn"));
 			break;
 		
 		case R.id.create_ncbi_query:
-			setupNewQuery = new Intent(this, NCBIQuerySetUpActivity.class);
+			setupNewQuery = new Intent(this, SetUpNCBIBLASTQuery.class);
 			setupNewQuery.putExtra("query", BLASTQuery.ncbiBLASTQuery("blastn"));
 			break;
 		
@@ -179,10 +179,10 @@ public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
 		
 		switch(selectedQuery.getVendorID()){
 		case BLASTVendor.NCBI:
-			setupExistingQuery = new Intent(this, NCBIQuerySetUpActivity.class);
+			setupExistingQuery = new Intent(this, SetUpNCBIBLASTQuery.class);
 			break;
 		case BLASTVendor.EMBL_EBI:
-			setupExistingQuery = new Intent(this, EMBLEBISetUpQueryActivity.class);
+			setupExistingQuery = new Intent(this, SetUpEMBLEBIBLASTQuery.class);
 			break;
 		default:
 			break;

@@ -63,7 +63,7 @@ public class OhBLASTItAppHomeActivity extends ListActivity {
 		switch(itemId){
 		
 		case R.id.create_embl_query: {
-			Intent setupBLASTQuery = new Intent(this, EMBLEBISetUpQueryActivity.class);
+			Intent setupBLASTQuery = new Intent(this, SetUpEMBLEBIBLASTQuery.class);
 			setupBLASTQuery.putExtra("query", BLASTQuery.emblBLASTQuery("blastn"));
 			startActivityForResult(setupBLASTQuery, CREATE_QUERY);
 			handled = true;
@@ -72,7 +72,7 @@ public class OhBLASTItAppHomeActivity extends ListActivity {
 		break;
 		
 		case R.id.create_ncbi_query: {
-			Intent setupBLASTQuery = new Intent(this, NCBIQuerySetUpActivity.class);
+			Intent setupBLASTQuery = new Intent(this, SetUpNCBIBLASTQuery.class);
 			setupBLASTQuery.putExtra("query", BLASTQuery.ncbiBLASTQuery("blastn"));
 			startActivityForResult(setupBLASTQuery, CREATE_QUERY);
 			handled = true;

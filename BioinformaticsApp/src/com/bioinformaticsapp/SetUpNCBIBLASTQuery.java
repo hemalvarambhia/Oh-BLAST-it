@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.bioinformaticsapp.text.DNASymbolFilter;
 
-public class NCBIQuerySetUpActivity extends SetUpBLASTQuery {
+public class SetUpNCBIBLASTQuery extends SetUpBLASTQuery {
 
 	private EditText mSequenceEditor;
 	private Spinner mProgramSpinner;
