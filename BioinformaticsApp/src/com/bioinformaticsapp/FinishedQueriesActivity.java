@@ -31,7 +31,7 @@ import com.bioinformaticsapp.domain.BLASTVendor;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
-public class FinishedQueriesActivity extends BLASTQueryListingActivity {
+public class FinishedQueriesActivity extends ListBLASTQueries {
 
 	private static final int FINISHED_CURSOR_LOADER = 0x02;
 	

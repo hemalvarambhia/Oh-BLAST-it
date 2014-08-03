@@ -13,7 +13,7 @@ import com.bioinformaticsapp.persistence.BLASTQueryController;
 import com.bioinformaticsapp.persistence.SearchParameterController;
 import com.bioinformaticsapp.widget.BLASTQueryAdapter;
 
-public class BLASTQueryListingActivity extends ListActivity implements LoaderCallbacks<BLASTQuery[]> {
+public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BLASTQuery[]> {
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);

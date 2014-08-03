@@ -23,7 +23,7 @@ import com.bioinformaticsapp.domain.BLASTVendor;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
-public class DraftBLASTQueriesActivity extends BLASTQueryListingActivity {
+public class DraftBLASTQueriesActivity extends ListBLASTQueries {
 
 	private final static int DRAFT_QUERIES_LOADER = 0x01;
 	

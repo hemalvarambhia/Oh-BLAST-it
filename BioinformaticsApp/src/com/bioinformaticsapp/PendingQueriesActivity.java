@@ -20,7 +20,7 @@ import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
-public class PendingQueriesActivity extends BLASTQueryListingActivity {
+public class PendingQueriesActivity extends ListBLASTQueries {
 
 
 	private static final int RUNNING_CURSOR_LOADER = 0x03;
