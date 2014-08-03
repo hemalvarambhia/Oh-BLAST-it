@@ -23,7 +23,7 @@ import com.bioinformaticsapp.domain.BLASTVendor;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
-public class DraftBLASTQueriesActivity extends ListBLASTQueries {
+public class ListDraftBLASTQueries extends ListBLASTQueries {
 
 	private final static int DRAFT_QUERIES_LOADER = 0x01;
 	
@@ -205,7 +205,7 @@ public class DraftBLASTQueriesActivity extends ListBLASTQueries {
 			public void onClick(DialogInterface dialog, int which) {
 				
 				deleteQuery(id);
-				getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, DraftBLASTQueriesActivity.this);
+				getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, ListDraftBLASTQueries.this);
 			}
 		});
 		

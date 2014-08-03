@@ -105,7 +105,7 @@ public abstract class SetUpBLASTQuery extends Activity {
 				//The query is ready to be sent
 				query.setStatus(BLASTQuery.Status.PENDING);
 				storeQueryInDatabase();
-				setResult(DraftBLASTQueriesActivity.READY_TO_SEND);
+				setResult(ListDraftBLASTQueries.READY_TO_SEND);
 				Toast t = Toast.makeText(SetUpBLASTQuery.this, "Sending query", Toast.LENGTH_LONG);
 				t.show();
 				//Start the polling service

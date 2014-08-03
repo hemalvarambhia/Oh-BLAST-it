@@ -27,7 +27,7 @@
         <service android:name="com.bioinformaticsapp.blastservices.SubmitQueryService"></service>
         <service android:name="com.bioinformaticsapp.blastservices.PollQueryService"></service>
         <activity android:name=".ViewTaxonomyActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".DraftBLASTQueriesActivity"></activity>
+        <activity android:name=".ListDraftBLASTQueries"></activity>
         <activity android:name="AppPreferences"></activity>
         <receiver android:name=".NetworkConnectivityListener">
             <intent-filter>

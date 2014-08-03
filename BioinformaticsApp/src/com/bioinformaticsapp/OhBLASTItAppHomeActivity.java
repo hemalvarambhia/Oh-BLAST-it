@@ -106,7 +106,7 @@ public class OhBLASTItAppHomeActivity extends ListActivity {
 		Intent activityToLaunch = null;
 		switch(position){
 		case 0:
-			activityToLaunch = new Intent(this, DraftBLASTQueriesActivity.class);
+			activityToLaunch = new Intent(this, ListDraftBLASTQueries.class);
 			break;
 			
 		case 1:
