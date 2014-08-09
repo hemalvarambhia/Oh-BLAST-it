@@ -38,7 +38,7 @@
         </receiver>
         <activity android:name=".FinishedQueriesActivity"></activity>
         <activity android:name=".ViewBLASTHitsActivity"></activity>
-        <activity android:screenOrientation="portrait" android:name=".PendingQueriesActivity"></activity>
+        <activity android:screenOrientation="portrait" android:name=".ListPendingQueries"></activity>
         <receiver android:name=".QueryStatusRefreshReceiver">
             <intent-filter >
                 <action android:name="com.bioinformaticsapp.ACTION_QUERY_STATUS_REFRESH">

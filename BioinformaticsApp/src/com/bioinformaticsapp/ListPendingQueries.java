@@ -20,7 +20,7 @@ import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
-public class PendingQueriesActivity extends ListBLASTQueries {
+public class ListPendingQueries extends ListBLASTQueries {
 
 
 	private static final int RUNNING_CURSOR_LOADER = 0x03;
@@ -158,7 +158,7 @@ public class PendingQueriesActivity extends ListBLASTQueries {
 			public void onClick(DialogInterface dialog, int which) {
 				
 				deleteQuery(id);
-				getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, PendingQueriesActivity.this);
+				getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, ListPendingQueries.this);
 			}
 		});
 		
