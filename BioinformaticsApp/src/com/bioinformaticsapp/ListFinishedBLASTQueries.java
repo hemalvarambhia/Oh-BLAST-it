@@ -137,7 +137,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		case R.id.view_parameters_menu_item: {
 			
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
-			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
+			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
 			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
 			selected.updateAllParameters(parameters);
 			viewParameters.putExtra("query", selected);

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.widget.SearchParametersAdapter;
 
-public class BLASTQuerySearchParametersActivity extends ListActivity {
+public class ViewBLASTQuerySearchParameters extends ListActivity {
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);

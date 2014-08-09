@@ -126,7 +126,7 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
 			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
 			selected.updateAllParameters(parameters);
-			Intent viewParameters = new Intent(this, BLASTQuerySearchParametersActivity.class);
+			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);
 		
