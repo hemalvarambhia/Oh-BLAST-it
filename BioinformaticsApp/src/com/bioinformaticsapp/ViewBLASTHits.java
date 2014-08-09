@@ -95,7 +95,7 @@ public class ViewBLASTHits extends ListActivity {
 			@Override
 			protected void onPostExecute(String accessionNumber) {
 
-				Intent taxonomyActivity = new Intent(ViewBLASTHits.this, ViewTaxonomyActivity.class);
+				Intent taxonomyActivity = new Intent(ViewBLASTHits.this, ViewTaxonomy.class);
 				taxonomyActivity.putExtra("accessionNumber", accessionNumber);
 			
 				startActivity(taxonomyActivity);

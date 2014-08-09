@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bioinformaticsapp.blastservices.EntryFetcher;
 
-public class ViewTaxonomyActivity extends Activity {
+public class ViewTaxonomy extends Activity {
 	
 	private TextView mScientificNameTextView;
 	
