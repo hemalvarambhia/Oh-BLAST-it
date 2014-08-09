@@ -29,7 +29,7 @@ public class BLASTQueriesFinishedReceiver extends BroadcastReceiver {
 		builder.setTicker("BLAST queries finished");
 		builder.setContentText("Click to view the results");
 		builder.setContentTitle("BLAST Queries Finished");
-		Intent finishedQueriesActivity = new Intent(context, FinishedQueriesActivity.class);
+		Intent finishedQueriesActivity = new Intent(context, ListFinishedBLASTQueries.class);
 		PendingIntent finishedQueries = PendingIntent.getActivity(context, 0, finishedQueriesActivity, Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		builder.setContentIntent(finishedQueries);
 		Notification notification = builder.getNotification();

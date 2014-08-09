@@ -31,7 +31,7 @@ import com.bioinformaticsapp.domain.BLASTVendor;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
-public class FinishedQueriesActivity extends ListBLASTQueries {
+public class ListFinishedBLASTQueries extends ListBLASTQueries {
 
 	private static final int FINISHED_CURSOR_LOADER = 0x02;
 	
@@ -237,7 +237,7 @@ public class FinishedQueriesActivity extends ListBLASTQueries {
 				
 				deleteQuery(id);
 				
-				getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, FinishedQueriesActivity.this);
+				getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, ListFinishedBLASTQueries.this);
 				
 			}
 		});
@@ -268,14 +268,14 @@ public class FinishedQueriesActivity extends ListBLASTQueries {
 			mProgressDialog.dismiss();
 			
 			if(fileName != null){
-				Intent viewResults = new Intent(FinishedQueriesActivity.this, ViewBLASTHitsActivity.class);
+				Intent viewResults = new Intent(ListFinishedBLASTQueries.this, ViewBLASTHitsActivity.class);
 				viewResults.putExtra("query", selected);
 				
 				startActivity(viewResults);
 				
 			}else {
 				if(!connectedToWeb()){
-					Toast webConnectionMessage = Toast.makeText(FinishedQueriesActivity.this, "A web connection is needed to download the results", Toast.LENGTH_SHORT);
+					Toast webConnectionMessage = Toast.makeText(ListFinishedBLASTQueries.this, "A web connection is needed to download the results", Toast.LENGTH_SHORT);
 					webConnectionMessage.show();
 				}
 			}

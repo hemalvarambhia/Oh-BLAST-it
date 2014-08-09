@@ -113,7 +113,7 @@ public class OhBLASTItAppHomeActivity extends ListActivity {
 			activityToLaunch = new Intent(this, ListPendingQueries.class);
 			break;
 		case 2:
-			activityToLaunch = new Intent(this, FinishedQueriesActivity.class);
+			activityToLaunch = new Intent(this, ListFinishedBLASTQueries.class);
 			break;
 			
 		default:
