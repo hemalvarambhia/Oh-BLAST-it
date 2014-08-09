@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.io.BLASTHitsLoadingTask;
 
-public class ViewBLASTHitsActivity extends ListActivity {
+public class ViewBLASTHits extends ListActivity {
 
 	private static final String TAG = "ViewBLASTHitsActivity";
 
@@ -95,7 +95,7 @@ public class ViewBLASTHitsActivity extends ListActivity {
 			@Override
 			protected void onPostExecute(String accessionNumber) {
 
-				Intent taxonomyActivity = new Intent(ViewBLASTHitsActivity.this, ViewTaxonomyActivity.class);
+				Intent taxonomyActivity = new Intent(ViewBLASTHits.this, ViewTaxonomyActivity.class);
 				taxonomyActivity.putExtra("accessionNumber", accessionNumber);
 			
 				startActivity(taxonomyActivity);
@@ -114,7 +114,7 @@ public class ViewBLASTHitsActivity extends ListActivity {
 		
 		public BLASTHitsLoader(){
 			super(mFinishedQuery.getVendorID());
-			loadingDialog = new ProgressDialog(ViewBLASTHitsActivity.this, ProgressDialog.STYLE_SPINNER);
+			loadingDialog = new ProgressDialog(ViewBLASTHits.this, ProgressDialog.STYLE_SPINNER);
 			
 		}
 		
@@ -137,7 +137,7 @@ public class ViewBLASTHitsActivity extends ListActivity {
 				
 				String[] mapKeys = new String[]{"accessionNumber", "description"};
 				
-				SimpleAdapter arrayAdapter = new SimpleAdapter(ViewBLASTHitsActivity.this, mBlastHits, R.layout.blast_hit_item, mapKeys, viewIds);
+				SimpleAdapter arrayAdapter = new SimpleAdapter(ViewBLASTHits.this, mBlastHits, R.layout.blast_hit_item, mapKeys, viewIds);
 				
 				setListAdapter(arrayAdapter);
 			}else{

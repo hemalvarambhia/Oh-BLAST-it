@@ -37,7 +37,7 @@
             </intent-filter>
         </receiver>
         <activity android:name=".ListFinishedBLASTQueries"></activity>
-        <activity android:name=".ViewBLASTHitsActivity"></activity>
+        <activity android:name=".ViewBLASTHits"></activity>
         <activity android:screenOrientation="portrait" android:name=".ListPendingBLASTQueries"></activity>
         <receiver android:name=".QueryStatusRefreshReceiver">
             <intent-filter >

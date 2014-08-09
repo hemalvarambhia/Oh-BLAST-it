@@ -188,7 +188,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 			BLASTHitsDownloader downloader = new BLASTHitsDownloader(this, searchEngine);
 			downloader.execute(selected);
 		}else{
-			Intent viewResults = new Intent(this, ViewBLASTHitsActivity.class);
+			Intent viewResults = new Intent(this, ViewBLASTHits.class);
 			viewResults.putExtra("query", selected);
 			startActivity(viewResults);
 		}
@@ -268,7 +268,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 			mProgressDialog.dismiss();
 			
 			if(fileName != null){
-				Intent viewResults = new Intent(ListFinishedBLASTQueries.this, ViewBLASTHitsActivity.class);
+				Intent viewResults = new Intent(ListFinishedBLASTQueries.this, ViewBLASTHits.class);
 				viewResults.putExtra("query", selected);
 				
 				startActivity(viewResults);
