@@ -9,9 +9,9 @@ import android.os.AsyncTask;
 
 import com.bioinformaticsapp.AppPreferences;
 import com.bioinformaticsapp.BLASTQueriesFinishedReceiver;
+import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.helpers.StatusTranslator;
-import com.bioinformaticsapp.persistence.BLASTQueryLabBook;
 
 public class BLASTQueryPoller extends AsyncTask<BLASTQuery, Void, Integer> {
 

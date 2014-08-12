@@ -1,4 +1,4 @@
-package com.bioinformaticsapp.persistence;
+package com.bioinformaticsapp.content;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import android.content.Context;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
+import com.bioinformaticsapp.persistence.BLASTQueryController;
+import com.bioinformaticsapp.persistence.SearchParameterController;
 
 public class BLASTQueryLabBook {
 

@@ -10,8 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
-import com.bioinformaticsapp.persistence.BLASTQueryLabBook;
 
 public abstract class SetUpBLASTQuery extends Activity {
 
