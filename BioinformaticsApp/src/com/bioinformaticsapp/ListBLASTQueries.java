@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 
+import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.content.BLASTQueryLoader;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
@@ -58,15 +59,10 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 	}
 	
 	protected boolean deleteQuery(long id){
+		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+		int numberOfQueriesDeleted = labBook.remove(id);
 		
-		int numberOfParametersForQuery = parametersController.getParametersForQuery(id).size();
-	
-		int numberOfParametersDeleted = parametersController.deleteParametersFor(id);
-		
-		int numberOfQueriesDeleted = queryController.delete(id);
-		
-		return (numberOfQueriesDeleted == 1) && (numberOfParametersDeleted == numberOfParametersForQuery);
-	
+		return numberOfQueriesDeleted == 1;
 	}
 
 
