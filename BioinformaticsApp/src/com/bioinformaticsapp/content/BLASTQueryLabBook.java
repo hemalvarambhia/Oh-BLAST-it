@@ -18,8 +18,7 @@ public class BLASTQueryLabBook {
 	}
 
 	public BLASTQuery save(BLASTQuery aQuery) {
-		blastQueryController = new BLASTQueryController(context);
-		searchParameterController = new SearchParameterController(context);
+		initialiseControllers();
 		BLASTQuery savedQuery = (BLASTQuery)aQuery.clone();
 		if(aQuery.getPrimaryKey() == null){
 			long queryPrimaryKey = blastQueryController.save(aQuery);
@@ -28,38 +27,34 @@ public class BLASTQueryLabBook {
 			blastQueryController.update(aQuery);
 			searchParameterController.deleteParametersFor(aQuery.getPrimaryKey());
 		}
-		blastQueryController.close();
 		
 		for(SearchParameter parameter: aQuery.getAllParameters()){
 			searchParameterController.saveFor(savedQuery.getPrimaryKey(), parameter);
 		}
-		searchParameterController.close();
+		
+		closeControllers();
 		
 		return savedQuery;
 	}
 	
 	public BLASTQuery findQueryById(Long id) {
-		blastQueryController = new BLASTQueryController(context);
-		searchParameterController = new SearchParameterController(context);
+		initialiseControllers();
 		BLASTQuery queryWithID = blastQueryController.findBLASTQueryById(id);
 		List<SearchParameter> parameters = searchParameterController.getParametersForQuery(id);
 		queryWithID.updateAllParameters(parameters);
-		blastQueryController.close();
-		searchParameterController.close();
+		closeControllers();
 		return queryWithID;
 	}
 	
-	public List<BLASTQuery> findBLASTQueriesByStatus(
-			Status status) {
-		blastQueryController = new BLASTQueryController(context);
-		searchParameterController = new SearchParameterController(context);
+	public List<BLASTQuery> findBLASTQueriesByStatus(Status status) {
+		initialiseControllers();
 		List<BLASTQuery> queriesWithStatus = blastQueryController.findBLASTQueriesByStatus(status);
 		for(BLASTQuery query: queriesWithStatus){
 			List<SearchParameter> parameters = searchParameterController.getParametersForQuery(query.getPrimaryKey());
 			query.updateAllParameters(parameters);
 		}
-		blastQueryController.close();
-		searchParameterController.close();
+		
+		closeControllers();
 		
 		return queriesWithStatus;
 	}
@@ -86,6 +81,14 @@ public class BLASTQueryLabBook {
 		return queriesSubmittedToVendor;
 	}
 	
+	public int remove(Long primaryKey) {
+		initialiseControllers();
+		searchParameterController.deleteParametersFor(primaryKey);
+		int numberDeleted = blastQueryController.delete(primaryKey);
+		closeControllers();
+		return numberDeleted;
+	}
+	
 	private List<BLASTQuery> queriesForVendor(List<BLASTQuery> queries, int vendor){
 		List<BLASTQuery> queriesForVendor = new ArrayList<BLASTQuery>();
 		for(BLASTQuery query: queries){
@@ -96,9 +99,18 @@ public class BLASTQueryLabBook {
 		
 		return queriesForVendor;
 	}
+	
+	private void closeControllers() {
+		searchParameterController.close();
+		blastQueryController.close();
+	}
+
+	private void initialiseControllers() {
+		blastQueryController = new BLASTQueryController(context);
+		searchParameterController = new SearchParameterController(context);
+	}
 
 	private Context context;
 	private BLASTQueryController blastQueryController;
 	private SearchParameterController searchParameterController;
-	
 }
