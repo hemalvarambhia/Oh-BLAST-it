@@ -1,5 +1,7 @@
 package com.bioinformaticsapp;
 
+import java.util.ArrayList;
+
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
@@ -20,13 +22,8 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 		super.onCreate(savedInstanceState);
     	queryController = new BLASTQueryController(this); 
     	parametersController = new SearchParameterController(this);
-
-    	Intent intent = getIntent();
-        
-        if(intent.getData() == null){
-        	intent.setData(BLASTQuery.BLASTJob.CONTENT_URI);
-        }
-        
+    	mQueryAdapter = new BLASTQueryAdapter(this, new ArrayList<BLASTQuery>());
+    	setListAdapter(mQueryAdapter);
 	}
 	
 	protected void onPause(){
@@ -47,11 +44,9 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 	}
 
 	public void onLoadFinished(Loader<BLASTQuery[]> cursorLoader, BLASTQuery[] queries) {
-		
-		mQueryAdapter = new BLASTQueryAdapter(this, queries);
-		
-		setListAdapter(mQueryAdapter);
-	
+		mQueryAdapter.clear();
+		mQueryAdapter.addAll(queries);
+		mQueryAdapter.notifyDataSetChanged();
 	}
 
 	public void onLoaderReset(Loader<BLASTQuery[]> cursorLoader) {
@@ -60,6 +55,9 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 	
 	protected boolean deleteQuery(long id){
 		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+		BLASTQuery queryToDelete = labBook.findQueryById(id);
+		mQueryAdapter.remove(queryToDelete);
+		mQueryAdapter.notifyDataSetChanged();
 		int numberOfQueriesDeleted = labBook.remove(id);
 		
 		return numberOfQueriesDeleted == 1;

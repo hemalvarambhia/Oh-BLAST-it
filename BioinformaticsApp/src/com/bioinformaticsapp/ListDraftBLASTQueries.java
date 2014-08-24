@@ -18,53 +18,41 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bioinformaticsapp.blastservices.SubmitQueryService;
+import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTVendor;
 import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
 public class ListDraftBLASTQueries extends ListBLASTQueries {
-
 	private final static int DRAFT_QUERIES_LOADER = 0x01;
-	
-	private final static String TAG = "DraftBLASTQueriesActivity";
-	
 	private final static int CREATE_QUERY = 2;
-	
 	public static final int READY_TO_SEND = 1;
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.create_query_menu, menu);
 		
 		return true;
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
 		int selectedItemId = item.getItemId();
 		boolean itemSelectionHandled = false;
 		Intent setupNewQuery = null;
 		
+		BLASTQuery newQuery = null;
 		switch(selectedItemId){
-		
 		case R.id.create_embl_query:
 			setupNewQuery = new Intent(this, SetUpEMBLEBIBLASTQuery.class);
-			setupNewQuery.putExtra("query", BLASTQuery.emblBLASTQuery("blastn"));
+			newQuery = BLASTQuery.emblBLASTQuery("blastn");
 			break;
 		
 		case R.id.create_ncbi_query:
 			setupNewQuery = new Intent(this, SetUpNCBIBLASTQuery.class);
-			setupNewQuery.putExtra("query", BLASTQuery.ncbiBLASTQuery("blastn"));
+			newQuery = BLASTQuery.ncbiBLASTQuery("blastn");
 			break;
 		
 		default:
@@ -73,6 +61,7 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		}
 		
 		if(setupNewQuery != null){
+			setupNewQuery.putExtra("query", newQuery);
 			startActivityForResult(setupNewQuery, CREATE_QUERY);
 			itemSelectionHandled = true;
 		}
@@ -81,9 +70,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
-	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
@@ -93,108 +79,83 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		MenuInflater inflater = getMenuInflater();
 		menu.setHeaderTitle("Select an option:");
 		inflater.inflate(R.menu.general_context_menu, menu);
-		
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
-	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		
-		boolean itemSelectionHandled = false;
-		
+		boolean itemSelectionHandled = false;	
 		AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		
 		int itemId = item.getItemId();
-		
 		switch(itemId){
 		case R.id.delete_menu_item: {
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
-			
 			doDeleteAction(selected.getPrimaryKey());
-			
 			itemSelectionHandled = true;
 		}
-		
 		break;
 		
 		case R.id.view_parameters_menu_item: {
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
+			BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+			selected = labBook.findQueryById(selected.getPrimaryKey());
+			List<SearchParameter> parameters = selected.getAllParameters();
 			selected.updateAllParameters(parameters);
 			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);
 			itemSelectionHandled = true;
-		
 		}
 		break;
+		
 		default:
 			itemSelectionHandled = super.onContextItemSelected(item);
 			break;
 		}
 		
-		getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, this);
-		
 		return itemSelectionHandled;
-		
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		
+	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		
 		mStatus = Status.DRAFT;
-        //We wish to load data from the content provider asynchronously
-        //and not on the UI thread.
         getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
-                
-        //Register each list item for a context menu:
         registerForContextMenu(getListView());
-        
         setListAdapter(mQueryAdapter);
 	}
 	
 	protected void onResume(){
 		super.onResume();
-		
 		getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, this);
-		
 	}
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		
 		super.onListItemClick(l, v, position, id);
 		BLASTQuery selectedQuery = mQueryAdapter.getItem(position);
-		List<SearchParameter> parameters = parametersController.getParametersForQuery(selectedQuery.getPrimaryKey());
-		
-		selectedQuery.updateAllParameters(parameters);
+		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+		selectedQuery = labBook.findQueryById(selectedQuery.getPrimaryKey());
 		Intent setupExistingQuery = null;
-		
 		switch(selectedQuery.getVendorID()){
 		case BLASTVendor.NCBI:
 			setupExistingQuery = new Intent(this, SetUpNCBIBLASTQuery.class);
 			break;
+			
 		case BLASTVendor.EMBL_EBI:
 			setupExistingQuery = new Intent(this, SetUpEMBLEBIBLASTQuery.class);
 			break;
+			
 		default:
 			break;
 		}
+		
 		setupExistingQuery.putExtra("query", selectedQuery);
 		
-		//Launch the activity
 		startActivityForResult(setupExistingQuery, CREATE_QUERY);
 	}
 	
 	private void doDeleteAction(final long id){
-		
 		AlertDialog.Builder builder = new Builder(this);
 		builder = builder.setTitle("Deleting");
 		builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -203,7 +164,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				
 				deleteQuery(id);
 				getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, ListDraftBLASTQueries.this);
 			}
@@ -216,14 +176,9 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
-	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
 		super.onActivityResult(requestCode, resultCode, data);
-		
 		switch(resultCode){
 		case READY_TO_SEND:
 			Intent sendService = new Intent(this, SubmitQueryService.class);
@@ -232,7 +187,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 			
 		default:
 			break;
-		}
-		
+		}		
 	}
 }
