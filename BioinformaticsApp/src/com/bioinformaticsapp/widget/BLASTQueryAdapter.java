@@ -1,5 +1,7 @@
 package com.bioinformaticsapp.widget;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +15,12 @@ import com.bioinformaticsapp.domain.BLASTQuery;
 public class BLASTQueryAdapter extends ArrayAdapter<BLASTQuery> {
 
 	public BLASTQueryAdapter(Context context, int textViewResourceId,
-			BLASTQuery[] objects) {
+			List<BLASTQuery> objects) {
 		super(context, textViewResourceId, objects);
 		
 	}
 	
-	public BLASTQueryAdapter(Context context, BLASTQuery[] queries){
+	public BLASTQueryAdapter(Context context, List<BLASTQuery> queries){
 		super(context, R.layout.blast_hit_item, queries);
 	}
 
