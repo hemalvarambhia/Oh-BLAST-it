@@ -23,20 +23,9 @@ public class BLASTQueryLoader extends AsyncTaskLoader<BLASTQuery[]> {
 
 	@Override
 	public BLASTQuery[] loadInBackground() {
-		BLASTQueryController queryController = new BLASTQueryController(getContext());
-		
+		BLASTQueryLabBook queryController = new BLASTQueryLabBook(getContext());
 		List<BLASTQuery> queries = new ArrayList<BLASTQuery>();
-		
-		switch(mStatusOfQuery){
-		case SUBMITTED:
-			queries = queryController.getSubmittedBLASTQueries();
-			break;
-		default:
-			queries = queryController.findBLASTQueriesByStatus(mStatusOfQuery);
-			break;
-		}
-		
-		queryController.close();
+		queries = queryController.findBLASTQueriesByStatus(mStatusOfQuery);
 		
 		return queries.toArray(new BLASTQuery[queries.size()]);
 	}
