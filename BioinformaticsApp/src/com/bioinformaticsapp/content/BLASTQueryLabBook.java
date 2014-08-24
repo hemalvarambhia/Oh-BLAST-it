@@ -49,6 +49,7 @@ public class BLASTQueryLabBook {
 	public List<BLASTQuery> findBLASTQueriesByStatus(Status status) {
 		initialiseControllers();
 		List<BLASTQuery> queriesWithStatus = blastQueryController.findBLASTQueriesByStatus(status);
+		queriesWithStatus.addAll(blastQueryController.findBLASTQueriesByStatus(Status.RUNNING));
 		for(BLASTQuery query: queriesWithStatus){
 			List<SearchParameter> parameters = searchParameterController.getParametersForQuery(query.getPrimaryKey());
 			query.updateAllParameters(parameters);
