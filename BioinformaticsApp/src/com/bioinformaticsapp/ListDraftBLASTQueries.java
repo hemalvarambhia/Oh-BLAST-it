@@ -122,12 +122,10 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		mStatus = Status.DRAFT;
         getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
         registerForContextMenu(getListView());
-        setListAdapter(mQueryAdapter);
 	}
 	
 	protected void onResume(){
 		super.onResume();
-		getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, this);
 	}
 	
 	@Override
@@ -184,7 +182,8 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 			Intent sendService = new Intent(this, SubmitQueryService.class);
 			startService(sendService);
 			break;
-			
+		case CREATE_QUERY:
+			getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, this);
 		default:
 			break;
 		}		
