@@ -185,8 +185,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 			startService(sendService);
 			break;
 			
-		case CREATE_QUERY:
-			getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, this);
 		default:
 			break;
 		}		
