@@ -11,31 +11,26 @@ public class BLASTQueryLoader extends AsyncTaskLoader<BLASTQuery[]> {
 
 	public BLASTQueryLoader(Context context) {
 		super(context);
-		
 	}
 	
 	public BLASTQueryLoader(Context context, BLASTQuery.Status status){
 		super(context);
-		mStatusOfQuery = status;
+		queryStatus = status;
 	}
 
 	@Override
 	public BLASTQuery[] loadInBackground() {
 		BLASTQueryLabBook queryController = new BLASTQueryLabBook(getContext());
-		List<BLASTQuery> queries = queryController.findBLASTQueriesByStatus(mStatusOfQuery);
+		List<BLASTQuery> queries = queryController.findBLASTQueriesByStatus(queryStatus);
 		
 		return queries.toArray(new BLASTQuery[queries.size()]);
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.content.Loader#onStartLoading()
-	 */
 	@Override
 	protected void onStartLoading() {
 		super.onStartLoading();
 		forceLoad();
 	}
 
-	private BLASTQuery.Status mStatusOfQuery;
-
+	private BLASTQuery.Status queryStatus;
 }
