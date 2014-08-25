@@ -1,7 +1,5 @@
 package com.bioinformaticsapp;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -20,9 +18,8 @@ import android.widget.ListView;
 import com.bioinformaticsapp.blastservices.SubmitQueryService;
 import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
-import com.bioinformaticsapp.domain.BLASTVendor;
-import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
+import com.bioinformaticsapp.domain.BLASTVendor;
 
 public class ListDraftBLASTQueries extends ListBLASTQueries {
 	private final static int DRAFT_QUERIES_LOADER = 0x01;
