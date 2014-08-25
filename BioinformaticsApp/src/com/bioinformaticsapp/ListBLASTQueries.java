@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 
