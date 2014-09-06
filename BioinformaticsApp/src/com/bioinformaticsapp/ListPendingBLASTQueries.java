@@ -1,7 +1,5 @@
 package com.bioinformaticsapp;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -16,18 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
-import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
 public class ListPendingBLASTQueries extends ListBLASTQueries {
 
-
 	private static final int RUNNING_CURSOR_LOADER = 0x03;
-	
 	private final static int REFRESH_MENU_ITEM = 0;
 	
-	/** Called when the activity is first created. */
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         
@@ -41,40 +36,24 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
      
     }
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onResume()
-	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, this);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		MenuItem item = menu.add(0, REFRESH_MENU_ITEM, 0, "Refresh");
-		
 		item.setIcon(android.R.drawable.ic_popup_sync);
-		
 		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		
 		return true;
 	}
 
-	
-
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
 		boolean itemSelectionHandled = false;
-		
 		int itemId = item.getItemId();
 		
 		switch(itemId){
@@ -100,20 +79,15 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		MenuInflater menuInflater = getMenuInflater();
 		menu.setHeaderTitle("Select an option:");
 		menuInflater.inflate(R.menu.general_context_menu, menu);
-		
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		
 		boolean itemSelectionHandled = false;
-		
 		AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		
 		int itemId = item.getItemId();
 		
 		switch(itemId){
-		
 		case R.id.delete_menu_item: {
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
 			doDeleteAction(selected.getPrimaryKey());
@@ -124,8 +98,8 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		case R.id.view_parameters_menu_item: {
 			
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
-			selected.updateAllParameters(parameters);
+			BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+			selected = labBook.findQueryById(selected.getPrimaryKey());
 			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);
@@ -156,7 +130,6 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				
 				deleteQuery(id);
 				getLoaderManager().restartLoader(RUNNING_CURSOR_LOADER, null, ListPendingBLASTQueries.this);
 			}
@@ -168,5 +141,4 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		dialog.show();
 		
 	}
-
 }

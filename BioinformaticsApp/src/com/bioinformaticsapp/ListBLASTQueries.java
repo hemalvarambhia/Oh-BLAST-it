@@ -11,32 +11,17 @@ import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.content.BLASTQueryLoader;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
-import com.bioinformaticsapp.persistence.BLASTQueryController;
-import com.bioinformaticsapp.persistence.SearchParameterController;
 import com.bioinformaticsapp.widget.BLASTQueryAdapter;
 
 public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BLASTQuery[]> {
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-    	queryController = new BLASTQueryController(this); 
-    	parametersController = new SearchParameterController(this);
     	mQueryAdapter = new BLASTQueryAdapter(this, new ArrayList<BLASTQuery>());
     	setListAdapter(mQueryAdapter);
 	}
 	
-	protected void onPause(){
-		super.onPause();
-		
-		if(isFinishing()){
-			queryController.close();
-			parametersController.close();
-		}
-		
-	}
-	
 	public Loader<BLASTQuery[]> onCreateLoader(int id, Bundle args) {
-		
 		Loader<BLASTQuery[]> cursorLoader = new BLASTQueryLoader(this, mStatus);
 		
 		return cursorLoader;
@@ -61,14 +46,8 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 		
 		return numberOfQueriesDeleted == 1;
 	}
-
-
+	
 	protected BLASTQueryAdapter mQueryAdapter;
-	
-	protected BLASTQueryController queryController;
-	
-	protected SearchParameterController parametersController;
-
 	protected Status mStatus;
 	
 }
