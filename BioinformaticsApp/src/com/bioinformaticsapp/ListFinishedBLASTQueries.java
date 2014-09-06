@@ -2,7 +2,6 @@ package com.bioinformaticsapp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -26,10 +25,10 @@ import com.bioinformaticsapp.blastservices.BLASTHitsDownloadingTask;
 import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
 import com.bioinformaticsapp.blastservices.EMBLEBIBLASTService;
 import com.bioinformaticsapp.blastservices.NCBIBLASTService;
+import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
-import com.bioinformaticsapp.domain.BLASTVendor;
-import com.bioinformaticsapp.domain.SearchParameter;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
+import com.bioinformaticsapp.domain.BLASTVendor;
 
 public class ListFinishedBLASTQueries extends ListBLASTQueries {
 
@@ -39,48 +38,29 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 	
 	private final static int REFRESH_MENU_ITEM = 0;
 	
-	
-	/** Called when the activity is first created. */
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        
-    	super.onCreate(savedInstanceState);
-    
+		super.onCreate(savedInstanceState);
     	mStatus = Status.FINISHED;
-    	
         getLoaderManager().initLoader(FINISHED_CURSOR_LOADER, null, this);
-        
         setListAdapter(mQueryAdapter);
-        
         registerForContextMenu(getListView());
-        
     }
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
+	public boolean onCreateOptionsMenu(Menu menu) {	
 		MenuItem item = menu.add(0, REFRESH_MENU_ITEM, 0, "Refresh");
-		
 		item.setIcon(android.R.drawable.ic_popup_sync);
-		
 		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-	 */
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		
+	public boolean onOptionsItemSelected(MenuItem item) {		
 		boolean itemSelectionHandled = false;
 		
 		int itemId = item.getItemId();
-		
 		switch(itemId){
 		case REFRESH_MENU_ITEM:
 			getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, this);
@@ -90,92 +70,59 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		default:
 			itemSelectionHandled = super.onOptionsItemSelected(item);
 			break;
-			
 		}
 		
 		return itemSelectionHandled;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
-	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		
 		MenuInflater menuInflater = getMenuInflater();
 		menu.setHeaderTitle("Select an option:");
-		menuInflater.inflate(R.menu.general_context_menu, menu);
-		
+		menuInflater.inflate(R.menu.general_context_menu, menu);		
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
-	 */
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		
+	public boolean onContextItemSelected(MenuItem item) {		
 		boolean itemSelectionHandled = false;
-		
 		AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		
 		int itemId = item.getItemId();
 		
 		switch(itemId){
 		case R.id.delete_menu_item: {
-
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
-			
 			doDeleteAction(selected.getPrimaryKey());
-			
 			itemSelectionHandled = true;
 		}
-		
 		break;
 		
-		case R.id.view_parameters_menu_item: {
-			
+		case R.id.view_parameters_menu_item: {	
 			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
+			BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+			selected = labBook.findQueryById(selected.getPrimaryKey());
 			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
-			List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
-			selected.updateAllParameters(parameters);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);
 			itemSelectionHandled = true;
 		}
 		break;
+		
 		default:
 			itemSelectionHandled = super.onContextItemSelected(item);
 			break;
 		}
 		
-		getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, this);
-		
 		return itemSelectionHandled;
-		
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onResume()
-	 */
-	@Override
-	protected void onResume() {
-		super.onResume();
-		
-		getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, this);
-	}
-
-	/* Event handling when the user taps a row in the list item
-	 * 
-	 * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
-	 */
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		selected = mQueryAdapter.getItem(position);
-		List<SearchParameter> parameters = parametersController.getParametersForQuery(selected.getPrimaryKey());
-		selected.updateAllParameters(parameters);
+		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+		selected = labBook.findQueryById(selected.getPrimaryKey());
 		
 		if(!fileExists(selected.getJobIdentifier()+".xml")){
 			BLASTSearchEngine searchEngine = null;
@@ -207,15 +154,13 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		return fileExists;
 	}
 	
-	private File getBLASTXMLFile(BLASTQuery selected){
-		
+	private File getBLASTXMLFile(BLASTQuery selected){		
 		File blastXmlFile = getFileStreamPath(selected.getJobIdentifier()+".xml");
 		
 		return blastXmlFile;
 	}
 	
 	private void doDeleteAction(final long id){
-		
 		AlertDialog.Builder builder = new Builder(this);
 		builder = builder.setTitle("Deleting");
 		builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -224,11 +169,10 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				
-				BLASTQuery queryToDelete = queryController.findBLASTQueryById(id);
+				BLASTQueryLabBook labBook = new BLASTQueryLabBook(ListFinishedBLASTQueries.this);
+				BLASTQuery queryToDelete = labBook.findQueryById(id);
 				
 				final File blastXmlFile = getBLASTXMLFile(queryToDelete);
-				
 				if(blastXmlFile != null){
 					if(blastXmlFile.exists()){
 						blastXmlFile.delete();
@@ -243,10 +187,8 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		});
 		
 		builder.setNegativeButton("Cancel", null);
-		
 		Dialog dialog = builder.create();
 		dialog.show();
-		
 	}
 	
 	private class BLASTHitsDownloader extends BLASTHitsDownloadingTask {
@@ -258,12 +200,8 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 			mProgressDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
 		}
 
-		/* (non-Javadoc)
-		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
-		 */
 		@Override
 		protected void onPostExecute(String fileName) {
-			// TODO Auto-generated method stub
 			super.onPostExecute(fileName);
 			mProgressDialog.dismiss();
 			
@@ -278,20 +216,14 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 					Toast webConnectionMessage = Toast.makeText(ListFinishedBLASTQueries.this, "A web connection is needed to download the results", Toast.LENGTH_SHORT);
 					webConnectionMessage.show();
 				}
-			}
-			
+			}			
 		}
 
-		/* (non-Javadoc)
-		 * @see android.os.AsyncTask#onPreExecute()
-		 */
 		@Override
 		protected void onPreExecute() {
 			mProgressDialog.setTitle("Downloading BLAST Hits");
 			mProgressDialog.setMessage("Please wait...");
 			mProgressDialog.show();
-		}
-		
+		}		
 	}
-
 }
