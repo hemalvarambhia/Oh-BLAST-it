@@ -23,12 +23,10 @@ import android.widget.Toast;
 
 import com.bioinformaticsapp.blastservices.BLASTHitsDownloadingTask;
 import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
-import com.bioinformaticsapp.blastservices.EMBLEBIBLASTService;
-import com.bioinformaticsapp.blastservices.NCBIBLASTService;
+import com.bioinformaticsapp.blastservices.BLASTSearchEngineFactory;
 import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
-import com.bioinformaticsapp.domain.BLASTVendor;
 
 public class ListFinishedBLASTQueries extends ListBLASTQueries {
 
@@ -125,13 +123,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		selected = labBook.findQueryById(selected.getPrimaryKey());
 		
 		if(!fileExists(selected.getJobIdentifier()+".xml")){
-			BLASTSearchEngine searchEngine = null;
-			switch(selected.getVendorID()){
-			case BLASTVendor.EMBL_EBI:
-				searchEngine = new EMBLEBIBLASTService();
-			case BLASTVendor.NCBI:
-				searchEngine = new NCBIBLASTService();
-			}
+			BLASTSearchEngine searchEngine = BLASTSearchEngineFactory.getBLASTSearchEngineFor(selected.getVendorID());
 			BLASTHitsDownloader downloader = new BLASTHitsDownloader(this, searchEngine);
 			downloader.execute(selected);
 		}else{

@@ -31,7 +31,7 @@ public class SubmitQueryService extends IntentService {
 		int[] vendors = new int[]{ BLASTVendor.EMBL_EBI, BLASTVendor.NCBI };
 		for(int vendor: vendors){
 			List<BLASTQuery> pendingQueries = labBook.findPendingBLASTQueriesFor(vendor);
-			BLASTQuerySender sender = new BLASTQuerySender(this, blastSearchEngineFor(vendor));
+			BLASTQuerySender sender = new BLASTQuerySender(this, BLASTSearchEngineFactory.getBLASTSearchEngineFor(vendor));
 			sender.execute(asArray(pendingQueries));
 		}
 		sendBroadcast(new Intent(QueryStatusRefreshReceiver.REFRESH_ACTION));
@@ -42,19 +42,4 @@ public class SubmitQueryService extends IntentService {
 		return queries.toArray(queryArray);
 		
 	}
-	
-	private BLASTSearchEngine blastSearchEngineFor(int vendor){
-		BLASTSearchEngine engine = null;
-		switch(vendor){
-		case BLASTVendor.EMBL_EBI:
-			engine = new EMBLEBIBLASTService();
-			break;
-		case BLASTVendor.NCBI:
-			engine = new NCBIBLASTService();
-			break;
-		}
-		
-		return engine;
-	}
-	
 }

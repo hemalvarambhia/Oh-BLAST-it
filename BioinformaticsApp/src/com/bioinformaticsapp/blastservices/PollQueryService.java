@@ -39,9 +39,6 @@ public class PollQueryService extends IntentService {
 		this("PollQueryService");
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.app.IntentService#onCreate()
-	 */
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -60,22 +57,10 @@ public class PollQueryService extends IntentService {
 		
 		for(int vendor: vendors){
 			List<BLASTQuery> sentQueries = labBook.submittedBLASTQueriesForVendor(vendor);
-			BLASTSearchEngine searchEngine = getBLASTSearchEngineFor(vendor);
+			BLASTSearchEngine searchEngine = BLASTSearchEngineFactory.getBLASTSearchEngineFor(vendor);
 			BLASTQueryPoller poller = new BLASTQueryPoller(this, searchEngine);
 			BLASTQuery[] sent = new BLASTQuery[sentQueries.size()];
 			poller.execute(sentQueries.toArray(sent));
-		}
-	}
-	
-	
-	private BLASTSearchEngine getBLASTSearchEngineFor(int blastVendor){
-		switch(blastVendor){
-		case BLASTVendor.EMBL_EBI:
-			return new EMBLEBIBLASTService();
-		case BLASTVendor.NCBI:
-			return new NCBIBLASTService();
-		default:
-			return null;
 		}
 	}
 }
