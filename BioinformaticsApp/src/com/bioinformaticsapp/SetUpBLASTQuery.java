@@ -95,9 +95,9 @@ public abstract class SetUpBLASTQuery extends Activity {
 		 */
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog.setTitle("Validating BLAST query");
-			mProgressDialog.setMessage("Please wait...");
-			mProgressDialog.show();
+			progressDialog.setTitle("Validating BLAST query");
+			progressDialog.setMessage("Please wait...");
+			progressDialog.show();
 		}
 		
 		protected void onPostExecute(Boolean isValid){
@@ -111,8 +111,8 @@ public abstract class SetUpBLASTQuery extends Activity {
 				//Start the polling service
 				finish();
 			}else{
-				if(mProgressDialog.isShowing()){
-					mProgressDialog.dismiss();
+				if(progressDialog.isShowing()){
+					progressDialog.dismiss();
 				}
 				Toast t = Toast.makeText(SetUpBLASTQuery.this, "Query could not be sent as it is invalid", Toast.LENGTH_LONG);
 				t.show();
@@ -120,7 +120,7 @@ public abstract class SetUpBLASTQuery extends Activity {
 		}
 	}
 	
-	protected ProgressDialog mProgressDialog;
+	protected ProgressDialog progressDialog;
 	
 	protected BLASTQuery query;	
 }
