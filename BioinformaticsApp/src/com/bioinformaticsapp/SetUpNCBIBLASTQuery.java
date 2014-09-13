@@ -145,7 +145,7 @@ public class SetUpNCBIBLASTQuery extends SetUpBLASTQuery {
 		
 		sequenceEditor.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
+				query.setSequence(s.toString());
 			}
 			
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -154,13 +154,13 @@ public class SetUpNCBIBLASTQuery extends SetUpBLASTQuery {
 			}
 			
 			public void afterTextChanged(Editable s) {
-				query.setSequence(s.toString());
+				
 			}
 		});
 		
 		expThresholdEditText.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
+				query.setSearchParameter("exp_threshold", s.toString());
 			}
 			
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -169,7 +169,7 @@ public class SetUpNCBIBLASTQuery extends SetUpBLASTQuery {
 			}
 			
 			public void afterTextChanged(Editable s) {
-				query.setSearchParameter("exp_threshold", s.toString());			
+				
 			}
 		});
 	}
