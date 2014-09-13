@@ -22,13 +22,10 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 
 	private static final int RUNNING_CURSOR_LOADER = 0x03;
 	private final static int REFRESH_MENU_ITEM = 0;
-	private BLASTQueryLabBook labBook;
-	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		status = Status.SUBMITTED;
-		labBook = new BLASTQueryLabBook(this);
 		getLoaderManager().initLoader(RUNNING_CURSOR_LOADER, null, this);
         registerForContextMenu(getListView());
     }

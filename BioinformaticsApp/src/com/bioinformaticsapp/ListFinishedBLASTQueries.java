@@ -36,15 +36,11 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 	
 	private final static int REFRESH_MENU_ITEM = 0;
 
-	private BLASTQueryLabBook labBook;
-	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
     	status = Status.FINISHED;
-    	labBook = new BLASTQueryLabBook(this);
-		getLoaderManager().initLoader(FINISHED_CURSOR_LOADER, null, this);
-        setListAdapter(queryAdapter);
+    	getLoaderManager().initLoader(FINISHED_CURSOR_LOADER, null, this);
         registerForContextMenu(getListView());
     }
 	

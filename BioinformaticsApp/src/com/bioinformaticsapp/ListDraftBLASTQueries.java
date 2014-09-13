@@ -25,8 +25,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	private final static int DRAFT_QUERIES_LOADER = 0x01;
 	private final static int CREATE_QUERY = 2;
 	public static final int READY_TO_SEND = 1;
-	private BLASTQueryLabBook labBook;
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {		
 		MenuInflater inflater = getMenuInflater();
@@ -114,7 +112,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		labBook = new BLASTQueryLabBook(this);
 		status = Status.DRAFT;
         getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
         registerForContextMenu(getListView());

@@ -17,7 +17,8 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-    	queryAdapter = new BLASTQueryAdapter(this, new ArrayList<BLASTQuery>());
+		labBook = new BLASTQueryLabBook(this);
+		queryAdapter = new BLASTQueryAdapter(this, new ArrayList<BLASTQuery>());
     	setListAdapter(queryAdapter);
 	}
 	
@@ -49,5 +50,6 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 	
 	protected BLASTQueryAdapter queryAdapter;
 	protected Status status;
+	protected BLASTQueryLabBook labBook;
 	
 }
