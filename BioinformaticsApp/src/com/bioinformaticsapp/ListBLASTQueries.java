@@ -17,20 +17,20 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-    	mQueryAdapter = new BLASTQueryAdapter(this, new ArrayList<BLASTQuery>());
-    	setListAdapter(mQueryAdapter);
+    	queryAdapter = new BLASTQueryAdapter(this, new ArrayList<BLASTQuery>());
+    	setListAdapter(queryAdapter);
 	}
 	
 	public Loader<BLASTQuery[]> onCreateLoader(int id, Bundle args) {
-		Loader<BLASTQuery[]> cursorLoader = new BLASTQueryLoader(this, mStatus);
+		Loader<BLASTQuery[]> cursorLoader = new BLASTQueryLoader(this, status);
 		
 		return cursorLoader;
 	}
 
 	public void onLoadFinished(Loader<BLASTQuery[]> cursorLoader, BLASTQuery[] queries) {
-		mQueryAdapter.clear();
-		mQueryAdapter.addAll(queries);
-		mQueryAdapter.notifyDataSetChanged();
+		queryAdapter.clear();
+		queryAdapter.addAll(queries);
+		queryAdapter.notifyDataSetChanged();
 	}
 
 	public void onLoaderReset(Loader<BLASTQuery[]> cursorLoader) {
@@ -40,14 +40,14 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 	protected boolean deleteQuery(long id){
 		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
 		BLASTQuery queryToDelete = labBook.findQueryById(id);
-		mQueryAdapter.remove(queryToDelete);
-		mQueryAdapter.notifyDataSetChanged();
+		queryAdapter.remove(queryToDelete);
+		queryAdapter.notifyDataSetChanged();
 		int numberOfQueriesDeleted = labBook.remove(id);
 		
 		return numberOfQueriesDeleted == 1;
 	}
 	
-	protected BLASTQueryAdapter mQueryAdapter;
-	protected Status mStatus;
+	protected BLASTQueryAdapter queryAdapter;
+	protected Status status;
 	
 }

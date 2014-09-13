@@ -25,6 +25,7 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	private final static int DRAFT_QUERIES_LOADER = 0x01;
 	private final static int CREATE_QUERY = 2;
 	public static final int READY_TO_SEND = 1;
+	private BLASTQueryLabBook labBook;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {		
@@ -86,15 +87,14 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		int itemId = item.getItemId();
 		switch(itemId){
 		case R.id.delete_menu_item: {
-			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
+			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
 			doDeleteAction(selected.getPrimaryKey());
 			itemSelectionHandled = true;
 		}
 		break;
 		
 		case R.id.view_parameters_menu_item: {
-			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
-			BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
 			selected = labBook.findQueryById(selected.getPrimaryKey());
 			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
 			viewParameters.putExtra("query", selected);
@@ -114,7 +114,8 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		mStatus = Status.DRAFT;
+		labBook = new BLASTQueryLabBook(this);
+		status = Status.DRAFT;
         getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
         registerForContextMenu(getListView());
 	}
@@ -126,7 +127,7 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		BLASTQuery selectedQuery = mQueryAdapter.getItem(position);
+		BLASTQuery selectedQuery = queryAdapter.getItem(position);
 		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
 		selectedQuery = labBook.findQueryById(selectedQuery.getPrimaryKey());
 		Intent setupExistingQuery = null;

@@ -35,13 +35,16 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 	private BLASTQuery selected;
 	
 	private final static int REFRESH_MENU_ITEM = 0;
+
+	private BLASTQueryLabBook labBook;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-    	mStatus = Status.FINISHED;
-        getLoaderManager().initLoader(FINISHED_CURSOR_LOADER, null, this);
-        setListAdapter(mQueryAdapter);
+    	status = Status.FINISHED;
+    	labBook = new BLASTQueryLabBook(this);
+		getLoaderManager().initLoader(FINISHED_CURSOR_LOADER, null, this);
+        setListAdapter(queryAdapter);
         registerForContextMenu(getListView());
     }
 	
@@ -90,14 +93,14 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		
 		switch(itemId){
 		case R.id.delete_menu_item: {
-			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
+			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
 			doDeleteAction(selected.getPrimaryKey());
 			itemSelectionHandled = true;
 		}
 		break;
 		
 		case R.id.view_parameters_menu_item: {	
-			BLASTQuery selected = mQueryAdapter.getItem(menuinfo.position);
+			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
 			BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
 			selected = labBook.findQueryById(selected.getPrimaryKey());
 			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
@@ -118,8 +121,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		selected = mQueryAdapter.getItem(position);
-		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
+		selected = queryAdapter.getItem(position);
 		selected = labBook.findQueryById(selected.getPrimaryKey());
 		
 		if(!fileExists(selected.getJobIdentifier()+".xml")){
