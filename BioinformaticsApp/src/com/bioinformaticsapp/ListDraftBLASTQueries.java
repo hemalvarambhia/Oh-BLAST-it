@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bioinformaticsapp.blastservices.SubmitQueryService;
-import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 import com.bioinformaticsapp.domain.BLASTVendor;
@@ -125,7 +124,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		BLASTQuery selectedQuery = queryAdapter.getItem(position);
-		BLASTQueryLabBook labBook = new BLASTQueryLabBook(this);
 		selectedQuery = labBook.findQueryById(selectedQuery.getPrimaryKey());
 		Intent setupExistingQuery = null;
 		switch(selectedQuery.getVendorID()){

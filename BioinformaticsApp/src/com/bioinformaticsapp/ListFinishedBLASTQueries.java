@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.bioinformaticsapp.blastservices.BLASTHitsDownloadingTask;
 import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
 import com.bioinformaticsapp.blastservices.BLASTSearchEngineFactory;
-import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
@@ -158,7 +157,6 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				BLASTQueryLabBook labBook = new BLASTQueryLabBook(ListFinishedBLASTQueries.this);
 				BLASTQuery queryToDelete = labBook.findQueryById(id);
 				
 				final File blastXmlFile = getBLASTXMLFile(queryToDelete);
