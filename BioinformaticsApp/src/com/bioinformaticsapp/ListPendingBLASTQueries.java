@@ -83,14 +83,11 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		break;
 		
 		case R.id.view_parameters_menu_item: {
-			
 			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
 			selected = labBook.findQueryById(selected.getPrimaryKey());
 			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
 			viewParameters.putExtra("query", selected);
 			startActivity(viewParameters);
-		
-			
 			itemSelectionHandled = true;
 		}
 		break;
