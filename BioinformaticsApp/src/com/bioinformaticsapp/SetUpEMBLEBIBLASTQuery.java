@@ -135,7 +135,7 @@ public class SetUpEMBLEBIBLASTQuery extends SetUpBLASTQuery {
 		
 		sequenceEditor.addTextChangedListener(new TextWatcher() {	
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
+				query.setSequence(s.toString());
 			}
 			
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -144,7 +144,7 @@ public class SetUpEMBLEBIBLASTQuery extends SetUpBLASTQuery {
 			}
 			
 			public void afterTextChanged(Editable s) {
-				query.setSequence(s.toString());
+				
 			}
 		});
 		
