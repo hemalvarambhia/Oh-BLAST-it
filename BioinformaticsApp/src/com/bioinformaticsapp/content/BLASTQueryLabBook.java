@@ -1,5 +1,6 @@
 package com.bioinformaticsapp.content;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,11 +86,24 @@ public class BLASTQueryLabBook {
 	public int remove(Long primaryKey) {
 		initialiseControllers();
 		searchParameterController.deleteParametersFor(primaryKey);
+		BLASTQuery queryToDelete = blastQueryController.findBLASTQueryById(primaryKey);
+		deleteHitsFile(queryToDelete);
 		int numberDeleted = blastQueryController.delete(primaryKey);
 		closeControllers();
 		return numberDeleted;
 	}
 	
+	private void deleteHitsFile(BLASTQuery query) {
+		String fileName = String.format("%s.xml", query.getJobIdentifier());
+		File hitsFile = context.getFileStreamPath(fileName);
+		
+		if(hitsFile != null){
+			if(hitsFile.exists()){
+				hitsFile.delete();
+			}
+		}
+	}
+
 	private List<BLASTQuery> queriesForVendor(List<BLASTQuery> queries, int vendor){
 		List<BLASTQuery> queriesForVendor = new ArrayList<BLASTQuery>();
 		for(BLASTQuery query: queries){
