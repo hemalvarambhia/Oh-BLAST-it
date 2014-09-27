@@ -1,6 +1,5 @@
 package com.bioinformaticsapp;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import android.app.AlertDialog;
@@ -136,12 +135,6 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		return fileExists;
 	}
 	
-	private File getBLASTXMLFile(BLASTQuery selected){		
-		File blastXmlFile = getFileStreamPath(selected.getJobIdentifier()+".xml");
-		
-		return blastXmlFile;
-	}
-	
 	private void doDeleteAction(final long id){
 		AlertDialog.Builder builder = new Builder(this);
 		builder = builder.setTitle("Deleting");
@@ -151,19 +144,8 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				BLASTQuery queryToDelete = labBook.findQueryById(id);
-				
-				final File blastXmlFile = getBLASTXMLFile(queryToDelete);
-				if(blastXmlFile != null){
-					if(blastXmlFile.exists()){
-						blastXmlFile.delete();
-					}
-				}
-				
 				deleteQuery(id);
-				
 				getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, ListFinishedBLASTQueries.this);
-				
 			}
 		});
 		
