@@ -123,7 +123,6 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		
 	}
 	
-	private static final int BLAST_QUERIES_LOADER = 0x03;
 	private final static int REFRESH_MENU_ITEM = 0;
 	
 }

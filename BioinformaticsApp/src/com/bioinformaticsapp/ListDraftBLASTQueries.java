@@ -178,7 +178,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		}		
 	}
 	
-	private final static int BLAST_QUERIES_LOADER = 0x01;
 	private final static int CREATE_QUERY = 2;
 	
 }

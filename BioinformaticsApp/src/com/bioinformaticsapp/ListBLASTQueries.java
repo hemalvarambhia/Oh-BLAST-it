@@ -51,5 +51,5 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 	protected BLASTQueryAdapter queryAdapter;
 	protected Status status;
 	protected BLASTQueryLabBook labBook;
-	
+	protected static final int BLAST_QUERIES_LOADER = 0x01;
 }

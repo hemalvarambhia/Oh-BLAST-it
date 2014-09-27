@@ -156,8 +156,6 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 	
 	private BLASTQuery selected;	
 	private final static int REFRESH_MENU_ITEM = 0;
-	private static final int BLAST_QUERIES_LOADER = 0x02;
-	
 	private class BLASTHitsDownloader extends BLASTHitsDownloadingTask {
 
 		private ProgressDialog mProgressDialog;
