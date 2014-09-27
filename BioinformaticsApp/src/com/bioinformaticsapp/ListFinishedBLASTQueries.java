@@ -32,7 +32,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
     	status = Status.FINISHED;
-    	getLoaderManager().initLoader(FINISHED_CURSOR_LOADER, null, this);
+    	getLoaderManager().initLoader(BLAST_QUERIES_LOADER, null, this);
         registerForContextMenu(getListView());
     }
 	
@@ -52,7 +52,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		int itemId = item.getItemId();
 		switch(itemId){
 		case REFRESH_MENU_ITEM:
-			getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, this);
+			getLoaderManager().restartLoader(BLAST_QUERIES_LOADER, null, this);
 			itemSelectionHandled = true;
 			break;
 			
@@ -145,7 +145,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 			
 			public void onClick(DialogInterface dialog, int which) {
 				deleteQuery(id);
-				getLoaderManager().restartLoader(FINISHED_CURSOR_LOADER, null, ListFinishedBLASTQueries.this);
+				getLoaderManager().restartLoader(BLAST_QUERIES_LOADER, null, ListFinishedBLASTQueries.this);
 			}
 		});
 		
@@ -156,7 +156,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 	
 	private BLASTQuery selected;	
 	private final static int REFRESH_MENU_ITEM = 0;
-	private static final int FINISHED_CURSOR_LOADER = 0x02;
+	private static final int BLAST_QUERIES_LOADER = 0x02;
 	
 	private class BLASTHitsDownloader extends BLASTHitsDownloadingTask {
 

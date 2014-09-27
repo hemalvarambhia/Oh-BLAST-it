@@ -110,7 +110,7 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		status = Status.DRAFT;
-        getLoaderManager().initLoader(DRAFT_QUERIES_LOADER, null, this);
+        getLoaderManager().initLoader(BLAST_QUERIES_LOADER, null, this);
         registerForContextMenu(getListView());
 	}
 	
@@ -152,7 +152,7 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 			
 			public void onClick(DialogInterface dialog, int which) {
 				deleteQuery(id);
-				getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, ListDraftBLASTQueries.this);
+				getLoaderManager().restartLoader(BLAST_QUERIES_LOADER, null, ListDraftBLASTQueries.this);
 			}
 		});
 		
@@ -172,13 +172,13 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 			startService(sendService);
 			break;
 		case CREATE_QUERY:
-			getLoaderManager().restartLoader(DRAFT_QUERIES_LOADER, null, this);
+			getLoaderManager().restartLoader(BLAST_QUERIES_LOADER, null, this);
 		default:
 			break;
 		}		
 	}
 	
-	private final static int DRAFT_QUERIES_LOADER = 0x01;
+	private final static int BLAST_QUERIES_LOADER = 0x01;
 	private final static int CREATE_QUERY = 2;
 	
 }
