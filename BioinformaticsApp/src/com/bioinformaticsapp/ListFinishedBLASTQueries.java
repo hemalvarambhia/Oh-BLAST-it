@@ -29,12 +29,6 @@ import com.bioinformaticsapp.domain.BLASTQuery.Status;
 
 public class ListFinishedBLASTQueries extends ListBLASTQueries {
 
-	private static final int FINISHED_CURSOR_LOADER = 0x02;
-	
-	private BLASTQuery selected;
-	
-	private final static int REFRESH_MENU_ITEM = 0;
-
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -177,6 +171,10 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		Dialog dialog = builder.create();
 		dialog.show();
 	}
+	
+	private BLASTQuery selected;	
+	private final static int REFRESH_MENU_ITEM = 0;
+	private static final int FINISHED_CURSOR_LOADER = 0x02;
 	
 	private class BLASTHitsDownloader extends BLASTHitsDownloadingTask {
 

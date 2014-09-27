@@ -21,8 +21,6 @@ import com.bioinformaticsapp.domain.BLASTQuery.Status;
 import com.bioinformaticsapp.domain.BLASTVendor;
 
 public class ListDraftBLASTQueries extends ListBLASTQueries {
-	private final static int DRAFT_QUERIES_LOADER = 0x01;
-	private final static int CREATE_QUERY = 2;
 	public static final int READY_TO_SEND = 1;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {		
@@ -179,4 +177,8 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 			break;
 		}		
 	}
+	
+	private final static int DRAFT_QUERIES_LOADER = 0x01;
+	private final static int CREATE_QUERY = 2;
+	
 }
