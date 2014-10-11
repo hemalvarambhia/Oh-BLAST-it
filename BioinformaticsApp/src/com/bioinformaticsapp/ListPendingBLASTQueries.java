@@ -102,7 +102,6 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 	}
 	
 	private void doDeleteAction(final long id){
-		
 		AlertDialog.Builder builder = new Builder(this);
 		builder = builder.setTitle("Deleting");
 		builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -120,7 +119,6 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		
 		Dialog dialog = builder.create();
 		dialog.show();
-		
 	}
 	
 	private final static int REFRESH_MENU_ITEM = 0;

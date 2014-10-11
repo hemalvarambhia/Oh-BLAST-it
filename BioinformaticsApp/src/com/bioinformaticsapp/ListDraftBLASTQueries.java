@@ -160,7 +160,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		
 		Dialog dialog = builder.create();
 		dialog.show();
-		
 	}
 
 	@Override
