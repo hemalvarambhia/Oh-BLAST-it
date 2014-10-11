@@ -107,6 +107,7 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		builder.setIcon(android.R.drawable.ic_dialog_alert);
 		builder = builder.setMessage(R.string.delete_query_message);
 		builder.setCancelable(false);
+		builder.setNegativeButton("Cancel", null);
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
@@ -114,8 +115,6 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 				getLoaderManager().restartLoader(BLAST_QUERIES_LOADER, null, ListPendingBLASTQueries.this);
 			}
 		});
-		
-		builder.setNegativeButton("Cancel", null);
 		
 		Dialog dialog = builder.create();
 		dialog.show();
