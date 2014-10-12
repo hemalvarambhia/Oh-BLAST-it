@@ -134,7 +134,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 		return fileExists;
 	}
 	
-	private void doDeleteAction(final long id){
+	protected void doDeleteAction(final long id){
 		AlertDialog.Builder builder = deleteDialog();
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			

@@ -138,7 +138,7 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 		startActivityForResult(setupExistingQuery, CREATE_QUERY);
 	}
 	
-	private void doDeleteAction(final long id){
+	protected void doDeleteAction(final long id){
 		AlertDialog.Builder builder = deleteDialog();	
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
