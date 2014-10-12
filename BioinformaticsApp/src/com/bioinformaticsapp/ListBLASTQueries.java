@@ -15,7 +15,7 @@ import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTQuery.Status;
 import com.bioinformaticsapp.widget.BLASTQueryAdapter;
 
-public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BLASTQuery[]> {
+public abstract class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BLASTQuery[]> {
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -59,6 +59,8 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 		builder.setNegativeButton("Cancel", null);
 		return builder;
 	}
+	
+	protected abstract void doDeleteAction(final long id);
 
 	protected BLASTQueryAdapter queryAdapter;
 	protected Status status;
