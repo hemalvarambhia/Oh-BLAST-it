@@ -6,8 +6,15 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.bioinformaticsapp.content.BLASTQueryLabBook;
 import com.bioinformaticsapp.content.BLASTQueryLoader;
@@ -37,7 +44,46 @@ public abstract class ListBLASTQueries extends ListActivity implements LoaderCal
 	}
 
 	public void onLoaderReset(Loader<BLASTQuery[]> cursorLoader) {
+		//No op
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		menu.setHeaderTitle("Select an option:");
+		inflater.inflate(R.menu.general_context_menu, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		boolean itemSelectionHandled = false;	
+		AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+		int itemId = item.getItemId();
+		switch(itemId){
+		case R.id.delete_menu_item: {
+			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
+			doDeleteAction(selected.getPrimaryKey());
+			itemSelectionHandled = true;
+		}
+		break;
 		
+		case R.id.view_parameters_menu_item: {
+			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
+			selected = labBook.findQueryById(selected.getPrimaryKey());
+			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
+			viewParameters.putExtra("query", selected);
+			startActivity(viewParameters);
+			itemSelectionHandled = true;
+		}
+		break;
+		
+		default:
+			itemSelectionHandled = super.onContextItemSelected(item);
+			break;
+		}
+		
+		return itemSelectionHandled;
 	}
 	
 	protected boolean deleteQuery(long id){

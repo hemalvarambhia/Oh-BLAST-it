@@ -9,13 +9,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -57,47 +53,6 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 			
 		default:
 			itemSelectionHandled = super.onOptionsItemSelected(item);
-			break;
-		}
-		
-		return itemSelectionHandled;
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater menuInflater = getMenuInflater();
-		menu.setHeaderTitle("Select an option:");
-		menuInflater.inflate(R.menu.general_context_menu, menu);		
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {		
-		boolean itemSelectionHandled = false;
-		AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		int itemId = item.getItemId();
-		
-		switch(itemId){
-		case R.id.delete_menu_item: {
-			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
-			doDeleteAction(selected.getPrimaryKey());
-			itemSelectionHandled = true;
-		}
-		break;
-		
-		case R.id.view_parameters_menu_item: {	
-			BLASTQuery selected = queryAdapter.getItem(menuinfo.position);
-			selected = labBook.findQueryById(selected.getPrimaryKey());
-			Intent viewParameters = new Intent(this, ViewBLASTQuerySearchParameters.class);
-			viewParameters.putExtra("query", selected);
-			startActivity(viewParameters);
-			itemSelectionHandled = true;
-		}
-		break;
-		
-		default:
-			itemSelectionHandled = super.onContextItemSelected(item);
 			break;
 		}
 		
