@@ -65,9 +65,7 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
-		
 		super.onCreateContextMenu(menu, v, menuInfo);
-		
 		MenuInflater inflater = getMenuInflater();
 		menu.setHeaderTitle("Select an option:");
 		inflater.inflate(R.menu.general_context_menu, menu);
@@ -75,7 +73,6 @@ public class ListDraftBLASTQueries extends ListBLASTQueries {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		
 		boolean itemSelectionHandled = false;	
 		AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 		int itemId = item.getItemId();

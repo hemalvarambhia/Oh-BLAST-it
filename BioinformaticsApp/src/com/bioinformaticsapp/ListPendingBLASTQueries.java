@@ -59,7 +59,6 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		
 		MenuInflater menuInflater = getMenuInflater();
 		menu.setHeaderTitle("Select an option:");
 		menuInflater.inflate(R.menu.general_context_menu, menu);
@@ -97,7 +96,6 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		getLoaderManager().restartLoader(BLAST_QUERIES_LOADER, null, this);
 		
 		return itemSelectionHandled;
-		
 	}
 	
 	private void doDeleteAction(final long id){
