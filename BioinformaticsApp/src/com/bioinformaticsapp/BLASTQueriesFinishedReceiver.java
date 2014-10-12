@@ -12,8 +12,6 @@ import com.bioinformaticsapp.blastservices.BLASTQueryPoller;
 public class BLASTQueriesFinishedReceiver extends BroadcastReceiver {
 
 	public static final String QUERIES_FINISHED_ACTION = "com.bioinformaticsapp.QUERIES_FINISHED_ACTION";
-	private static final String TAG = "BLASTQueriesFinishedReceiver";
-	
 	
 	@Override
 	public void onReceive(Context context, Intent arg1) {
@@ -35,5 +33,4 @@ public class BLASTQueriesFinishedReceiver extends BroadcastReceiver {
 		Notification notification = builder.getNotification();
 		mgr.notify(BLASTQueryPoller.JOB_FINISHED_NOTI_ID, notification);
 	}
-
 }
