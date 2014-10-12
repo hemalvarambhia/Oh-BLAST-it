@@ -1,7 +1,6 @@
 package com.bioinformaticsapp;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -102,12 +101,7 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 	}
 	
 	private void doDeleteAction(final long id){
-		AlertDialog.Builder builder = new Builder(this);
-		builder = builder.setTitle("Deleting");
-		builder.setIcon(android.R.drawable.ic_dialog_alert);
-		builder = builder.setMessage(R.string.delete_query_message);
-		builder.setCancelable(false);
-		builder.setNegativeButton("Cancel", null);
+		AlertDialog.Builder builder = deleteDialog();
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
@@ -119,7 +113,7 @@ public class ListPendingBLASTQueries extends ListBLASTQueries {
 		Dialog dialog = builder.create();
 		dialog.show();
 	}
-	
+
 	private final static int REFRESH_MENU_ITEM = 0;
 	
 }

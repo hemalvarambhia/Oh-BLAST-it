@@ -2,6 +2,8 @@ package com.bioinformaticsapp;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
@@ -48,6 +50,16 @@ public class ListBLASTQueries extends ListActivity implements LoaderCallbacks<BL
 		return numberOfQueriesDeleted == 1;
 	}
 	
+	protected AlertDialog.Builder deleteDialog() {
+		AlertDialog.Builder builder = new Builder(this);
+		builder = builder.setTitle("Deleting");
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder = builder.setMessage(R.string.delete_query_message);
+		builder.setCancelable(false);
+		builder.setNegativeButton("Cancel", null);
+		return builder;
+	}
+
 	protected BLASTQueryAdapter queryAdapter;
 	protected Status status;
 	protected BLASTQueryLabBook labBook;
