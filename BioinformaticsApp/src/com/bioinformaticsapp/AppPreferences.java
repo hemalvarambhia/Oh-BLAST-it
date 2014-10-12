@@ -8,35 +8,21 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
-/**
- * The preferences Activity class enables the app user to update their e-mail as
- * is required by some BLAST web apps
- * @author Hemal N Varambhia
- *
- */
 public class AppPreferences extends PreferenceActivity {
 
 	public static final String OHBLASTIT_PREFERENCES_FILE = "ohblastit_preferences";
 	
 	public static final String NOTIFICATIONS_SWITCH = "notifications";
-	/* (non-Javadoc)
-	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
-	 */
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		PreferenceScreen prefsScreen = setupPreferencesScreen();
 		setPreferenceScreen(prefsScreen);
 	}
 
-	/**
-	 * Creates the preferences screen
-	 * @return the preferences screen that we set up
-	 */
-	private PreferenceScreen setupPreferencesScreen(){
-		
+	private PreferenceScreen setupPreferencesScreen(){	
 		PreferenceManager manager = getPreferenceManager();
 		manager.setSharedPreferencesName(OHBLASTIT_PREFERENCES_FILE);
 		PreferenceScreen preferencesScreen = manager.createPreferenceScreen(this);
@@ -51,9 +37,6 @@ public class AppPreferences extends PreferenceActivity {
         notificationSwitch.setSummary("Notify me when BLAST sequence searches have finished");
         inlinePrefCat.addPreference(notificationSwitch);
         
-
         return preferencesScreen;
-		
 	}
-	
 }
