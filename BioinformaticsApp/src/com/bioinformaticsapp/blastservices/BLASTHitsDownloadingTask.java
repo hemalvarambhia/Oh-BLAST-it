@@ -40,15 +40,15 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 		
 		String nameOfResultsFile = null;
 		try {
-			FileOutputStream resultsFile = context.openFileOutput(jobIdentifier+".xml", Context.MODE_PRIVATE);
+			nameOfResultsFile = String.format("%s.xml", jobIdentifier);
+			FileOutputStream resultsFile = context.openFileOutput(nameOfResultsFile, Context.MODE_PRIVATE);
 			PrintWriter writer = new PrintWriter(new BufferedOutputStream(resultsFile));
 			writer.println(blastResultsAsXml);
 			writer.flush();
 			writer.close();
-			nameOfResultsFile = jobIdentifier+".xml";
-			
 		} catch (FileNotFoundException e) {
 			//Do nothing as we check only if results file was created on disk
+			nameOfResultsFile = null;
 		}
 		
 		return nameOfResultsFile;
@@ -60,9 +60,7 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 	}
 	
 	protected boolean connectedToWeb(){
-		
 		ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		
 		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 		
 		if(activeNetworkInfo == null){
@@ -78,7 +76,6 @@ public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String
 		}
 		
 		return true;
-		
 	}
 	
 	private BLASTSearchEngine blastSearchEngine;
