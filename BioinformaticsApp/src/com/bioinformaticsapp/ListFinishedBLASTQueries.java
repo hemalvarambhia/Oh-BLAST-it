@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.bioinformaticsapp.blastservices.BLASTHitsDownloadingTask;
+import com.bioinformaticsapp.blastservices.BLASTHitsLoaderTask;
 import com.bioinformaticsapp.blastservices.BLASTSearchEngine;
 import com.bioinformaticsapp.blastservices.BLASTSearchEngineFactory;
 import com.bioinformaticsapp.domain.BLASTQuery;
@@ -105,7 +105,7 @@ public class ListFinishedBLASTQueries extends ListBLASTQueries {
 
 	private BLASTQuery selected;	
 	private final static int REFRESH_MENU_ITEM = 0;
-	private class BLASTHitsDownloader extends BLASTHitsDownloadingTask {
+	private class BLASTHitsDownloader extends BLASTHitsLoaderTask {
 
 		private ProgressDialog mProgressDialog;
 		

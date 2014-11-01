@@ -13,9 +13,9 @@ import android.os.AsyncTask;
 import com.bioinformaticsapp.domain.BLASTQuery;
 import com.bioinformaticsapp.domain.BLASTVendor;
 
-public class BLASTHitsDownloadingTask extends AsyncTask<BLASTQuery, Void, String> {
+public class BLASTHitsLoaderTask extends AsyncTask<BLASTQuery, Void, String> {
 
-	public BLASTHitsDownloadingTask(Context context, BLASTSearchEngine engine){
+	public BLASTHitsLoaderTask(Context context, BLASTSearchEngine engine){
 		this.context = context;
 		blastSearchEngine = engine;
 	}
